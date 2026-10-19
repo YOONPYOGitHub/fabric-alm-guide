@@ -1,175 +1,4 @@
 {
-  "01-fabric-home.png": {
-    "size": [
-      1600,
-      1000
-    ],
-    "boxes": [
-      {
-        "label": "Workspaces navigation",
-        "rect": [
-          5,
-          340,
-          65,
-          408
-        ]
-      }
-    ]
-  },
-  "02-development-workspace-ready.png": {
-    "size": [
-      1600,
-      1000
-    ],
-    "boxes": [
-      {
-        "label": "Workspace settings",
-        "rect": [
-          1008,
-          66,
-          1054,
-          112
-        ]
-      }
-    ]
-  },
-  "03-fabric-capacity-selection.png": {
-    "size": [
-      1955,
-      1040
-    ],
-    "boxes": [
-      {
-        "label": "Workspace type tab",
-        "rect": [
-          335,
-          264,
-          660,
-          332
-        ]
-      }
-    ]
-  },
-  "04-deployment-pipelines-entry.png": {
-    "size": [
-      1955,
-      1040
-    ],
-    "boxes": [
-      {
-        "label": "Deployment pipelines entry",
-        "rect": [
-          170,
-          865,
-          635,
-          933
-        ]
-      }
-    ]
-  },
-  "05-create-deployment-pipeline.png": {
-    "size": [
-      1600,
-      1000
-    ],
-    "boxes": [
-      {
-        "label": "Pipeline name input",
-        "rect": [
-          203,
-          247,
-          866,
-          286
-        ]
-      }
-    ]
-  },
-  "08-create-notebook-catalog.png": {
-    "size": [
-      1955,
-      1040
-    ],
-    "boxes": [
-      {
-        "label": "Notebook item card",
-        "rect": [
-          345,
-          280,
-          845,
-          540
-        ]
-      }
-    ]
-  },
-  "09-name-demo-notebook.png": {
-    "size": [
-      1600,
-      1000
-    ],
-    "boxes": [
-      {
-        "label": "Notebook name",
-        "rect": [
-          266,
-          287,
-          797,
-          327
-        ]
-      },
-      {
-        "label": "Create Notebook",
-        "rect": [
-          646,
-          403,
-          724,
-          443
-        ]
-      }
-    ]
-  },
-  "11-demo-notebook-v1-output.png": {
-    "size": [
-      1955,
-      1040
-    ],
-    "boxes": [
-      {
-        "label": "Run all primary action",
-        "rect": [
-          349,
-          155,
-          535,
-          212
-        ]
-      },
-      {
-        "label": "Actual v1 output: three rows and total 60",
-        "rect": [
-          930,
-          676,
-          1510,
-          731
-        ]
-      }
-    ]
-  },
-  "12-github-private-lab-repository.png": {
-    "size": [
-      1075,
-      1002
-    ],
-    "boxes": [
-      {
-        "label": "Lab repository name and Private visibility",
-        "rect": [
-          27,
-          115,
-          250,
-          157
-        ]
-      }
-    ]
-  },
   "13-github-fine-grained-token-scope.png": {
     "size": [
       1929,
@@ -185,49 +14,8 @@
           2220
         ]
       }
-    ]
-  },
-  "14-three-workspace-deployment-result.png": {
-    "size": [
-      1955,
-      1040
     ],
-    "boxes": [],
-    "overview": true
-  },
-  "15-deployment-history-succeeded.png": {
-    "size": [
-      1955,
-      1040
-    ],
-    "boxes": [
-      {
-        "label": "Both original v1 deployments succeeded",
-        "rect": [
-          1848,
-          373,
-          1920,
-          538
-        ]
-      }
-    ]
-  },
-  "16-workspace-github-provider-blocked.png": {
-    "size": [
-      1955,
-      1040
-    ],
-    "boxes": [
-      {
-        "label": "Disabled GitHub provider before tenant setup",
-        "rect": [
-          975,
-          672,
-          1215,
-          911
-        ]
-      }
-    ]
+    "originalSha256": "b49e3876e8a8f54eaa20f6db4d5e0764944624d4f6355eb1ef4a69b180bb6fed"
   },
   "17-tenant-github-setting-disabled.png": {
     "size": [
@@ -244,7 +32,8 @@
           661
         ]
       }
-    ]
+    ],
+    "originalSha256": "058a2d57639b7e21f06bf5dc7976789cd681ca4e7f856ec97b2d80eb965fa824"
   },
   "18-tenant-github-specific-group-before-apply.png": {
     "size": [
@@ -270,390 +59,880 @@
           852
         ]
       }
-    ]
+    ],
+    "originalSha256": "13e9c38c3d989b8ef8b3f7c99752fcf2942fab0368ec1e67d81ed3a4565f649b"
   },
-  "19-tenant-github-applied-group-scope.png": {
+  "w01-create-development-workspace-name.png": {
     "size": [
-      1859,
-      1160
+      1023,
+      1069
     ],
     "boxes": [
       {
-        "label": "Applied group-only scope and ALM group",
+        "label": "Development workspace name",
         "rect": [
-          710,
-          680,
-          1105,
-          733
+          453,
+          132,
+          993,
+          170
         ]
       }
-    ]
+    ],
+    "originalSha256": "e9ae3ccfa03ae0d08f0dfea15ae160077896c685875f6671da8187325546486b"
   },
-  "19-tenant-github-group-enabled.png": {
+  "w02-confirm-fabric-f16-capacity.png": {
     "size": [
-      1859,
-      1160
+      1023,
+      1069
     ],
     "boxes": [
       {
-        "label": "Enabled GitHub switch",
+        "label": "Approved Fabric capacity",
         "rect": [
-          700,
-          812,
-          895,
-          861
+          453,
+          615,
+          979,
+          652
         ]
       }
-    ]
+    ],
+    "originalSha256": "8237e7ed8f230f64f742f86c2ee846d94c17be28754915d9cd5b309c88a78e71"
   },
-  "20-workspace-github-provider-enabled.png": {
+  "w03-create-feature-workspace.png": {
     "size": [
-      1955,
-      1040
+      1023,
+      1069
     ],
     "boxes": [
       {
-        "label": "Select the now-enabled GitHub provider",
+        "label": "Feature workspace name",
         "rect": [
-          975,
-          672,
-          1215,
-          911
+          453,
+          132,
+          993,
+          170
         ]
       }
-    ]
+    ],
+    "originalSha256": "6908689cb1f8e1ea527436418b8c1e022dab7d1efb1783de48d37b2536e12143"
   },
-  "21-add-github-account-before-token.png": {
+  "w04-create-test-workspace.png": {
     "size": [
-      1955,
-      1040
+      1023,
+      1069
     ],
     "boxes": [
       {
-        "label": "PAT input, empty in the captured image",
+        "label": "Test workspace name",
         "rect": [
-          510,
-          494,
-          1448,
-          558
+          453,
+          132,
+          993,
+          170
         ]
       }
-    ]
+    ],
+    "originalSha256": "8209c70804310ad46e9e26123f731ec23ca70d3947e79b7df7a744689df1ceaf"
   },
-  "22-github-account-added-repository-scoped.png": {
+  "w05-create-production-workspace.png": {
     "size": [
-      1955,
-      1040
+      1023,
+      1069
     ],
     "boxes": [
       {
-        "label": "Connect the selected account",
+        "label": "Production workspace name",
         "rect": [
-          725,
-          714,
-          873,
-          782
+          453,
+          132,
+          993,
+          170
         ]
       }
-    ]
+    ],
+    "originalSha256": "799b81da2eeee030dc150e37bc06b43cf33d3978f7c888cbfd8fb872417a7b29"
   },
-  "23-github-main-fabric-folder-before-sync.png": {
+  "w06-select-lakehouse-item.png": {
     "size": [
-      1955,
-      1040
+      1023,
+      1069
     ],
     "boxes": [
       {
-        "label": "Select main branch",
+        "label": "Lakehouse, not Sample lakehouse",
         "rect": [
-          725,
-          793,
-          1368,
-          858
-        ]
-      },
-      {
-        "label": "Set the visible fabric folder input",
-        "rect": [
-          725,
-          899,
-          1368,
-          984
+          115,
+          174,
+          218,
+          201
         ]
       }
-    ]
+    ],
+    "originalSha256": "319577cdbca3ad5c1c862cd7672106764f6568260dc41c06d28946a889e18d48"
   },
-  "24-create-fabric-folder-initial-sync.png": {
+  "w07-name-development-lakehouse.png": {
     "size": [
-      1955,
-      1040
+      1023,
+      1069
     ],
     "boxes": [
       {
-        "label": "Create and sync",
+        "label": "CI_CD_Demo Lakehouse name",
         "rect": [
-          1094,
-          566,
-          1319,
-          632
+          250,
+          469,
+          774,
+          505
         ]
       }
-    ]
+    ],
+    "originalSha256": "3493acd8d15af9057d61bd44cbc61eef8bc027d5526c647ba7ed0c372e237958"
   },
-  "25-workspace-synced-after-initial-git-export.png": {
+  "w08-mandatory-create-workspaces-enabled.png": {
     "size": [
-      1955,
-      1040
+      1023,
+      1069
     ],
     "boxes": [
       {
-        "label": "No remaining Workspace changes",
+        "label": "Create workspaces is already enabled",
         "rect": [
-          1200,
-          946,
-          1830,
-          997
+          146,
+          347,
+          254,
+          378
         ]
       }
-    ]
+    ],
+    "originalSha256": "2b7b2e7ead8fd59cd4eabd41103af090a41f8a331ab38d8ee56a9110d705092c"
   },
-  "26-github-initial-notebook-definition.png": {
+  "w09-development-lakehouse-empty-dbo.png": {
     "size": [
-      1955,
-      1040
+      1023,
+      1069
     ],
     "boxes": [],
-    "overview": true
+    "overview": true,
+    "originalSha256": "10de7703770cf41ca680aa53bb6aa0aad6be37caaeb6f3af5845b1d16dfe20a9"
   },
-  "27-workspace-to-git-review-and-commit-v11.png": {
+  "w10-lakehouse-analyze-with-notebook.png": {
     "size": [
-      1955,
-      1040
+      1023,
+      1069
     ],
     "boxes": [
       {
-        "label": "Commit the reviewed change",
+        "label": "Notebook analysis menu",
         "rect": [
-          1611,
-          926,
-          1782,
-          988
+          682,
+          84,
+          772,
+          111
         ]
       }
-    ]
+    ],
+    "originalSha256": "f3f285277bda4086702c9e05b317849143a4e297d697a2b8ee23422352362a83"
   },
-  "28-github-v2-commit-and-three-line-diff.png": {
+  "w11-create-notebook-from-lakehouse.png": {
     "size": [
-      1102,
-      1053
+      1023,
+      1069
     ],
     "boxes": [
       {
-        "label": "Actual remote v2 commit",
+        "label": "New notebook",
         "rect": [
-          20,
-          124,
-          229,
-          163
+          488,
+          90,
+          622,
+          118
         ]
       }
-    ]
+    ],
+    "originalSha256": "1371537cef38f39c394ddf6cb62826e580f526e331715099960125b7fab1269e"
   },
-  "29-fabric-remote-update-required.png": {
+  "w12-name-default-lakehouse-notebook.png": {
     "size": [
-      1187,
-      1002
+      1023,
+      1069
     ],
     "boxes": [
       {
-        "label": "Apply Update all",
+        "label": "Notebook name",
         "rect": [
-          625,
-          916,
-          743,
-          957
+          720,
+          90,
+          1010,
+          125
         ]
       }
-    ]
+    ],
+    "originalSha256": "bd796a5694aafb99bfc396a8caff432e176dc9d1f0415399de8c0a27ed3a309b"
   },
-  "30-fabric-review-git-to-workspace-v2.png": {
+  "w13-mandatory-fabric-items-enabled.png": {
     "size": [
-      1187,
-      1002
+      1023,
+      1069
     ],
     "boxes": [
       {
-        "label": "Remote v2 commit identifier",
+        "label": "Users can create Fabric items is already enabled",
         "rect": [
-          962,
-          306,
-          1075,
-          340
-        ]
-      }
-    ]
-  },
-  "31-workspace-synced-to-git-v2.png": {
-    "size": [
-      1955,
-      1040
-    ],
-    "boxes": [
-      {
-        "label": "No remaining changes after Update",
-        "rect": [
-          1200,
-          946,
-          1830,
-          997
-        ]
-      }
-    ]
-  },
-  "32-dev-notebook-v2-executed-output-70.png": {
-    "size": [
-      1664,
-      1150
-    ],
-    "boxes": [
-      {
-        "label": "Run all in Development",
-        "rect": [
-          351,
-          153,
-          536,
-          214
-        ]
-      },
-      {
-        "label": "Actual output: v2, three rows, total 70",
-        "rect": [
+          146,
           347,
-          674,
-          927,
-          726
+          254,
+          378
         ]
       }
-    ]
+    ],
+    "originalSha256": "a81154237015053914c92f189e4e3c7d222896c4ee50b15d97e0a4683f357434"
   },
-  "33-select-test-target-and-dev-v2-notebook.png": {
+  "w16-dev-main-git-folder.png": {
     "size": [
-      1664,
-      1150
+      878,
+      1575
     ],
     "boxes": [
       {
-        "label": "Select only the demo Notebook row",
+        "label": "Git folder /workshops/cicd/fabric",
         "rect": [
-          183,
-          503,
-          614,
-          566
-        ]
-      },
-      {
-        "label": "Deploy exactly one selected item",
-        "rect": [
-          873,
-          294,
-          1039,
-          357
+          344,
+          1169,
+          877,
+          1230
         ]
       }
-    ]
+    ],
+    "originalSha256": "aa617d87751c726e80954ff173cb8d7eed2c3f8a435e09528c9251858a6056f9"
   },
-  "34-compare-development-v2-with-test-v1.png": {
+  "w17-create-git-folder-confirmation.png": {
     "size": [
-      1664,
-      1150
+      878,
+      1575
+    ],
+    "boxes": [
+      {
+        "label": "Create and sync the new Git folder",
+        "rect": [
+          451,
+          843,
+          612,
+          892
+        ]
+      }
+    ],
+    "originalSha256": "3b550a40a12b9762b5358b777eb038fb6135b2d936f576471fe12738340c6882"
+  },
+  "w18-dev-v1-verified-output.png": {
+    "size": [
+      2807,
+      1608
     ],
     "boxes": [],
-    "overview": true
+    "overview": true,
+    "originalSha256": "66a813de7fcbb3bddab7c7a531db34eb182fe2df86b8fb3c8195eda81c1956ec"
   },
-  "35-confirm-dev-to-test-v2-deployment.png": {
+  "w19-dev-initial-sync-complete.png": {
     "size": [
-      1664,
-      1150
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "e642097682bbd44b80153f1b6d60860b521f342241b28b5d510551834340b9b8"
+  },
+  "w20-notebook-git-local-lakehouse-binding.png": {
+    "size": [
+      2807,
+      1608
     ],
     "boxes": [
       {
-        "label": "Confirm Deploy",
+        "label": "Lakehouse in new workspace",
         "rect": [
-          626,
-          987,
-          830,
-          1052
+          1734,
+          373,
+          1793,
+          432
         ]
       }
-    ]
+    ],
+    "originalSha256": "e5c43a78a8f38d535d8e4aa6140f1b90c658bed0738be1f4efa698c5af4180c3"
   },
-  "36-test-notebook-v2-executed-output-70.png": {
+  "w21-commit-stage-local-binding.png": {
     "size": [
-      1664,
-      1150
+      2807,
+      1608
     ],
     "boxes": [
       {
-        "label": "Run all in Test",
+        "label": "Commit the stage-local binding",
         "rect": [
-          351,
-          153,
-          536,
-          214
-        ]
-      },
-      {
-        "label": "Actual Test output: v2, three rows, total 70",
-        "rect": [
-          347,
-          674,
-          927,
-          726
+          1973,
+          1495,
+          2126,
+          1554
         ]
       }
-    ]
+    ],
+    "originalSha256": "8351d636451f17e5f49f762266537b784b8508257ea8705428f0cc79df85a935"
   },
-  "37-production-notebook-v2-executed-output-70.png": {
+  "w22-feature-existing-github-account.png": {
     "size": [
-      1505,
-      1157
+      2807,
+      1608
     ],
     "boxes": [
       {
-        "label": "Run all in Production",
+        "label": "Connect the existing repository-scoped account",
         "rect": [
-          351,
-          153,
-          536,
-          214
-        ]
-      },
-      {
-        "label": "Actual Production output: v2, three rows, total 70",
-        "rect": [
-          347,
-          681,
-          927,
-          734
+          1753,
+          1046,
+          1879,
+          1105
         ]
       }
-    ]
+    ],
+    "originalSha256": "307cda2acac4f868720d4001375b1474c25bc3ec9255f2d5fb69e8b67cc4e244"
   },
-  "38-v2-deployment-history-succeeded.png": {
+  "w23-prerequisite-git-enabled.png": {
     "size": [
-      1505,
-      1157
+      2807,
+      1608
     ],
     "boxes": [
       {
-        "label": "Both v2 promotions succeeded",
+        "label": "Git integration is enabled",
         "rect": [
-          1409,
-          375,
-          1459,
-          537
+          595,
+          1060,
+          762,
+          1113
         ]
       }
-    ]
+    ],
+    "originalSha256": "46490195d6a5169a77e96df0f4a264c26aa0f5194086d871a38dfcfdbef72a75"
+  },
+  "w24-create-feature-branch-from-main.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Feature branch name",
+        "rect": [
+          1063,
+          728,
+          1694,
+          785
+        ]
+      }
+    ],
+    "originalSha256": "9eb4a4f680aaf84e6434e7ac9b3f188d790e4b1f2fd3b583693a6c25f7e32061"
+  },
+  "w25-prerequisite-github-approved-group.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Approved GitHub security group",
+        "rect": [
+          606,
+          885,
+          897,
+          932
+        ]
+      }
+    ],
+    "originalSha256": "af28f8cacdd8a27991c66725caa75731f9231813fe0d92d02373e2e4cc88171f"
+  },
+  "w26-create-release-pipeline.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Release pipeline name",
+        "rect": [
+          906,
+          679,
+          1913,
+          735
+        ]
+      }
+    ],
+    "originalSha256": "1247a7cc8080e2af8e8c8ce5d8ccbddcc5b407006651866e248fea1f6af2f8d3"
+  },
+  "w27-release-pipeline-three-stages.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Create and continue",
+        "rect": [
+          2474,
+          212,
+          2789,
+          283
+        ]
+      }
+    ],
+    "originalSha256": "0c32c0f6f1b8e69c29aebb58aac1970f59b702bc3aa99b81135362acb4756178"
+  },
+  "w28-feature-update-from-git-v2.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Update all: Feature v2",
+        "rect": [
+          1973,
+          1495,
+          2147,
+          1554
+        ]
+      }
+    ],
+    "originalSha256": "84301264bf7e62cc2c557a6d1b551dde2c3079724098bb8eacd70dbc8da40701"
+  },
+  "w29-assign-development-workspace.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Assign Development",
+        "rect": [
+          529,
+          519,
+          588,
+          578
+        ]
+      }
+    ],
+    "originalSha256": "5bb8e416edc020fba0694bc429d99994f3966ceaad6227eb12845e914e5ee484"
+  },
+  "w30-feature-v2-verified-output.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "6b9aaf0e197870fbf88f115627c47adedfa1f84186f083434ace0a2732d6938f"
+  },
+  "w31-create-v2-pull-request.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Create the pull request, not merge",
+        "rect": [
+          1528,
+          775,
+          1768,
+          833
+        ]
+      }
+    ],
+    "originalSha256": "f03fe1895871e70c82411c1c6b18fcd33fb2920548e1d1acb5bb7fafff38dad4"
+  },
+  "w32-assign-test-workspace.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Assign Test",
+        "rect": [
+          1171,
+          519,
+          1230,
+          578
+        ]
+      }
+    ],
+    "originalSha256": "92d6d616070e20b42e1000d446ae7cd9dee3cc92ccf9264a6947defd38ee8a42"
+  },
+  "w33-assign-production-workspace-only.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Assign the Production workspace only",
+        "rect": [
+          1813,
+          519,
+          1872,
+          578
+        ]
+      }
+    ],
+    "originalSha256": "ac7eb67de7e514365e209cd8e47cadd21838a62b9fae55dccf1a07f800f13d6d"
+  },
+  "w35-test-target-two-item-selection.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Deploy exactly two definitions to Test",
+        "rect": [
+          797,
+          246,
+          944,
+          305
+        ]
+      }
+    ],
+    "originalSha256": "cc75542505225205f53351b1dd39340cbd6d514b0f047bdd31eee090cca46055"
+  },
+  "w36-prerequisite-workspace-admin.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Workspace Admin",
+        "rect": [
+          2394,
+          379,
+          2495,
+          416
+        ]
+      }
+    ],
+    "originalSha256": "f99e0ed3a54706ef7e1140d759a1b47c8681685516a28116658ce7ab2767f254"
+  },
+  "w37-confirm-dev-to-test-v1-baseline.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Confirm Development to Test baseline v1",
+        "rect": [
+          1226,
+          1173,
+          1403,
+          1232
+        ]
+      }
+    ],
+    "originalSha256": "46a69675f87a5f7a08df537d0dbf0dee54684b3f6c0d6d1a4e6ef84140d41a7a"
+  },
+  "w38-test-lakehouse-empty-after-definition-deploy.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "6424f9a235480deaed6e607ecd67f01848c8f0db6ba5bd76631dfed02c510c84"
+  },
+  "w39-test-v1-verified-output.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "e922b5d00d6962b21fd6945698619f85ad392fef451f45636f1ec4ef569a7ed1"
+  },
+  "w40-test-default-lakehouse-rule.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Test default Lakehouse rule",
+        "rect": [
+          2329,
+          582,
+          2703,
+          641
+        ]
+      }
+    ],
+    "originalSha256": "8416aa96a067ade9c3925a5484b978731883ce64502f6c148fbddad329a4d55f"
+  },
+  "w41-prerequisite-pipeline-admin.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Pipeline Admin",
+        "rect": [
+          2401,
+          373,
+          2464,
+          408
+        ]
+      }
+    ],
+    "originalSha256": "556e0786511da6174b0ea1b4ce07b924bdf73a0a7945c889cb3b414e75459c33"
+  },
+  "w42-prerequisite-review-enforcement-limitation.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "191be43190de205de66b4760ad8204336e2343bdf6cba979fe54fddb70517cb6"
+  },
+  "w43-feature-connected-branch-and-folder.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Feature branch",
+        "rect": [
+          1772,
+          1211,
+          1947,
+          1250
+        ]
+      }
+    ],
+    "originalSha256": "5ffe8f974ce1d1ade39aa52b55249fdb3acd28065307f601b72fdcddbc40cd53"
+  },
+  "w44-review-v2-pr-diff-clean.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "f58f2af83f8079c9e9e8eca6ef5afee52cb317a9c39f3737711b2860e5401dc8"
+  },
+  "w45-approved-pr-ready-to-merge.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Merge pull request after conversational authorization",
+        "rect": [
+          584,
+          775,
+          813,
+          834
+        ]
+      }
+    ],
+    "originalSha256": "beb83bc2bdae74f4240853cf3df99fb07739106ea7233f13f988c1107fb6aa65"
+  },
+  "w46-confirm-approved-main-merge.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Confirm the authorized main merge",
+        "rect": [
+          584,
+          1477,
+          777,
+          1536
+        ]
+      }
+    ],
+    "originalSha256": "1ef5a80a4cdc55c34dad0621800c7c37b19a9565e1574e9c80cf5dcca009fd45"
+  },
+  "w47-pr-merged-with-conversation-authorization.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "5c947e44d2b0b1e02ed240a9cbc8eaf8cd63d2486e98d00fac5dc6236cd0fc9a"
+  },
+  "w48-dev-update-approved-main-v2.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Update Dev from the approved main commit",
+        "rect": [
+          1973,
+          1495,
+          2148,
+          1554
+        ]
+      }
+    ],
+    "originalSha256": "ec5b1ba22f52f612df922f42b9c931d623947286ce1a4a9c6da32787a0c9ff13"
+  },
+  "w49-dev-v2-verified-output.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "da68d4a125f981bdb9392b8f8fe6cf2ee7de213194b86ca15d9e4213e838599b"
+  },
+  "w50-select-test-v2-notebook-only.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Deploy the changed Notebook to Test",
+        "rect": [
+          797,
+          246,
+          944,
+          305
+        ]
+      }
+    ],
+    "originalSha256": "a281c664f48101363b387040358507cd140f066ecdd90ac9b64334b451d7933a"
+  },
+  "w51-compare-test-v1-with-dev-v2.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "909d14275cc85d56969a91cfbecac0b2cd52d24c1d0bfa381d5427bf4a223e56"
+  },
+  "w52-confirm-dev-to-test-approved-v2.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Confirm approved v2 from Development to Test",
+        "rect": [
+          1226,
+          1155,
+          1403,
+          1214
+        ]
+      }
+    ],
+    "originalSha256": "f4373273cbcd396cc50d1d34eb8b3b0909ab7bcdf422abfba293297ee6241918"
+  },
+  "w53-test-v2-verified-output.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "4b153270ab66f31cb3ca908d86dcd9379b2cffc98c99274968723b949d61320c"
+  },
+  "w54-test-v1-v2-deployment-history.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "03239fbf6e694d59590153b5befad0c41a493145dfa9c444d6d47cc6377898d9"
+  },
+  "w55-select-production-target-and-two-definitions.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Deploy both definitions from Test to Production",
+        "rect": [
+          797,
+          246,
+          944,
+          305
+        ]
+      }
+    ],
+    "originalSha256": "83848efc963d60a342d7307df033c601302a8943d183ba37dabe83a0148d63a3"
+  },
+  "w56-confirm-approved-test-to-production-v2.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Confirm the explicitly approved Production release",
+        "rect": [
+          1226,
+          1173,
+          1403,
+          1232
+        ]
+      }
+    ],
+    "originalSha256": "0ae7ff72f55d0c285b8cc01912b5a043403d26dac1ebb707716326258701beca"
+  },
+  "w57-production-lakehouse-empty-before-run.png": {
+    "size": [
+      1536,
+      1152
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "ee9768668bc59770f4bedc710559d5a289d30758b86e070301409087b6fd106e"
+  },
+  "w58-production-v2-verified-output.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "d391ca2476ee649e48254fac28172c1ea741a8124cdf1d625dcd1798e64139ae"
+  },
+  "w59-final-test-and-production-deployment-history.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "57ae91faa74c549069206b4adca4d348d98373b86d9281e345a944bb7e041862"
+  },
+  "w60-production-v2-ten-row-table.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "230d899dc157a2a981db27d4d825368bcbdadc2fc71dbfa6dff9aaaf9c9ee28e"
   }
 }

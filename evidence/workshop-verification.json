@@ -1,0 +1,396 @@
+{
+  "workshopComplete": true,
+  "approvalStatus": {
+    "sourcePr": "https://github.com/YOONPYOGitHub/fabric-alm-lab/pull/1",
+    "humanReview": "conversation-authorized",
+    "merged": true,
+    "productionReleaseApproved": true,
+    "productionDeployed": true,
+    "independentGitHubApproval": false,
+    "conversationAuthorization": {
+      "userReply": "그래 계속 진행해",
+      "scope": "main merge and Dev/Test v2 validation; Production excluded",
+      "recordUrl": "https://github.com/YOONPYOGitHub/fabric-alm-lab/pull/1#issuecomment-6269675248"
+    },
+    "productionAuthorization": {
+      "approved": true,
+      "approvedAtUtc": "2026-10-19T14:55:39.599Z",
+      "approvalType": "explicit-user-message-in-task-conversation",
+      "userMessage": "FabricLab-Prod로 Test v2를 배포하고, Notebook 실행과 실제 데이터 10행·합계 90 검증까지 승인해. 기존 F16의 CU·스토리지 비용도 동의해.",
+      "tenantId": "ef7d55d6-c61d-4085-9064-4e83adf15ee3",
+      "subscriptionId": "e4b60458-f41b-4144-95e5-673e7c6bd7da",
+      "capacityId": "d3963652-03dc-42e4-a382-e1d1eaa70fa5",
+      "capacityName": "fb001",
+      "costAcknowledged": true,
+      "workspaceId": "fbd6013c-889c-4d9e-83af-c1f4248be5a1",
+      "workspaceName": "FabricLab-Prod",
+      "sourceStage": "Test",
+      "sourceMainCommit": "0cf51fdfff638952d1b72685574fd369646694e2",
+      "release": "v2",
+      "expectedRows": 10,
+      "expectedSum": 90,
+      "newCapacityOrRoleExpansionApproved": false,
+      "nativeFabricApprovalWorkflowConfigured": false
+    }
+  },
+  "deploymentRules": {
+    "Test": {
+      "saved": true,
+      "verifiedAfterReload": true,
+      "lakehouseId": "24b6d3df-a2cc-429b-b6c4-04f78b37545d",
+      "lakehouseName": "CI_CD_Demo",
+      "workspaceId": "9c1f123f-6c38-4222-b761-1f94a8d9bc23",
+      "nextDeploymentEffectVerified": true
+    }
+  },
+  "git": {
+    "directory": "/workshops/cicd/fabric",
+    "main": "0cf51fdfff638952d1b72685574fd369646694e2",
+    "feature": "09b03c28ab58e623e0f7ac1f185778ea3e5425dc",
+    "baseline": "4ea83edb06a7d2b381ab961a1a25fb8925db6ce4"
+  },
+  "offlineValidation": {
+    "sourceUnitTests": 9,
+    "ruff": "passed",
+    "pyright": "passed"
+  },
+  "runs": [
+    {
+      "stage": "development",
+      "jobId": "c244d130-949a-40e3-ae70-5db82ce50d5a",
+      "status": "Completed",
+      "metrics": {
+        "verifiedAtUtc": "2026-10-19T13:36:29.771061+00:00",
+        "workspaceName": "FabricLab-Dev",
+        "workspaceId": "4dc4b490-8851-4d99-a75b-1e9067dc78e5",
+        "lakehouseName": "CI_CD_Demo",
+        "lakehouseId": "3bacc56f-a551-402d-a0b8-7f0da7e0af63",
+        "deltaLocation": "abfss://4dc4b490-8851-4d99-a75b-1e9067dc78e5@onelake.dfs.fabric.microsoft.com/3bacc56f-a551-402d-a0b8-7f0da7e0af63/Tables/dbo/cicd_smoke",
+        "rows": 10,
+        "unique_ids": 10,
+        "sum_value": 45,
+        "min_id": 0,
+        "max_id": 9,
+        "release_versions": 1,
+        "release": "v1"
+      },
+      "executionSnapshotUrl": "https://app.fabric.microsoft.com/groups/4dc4b490-8851-4d99-a75b-1e9067dc78e5/synapsenotebooks/e5df67de-adf6-43f0-a1af-491c4b646556/snapshots/c244d130-949a-40e3-ae70-5db82ce50d5a?experience=power-bi"
+    },
+    {
+      "stage": "feature",
+      "jobId": "cc23f044-b7a6-4dae-b591-e5e9f9fec2ce",
+      "status": "Completed",
+      "metrics": {
+        "verifiedAtUtc": "2026-10-19T13:54:36.769973+00:00",
+        "workspaceName": "FabricLab-Feature",
+        "workspaceId": "91e5839f-c981-47ea-9500-ef557b1634c0",
+        "lakehouseName": "CI_CD_Demo",
+        "lakehouseId": "f2ff7fc8-e138-4086-93bd-7337ce0becb4",
+        "deltaLocation": "abfss://91e5839f-c981-47ea-9500-ef557b1634c0@onelake.dfs.fabric.microsoft.com/f2ff7fc8-e138-4086-93bd-7337ce0becb4/Tables/dbo/cicd_smoke",
+        "rows": 10,
+        "unique_ids": 10,
+        "sum_value": 90,
+        "min_id": 0,
+        "max_id": 9,
+        "release_versions": 1,
+        "release": "v2"
+      },
+      "executionSnapshotUrl": "https://app.fabric.microsoft.com/groups/91e5839f-c981-47ea-9500-ef557b1634c0/synapsenotebooks/72ea01ad-7cb4-4fe3-b89c-dfb6a51a5616/snapshots/cc23f044-b7a6-4dae-b591-e5e9f9fec2ce?experience=power-bi"
+    },
+    {
+      "stage": "test",
+      "jobId": "163383c0-720c-4aea-86fd-a5a78a28ddf0",
+      "status": "Completed",
+      "metrics": {
+        "verifiedAtUtc": "2026-10-19T14:07:03.639522+00:00",
+        "workspaceName": "FabricLab-Test",
+        "workspaceId": "9c1f123f-6c38-4222-b761-1f94a8d9bc23",
+        "lakehouseName": "CI_CD_Demo",
+        "lakehouseId": "24b6d3df-a2cc-429b-b6c4-04f78b37545d",
+        "deltaLocation": "abfss://9c1f123f-6c38-4222-b761-1f94a8d9bc23@onelake.dfs.fabric.microsoft.com/24b6d3df-a2cc-429b-b6c4-04f78b37545d/Tables/dbo/cicd_smoke",
+        "rows": 10,
+        "unique_ids": 10,
+        "sum_value": 45,
+        "min_id": 0,
+        "max_id": 9,
+        "release_versions": 1,
+        "release": "v1"
+      },
+      "executionSnapshotUrl": "https://app.fabric.microsoft.com/groups/9c1f123f-6c38-4222-b761-1f94a8d9bc23/synapsenotebooks/a828a86d-355e-4c24-87f2-3a9ca8c6e0b7/snapshots/163383c0-720c-4aea-86fd-a5a78a28ddf0?experience=power-bi"
+    },
+    {
+      "stage": "development",
+      "jobId": "b1472af6-ad22-468c-8bd4-46c919b4d8e2",
+      "status": "Completed",
+      "metrics": {
+        "verifiedAtUtc": "2026-10-19T14:35:45.503452+00:00",
+        "workspaceName": "FabricLab-Dev",
+        "workspaceId": "4dc4b490-8851-4d99-a75b-1e9067dc78e5",
+        "lakehouseName": "CI_CD_Demo",
+        "lakehouseId": "3bacc56f-a551-402d-a0b8-7f0da7e0af63",
+        "deltaLocation": "abfss://4dc4b490-8851-4d99-a75b-1e9067dc78e5@onelake.dfs.fabric.microsoft.com/3bacc56f-a551-402d-a0b8-7f0da7e0af63/Tables/dbo/cicd_smoke",
+        "rows": 10,
+        "unique_ids": 10,
+        "sum_value": 90,
+        "min_id": 0,
+        "max_id": 9,
+        "release_versions": 1,
+        "release": "v2"
+      },
+      "executionSnapshotUrl": "https://app.fabric.microsoft.com/groups/4dc4b490-8851-4d99-a75b-1e9067dc78e5/synapsenotebooks/e5df67de-adf6-43f0-a1af-491c4b646556/snapshots/b1472af6-ad22-468c-8bd4-46c919b4d8e2?experience=power-bi"
+    },
+    {
+      "stage": "test",
+      "jobId": "06f00796-bb0a-4e93-b6c2-6a5cae0551f7",
+      "status": "Completed",
+      "metrics": {
+        "verifiedAtUtc": "2026-10-19T14:41:38.291764+00:00",
+        "workspaceName": "FabricLab-Test",
+        "workspaceId": "9c1f123f-6c38-4222-b761-1f94a8d9bc23",
+        "lakehouseName": "CI_CD_Demo",
+        "lakehouseId": "24b6d3df-a2cc-429b-b6c4-04f78b37545d",
+        "deltaLocation": "abfss://9c1f123f-6c38-4222-b761-1f94a8d9bc23@onelake.dfs.fabric.microsoft.com/24b6d3df-a2cc-429b-b6c4-04f78b37545d/Tables/dbo/cicd_smoke",
+        "rows": 10,
+        "unique_ids": 10,
+        "sum_value": 90,
+        "min_id": 0,
+        "max_id": 9,
+        "release_versions": 1,
+        "release": "v2"
+      },
+      "executionSnapshotUrl": "https://app.fabric.microsoft.com/groups/9c1f123f-6c38-4222-b761-1f94a8d9bc23/synapsenotebooks/a828a86d-355e-4c24-87f2-3a9ca8c6e0b7/snapshots/06f00796-bb0a-4e93-b6c2-6a5cae0551f7?experience=power-bi"
+    },
+    {
+      "stage": "production",
+      "jobId": "f7da925c-ed8a-4b33-ba6b-679ba678fdef",
+      "status": "Completed",
+      "metrics": {
+        "verifiedAtUtc": "2026-10-19T15:05:39.317117+00:00",
+        "workspaceName": "FabricLab-Prod",
+        "workspaceId": "fbd6013c-889c-4d9e-83af-c1f4248be5a1",
+        "lakehouseName": "CI_CD_Demo",
+        "lakehouseId": "4ee3742f-fc5b-4211-a06a-3bdb4b328744",
+        "deltaLocation": "abfss://fbd6013c-889c-4d9e-83af-c1f4248be5a1@onelake.dfs.fabric.microsoft.com/4ee3742f-fc5b-4211-a06a-3bdb4b328744/Tables/dbo/cicd_smoke",
+        "rows": 10,
+        "unique_ids": 10,
+        "sum_value": 90,
+        "min_id": 0,
+        "max_id": 9,
+        "release_versions": 1,
+        "release": "v2"
+      },
+      "executionSnapshotUrl": "https://app.fabric.microsoft.com/groups/fbd6013c-889c-4d9e-83af-c1f4248be5a1/synapsenotebooks/688cc4a1-19e3-448b-960e-2e4577b80a2c/snapshots/f7da925c-ed8a-4b33-ba6b-679ba678fdef?experience=power-bi"
+    }
+  ],
+  "production": {
+    "workspaceId": "fbd6013c-889c-4d9e-83af-c1f4248be5a1",
+    "items": [
+      {
+        "id": "498caf33-66b7-4327-8ab7-9b73b1c677f8",
+        "displayName": "CI_CD_Demo",
+        "type": "SQLEndpoint"
+      },
+      {
+        "id": "4ee3742f-fc5b-4211-a06a-3bdb4b328744",
+        "displayName": "CI_CD_Demo",
+        "type": "Lakehouse"
+      },
+      {
+        "id": "688cc4a1-19e3-448b-960e-2e4577b80a2c",
+        "displayName": "CI_CD_Smoke",
+        "type": "Notebook"
+      }
+    ],
+    "lakehouseId": "4ee3742f-fc5b-4211-a06a-3bdb4b328744",
+    "notebookId": "688cc4a1-19e3-448b-960e-2e4577b80a2c",
+    "checkedAtUtc": "2026-10-19T15:06:56.3350366Z"
+  },
+  "pipeline": {
+    "id": "faa1c755-7778-4a6f-9b7f-4e1bcc414350",
+    "displayName": "FabricLab-Release",
+    "stages": [
+      {
+        "id": "d16decab-579b-4647-8f71-754b806461fd",
+        "order": 0,
+        "displayName": "Development",
+        "description": "",
+        "workspaceId": "4dc4b490-8851-4d99-a75b-1e9067dc78e5",
+        "workspaceName": "FabricLab-Dev",
+        "isPublic": false
+      },
+      {
+        "id": "c563f05c-e04b-467f-b544-6a3a08710e95",
+        "order": 1,
+        "displayName": "Test",
+        "description": "",
+        "workspaceId": "9c1f123f-6c38-4222-b761-1f94a8d9bc23",
+        "workspaceName": "FabricLab-Test",
+        "isPublic": false
+      },
+      {
+        "id": "90d5d2db-45d4-41bd-b62e-21385fafb6b6",
+        "order": 2,
+        "displayName": "Production",
+        "description": "",
+        "workspaceId": "fbd6013c-889c-4d9e-83af-c1f4248be5a1",
+        "workspaceName": "FabricLab-Prod",
+        "isPublic": true
+      }
+    ],
+    "operations": [
+      {
+        "id": "85eb6998-4f08-44e3-864e-38b8e25a4748",
+        "type": "Deploy",
+        "status": "Succeeded",
+        "lastUpdatedTime": "2026-10-19T15:00:52.107",
+        "executionStartTime": "2026-10-19T15:00:29.07",
+        "executionEndTime": "2026-10-19T15:00:52.107",
+        "sourceStageId": "c563f05c-e04b-467f-b544-6a3a08710e95",
+        "targetStageId": "90d5d2db-45d4-41bd-b62e-21385fafb6b6",
+        "note": {
+          "content": "Approved Production v2; explicit user release authorization 2026-10-19T14:55:39.599Z, existing F16 CU/storage cost acknowledged. Source main merge 0cf51fdfff638952d1b72685574fd369646694e2; Test job 06f00796-bb0a-4e93-b6c2-6a5cae0551f7 verified ten exact v2 rows, unique IDs 0-9, sum 90. Deploy CI_CD_Demo Lakehouse and CI_CD_Smoke Notebook from Test to FabricLab-Prod. No new capacity or role expansion. Verify actual Production code and stage-local binding before Notebook execution, then actual local Delta data."
+        },
+        "preDeploymentDiffInformation": {
+          "newItemsCount": 2,
+          "differentItemsCount": 0,
+          "noDifferenceItemsCount": 0
+        },
+        "performedBy": {
+          "id": "b15cdb08-0c6d-4829-a207-30c3cfed43e9",
+          "type": "User"
+        }
+      },
+      {
+        "id": "2f8a633c-853d-4b5b-bf59-fa618241c291",
+        "type": "Deploy",
+        "status": "Succeeded",
+        "lastUpdatedTime": "2026-10-19T14:39:43.69",
+        "executionStartTime": "2026-10-19T14:39:40.95",
+        "executionEndTime": "2026-10-19T14:39:43.69",
+        "sourceStageId": "d16decab-579b-4647-8f71-754b806461fd",
+        "targetStageId": "c563f05c-e04b-467f-b544-6a3a08710e95",
+        "note": {
+          "content": "Approved v2; source main merge 0cf51fdfff638952d1b72685574fd369646694e2, source PR #1 conversational authorization recorded. Dev actual Delta: ten exact v2 rows, unique IDs 0-9, sum 90, local Lakehouse verified. Update CI_CD_Smoke only; Lakehouse already paired. Apply saved Test-local default Lakehouse rule; verify actual Test metadata and data after deployment. Production remains separately gated."
+        },
+        "preDeploymentDiffInformation": {
+          "newItemsCount": 0,
+          "differentItemsCount": 1,
+          "noDifferenceItemsCount": 0
+        },
+        "performedBy": {
+          "id": "b15cdb08-0c6d-4829-a207-30c3cfed43e9",
+          "type": "User"
+        }
+      },
+      {
+        "id": "1fa47585-6501-4c8d-b628-4f46c582b056",
+        "type": "Deploy",
+        "status": "Succeeded",
+        "lastUpdatedTime": "2026-10-19T14:03:26.257",
+        "executionStartTime": "2026-10-19T14:03:03.267",
+        "executionEndTime": "2026-10-19T14:03:26.257",
+        "sourceStageId": "d16decab-579b-4647-8f71-754b806461fd",
+        "targetStageId": "c563f05c-e04b-467f-b544-6a3a08710e95",
+        "note": {
+          "content": "Baseline v1; main Git 4ea83edb06a7d2b381ab961a1a25fb8925db6ce4. Dev actual Delta: 10 unique IDs 0-9, all v1 values verified, sum 45. Deploy Lakehouse and Notebook definitions only; run Test and verify its own data next. PR #1 v2 awaits human review; this is NOT the v2 release."
+        },
+        "preDeploymentDiffInformation": {
+          "newItemsCount": 2,
+          "differentItemsCount": 0,
+          "noDifferenceItemsCount": 0
+        },
+        "performedBy": {
+          "id": "b15cdb08-0c6d-4829-a207-30c3cfed43e9",
+          "type": "User"
+        }
+      }
+    ]
+  },
+  "testTableBefore": {
+    "checkedAtUtc": "2026-10-19T14:06:24.1881368Z",
+    "httpStatus": 404,
+    "errorCode": "PathNotFound",
+    "phase": "Before",
+    "pathState": "Absent: explicit PathNotFound",
+    "workspaceId": "9c1f123f-6c38-4222-b761-1f94a8d9bc23",
+    "lakehouseId": "24b6d3df-a2cc-429b-b6c4-04f78b37545d",
+    "path": "https://onelake.dfs.fabric.microsoft.com/9c1f123f-6c38-4222-b761-1f94a8d9bc23/24b6d3df-a2cc-429b-b6c4-04f78b37545d/Tables/dbo/cicd_smoke"
+  },
+  "testTableAfter": {
+    "workspaceId": "9c1f123f-6c38-4222-b761-1f94a8d9bc23",
+    "path": "https://onelake.dfs.fabric.microsoft.com/9c1f123f-6c38-4222-b761-1f94a8d9bc23/24b6d3df-a2cc-429b-b6c4-04f78b37545d/Tables/dbo/cicd_smoke",
+    "checkedAtUtc": "2026-10-19T14:07:32.1485068Z",
+    "errorCode": "",
+    "phase": "After",
+    "lakehouseId": "24b6d3df-a2cc-429b-b6c4-04f78b37545d",
+    "httpStatus": 200,
+    "pathState": "Present"
+  },
+  "sourceMerge": {
+    "base": "4ea83edb06a7d2b381ab961a1a25fb8925db6ce4",
+    "head": "09b03c28ab58e623e0f7ac1f185778ea3e5425dc",
+    "mergeCommit": "0cf51fdfff638952d1b72685574fd369646694e2",
+    "merged": true,
+    "mergedAt": "2026-10-19T14:31:22Z",
+    "number": 1
+  },
+  "productionTableBefore": {
+    "path": "https://onelake.dfs.fabric.microsoft.com/fbd6013c-889c-4d9e-83af-c1f4248be5a1/4ee3742f-fc5b-4211-a06a-3bdb4b328744/Tables/dbo/cicd_smoke",
+    "pathState": "Absent: explicit PathNotFound",
+    "phase": "Before",
+    "httpStatus": 404,
+    "errorCode": "PathNotFound",
+    "workspaceId": "fbd6013c-889c-4d9e-83af-c1f4248be5a1",
+    "stage": "Production",
+    "checkedAtUtc": "2026-10-19T15:04:58.5577571Z",
+    "lakehouseId": "4ee3742f-fc5b-4211-a06a-3bdb4b328744"
+  },
+  "productionTableAfter": {
+    "pathState": "Present",
+    "errorCode": "",
+    "stage": "Production",
+    "httpStatus": 200,
+    "path": "https://onelake.dfs.fabric.microsoft.com/fbd6013c-889c-4d9e-83af-c1f4248be5a1/4ee3742f-fc5b-4211-a06a-3bdb4b328744/Tables/dbo/cicd_smoke",
+    "workspaceId": "fbd6013c-889c-4d9e-83af-c1f4248be5a1",
+    "lakehouseId": "4ee3742f-fc5b-4211-a06a-3bdb4b328744",
+    "phase": "After",
+    "checkedAtUtc": "2026-10-19T15:06:05.3250405Z"
+  },
+  "definitionVerification": {
+    "verifiedAtUtc": "2026-10-19T21:23:27.833531+00:00",
+    "stages": {
+      "development": {
+        "sourceCommit": "0cf51fdfff638952d1b72685574fd369646694e2",
+        "workspaceId": "4dc4b490-8851-4d99-a75b-1e9067dc78e5",
+        "lakehouseId": "3bacc56f-a551-402d-a0b8-7f0da7e0af63",
+        "notebookId": "e5df67de-adf6-43f0-a1af-491c4b646556",
+        "cells": 3,
+        "normalizedAstSha256": "c6c821dba8917f6c0bf0128627799d0f96905fcc7203af41e0a98bccda455203"
+      },
+      "feature": {
+        "sourceCommit": "0cf51fdfff638952d1b72685574fd369646694e2",
+        "workspaceId": "91e5839f-c981-47ea-9500-ef557b1634c0",
+        "lakehouseId": "f2ff7fc8-e138-4086-93bd-7337ce0becb4",
+        "notebookId": "72ea01ad-7cb4-4fe3-b89c-dfb6a51a5616",
+        "cells": 3,
+        "normalizedAstSha256": "c6c821dba8917f6c0bf0128627799d0f96905fcc7203af41e0a98bccda455203"
+      },
+      "test": {
+        "sourceCommit": "0cf51fdfff638952d1b72685574fd369646694e2",
+        "workspaceId": "9c1f123f-6c38-4222-b761-1f94a8d9bc23",
+        "lakehouseId": "24b6d3df-a2cc-429b-b6c4-04f78b37545d",
+        "notebookId": "a828a86d-355e-4c24-87f2-3a9ca8c6e0b7",
+        "cells": 3,
+        "normalizedAstSha256": "c6c821dba8917f6c0bf0128627799d0f96905fcc7203af41e0a98bccda455203"
+      },
+      "production": {
+        "sourceCommit": "0cf51fdfff638952d1b72685574fd369646694e2",
+        "workspaceId": "fbd6013c-889c-4d9e-83af-c1f4248be5a1",
+        "lakehouseId": "4ee3742f-fc5b-4211-a06a-3bdb4b328744",
+        "notebookId": "688cc4a1-19e3-448b-960e-2e4577b80a2c",
+        "cells": 3,
+        "normalizedAstSha256": "c6c821dba8917f6c0bf0128627799d0f96905fcc7203af41e0a98bccda455203"
+      }
+    }
+  }
+}
