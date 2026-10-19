@@ -51,6 +51,20 @@
 [실제 PR 댓글](https://github.com/YOONPYOGitHub/fabric-alm-lab/pull/1#issuecomment-6269675248)에 기록했습니다.
 독립 GitHub 리뷰어의 APPROVED review를 생성하거나 그런 승인이 있었다고 주장하지 않았습니다.
 
+### 오프라인 검사 범위
+
+소스 저장소의 unittest 9개, 가이드의 unittest 11개와 각 테스트/도구의 Pyright 검사를
+수행했습니다. 소스 테스트의 Ruff 검사는 다음처럼 검사 룰·Python 버전·줄 길이를 명시했습니다.
+
+```bash
+ruff check --select E,F,I,UP,B,SIM --line-length 100 --target-version py312 workshops/cicd/tests
+```
+
+이것은 이번에 사용한 검사 범위이며 모든 Ruff 룰이나 별도의 보안 감사를 통과했다는 뜻은
+아닙니다. 추가 S102 룰은 소스 테스트의 의도적인 `exec`를 경고합니다. 해당 테스트는 전체
+Notebook의 Spark 셀을 실행하지 않고, 저장소 소스에서 추출한 guard 함수 AST만 실행해
+실제 guard를 검증합니다. 가이드 검사는 가이드 루트에서 도구·테스트를 대상으로 수행했습니다.
+
 ## 실제 환경 ID
 
 | 환경 | Workspace ID | Lakehouse ID | Notebook ID |
