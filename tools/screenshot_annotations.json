@@ -1,277 +1,659 @@
 {
   "01-fabric-home.png": {
-    "size": [1600, 1000],
+    "size": [
+      1600,
+      1000
+    ],
     "boxes": [
-      {"label": "Account menu: verify tenant and user", "rect": [1221, 3, 1268, 46]},
-      {"label": "Workspaces navigation", "rect": [5, 340, 65, 408]}
+      {
+        "label": "Workspaces navigation",
+        "rect": [
+          5,
+          340,
+          65,
+          408
+        ]
+      }
     ]
   },
   "02-development-workspace-ready.png": {
-    "size": [1600, 1000],
+    "size": [
+      1600,
+      1000
+    ],
     "boxes": [
-      {"label": "Development workspace name and description", "rect": [112, 57, 900, 112]},
-      {"label": "Workspace settings", "rect": [1008, 66, 1054, 112]}
+      {
+        "label": "Workspace settings",
+        "rect": [
+          1008,
+          66,
+          1054,
+          112
+        ]
+      }
     ]
   },
   "03-fabric-capacity-selection.png": {
-    "size": [1955, 1040],
+    "size": [
+      1955,
+      1040
+    ],
     "boxes": [
-      {"label": "Workspace type tab", "rect": [335, 264, 660, 332]},
-      {"label": "Fabric type and assigned F16 capacity", "rect": [750, 435, 1700, 645]}
+      {
+        "label": "Workspace type tab",
+        "rect": [
+          335,
+          264,
+          660,
+          332
+        ]
+      }
     ]
   },
   "04-deployment-pipelines-entry.png": {
-    "size": [1955, 1040],
+    "size": [
+      1955,
+      1040
+    ],
     "boxes": [
-      {"label": "Deployment pipelines entry", "rect": [170, 865, 635, 933]}
+      {
+        "label": "Deployment pipelines entry",
+        "rect": [
+          170,
+          865,
+          635,
+          933
+        ]
+      }
     ]
   },
   "05-create-deployment-pipeline.png": {
-    "size": [1600, 1000],
+    "size": [
+      1600,
+      1000
+    ],
     "boxes": [
-      {"label": "Pipeline name input", "rect": [203, 247, 866, 286]},
-      {"label": "Pipeline description input", "rect": [203, 333, 866, 438]}
+      {
+        "label": "Pipeline name input",
+        "rect": [
+          203,
+          247,
+          866,
+          286
+        ]
+      }
     ]
   },
   "08-create-notebook-catalog.png": {
-    "size": [1955, 1040],
+    "size": [
+      1955,
+      1040
+    ],
     "boxes": [
-      {"label": "Notebook catalog filter", "rect": [1390, 180, 1720, 252]},
-      {"label": "Notebook item card", "rect": [345, 280, 845, 540]}
+      {
+        "label": "Notebook item card",
+        "rect": [
+          345,
+          280,
+          845,
+          540
+        ]
+      }
     ]
   },
   "09-name-demo-notebook.png": {
-    "size": [1600, 1000],
+    "size": [
+      1600,
+      1000
+    ],
     "boxes": [
-      {"label": "Notebook name", "rect": [266, 287, 797, 327]},
-      {"label": "Development workspace location", "rect": [266, 338, 797, 396]},
-      {"label": "Create Notebook", "rect": [646, 403, 724, 443]}
+      {
+        "label": "Notebook name",
+        "rect": [
+          266,
+          287,
+          797,
+          327
+        ]
+      },
+      {
+        "label": "Create Notebook",
+        "rect": [
+          646,
+          403,
+          724,
+          443
+        ]
+      }
     ]
   },
   "11-demo-notebook-v1-output.png": {
-    "size": [1955, 1040],
+    "size": [
+      1955,
+      1040
+    ],
     "boxes": [
-      {"label": "Run all primary action", "rect": [349, 155, 535, 212]},
-      {"label": "Actual v1 output: three rows and total 60", "rect": [930, 676, 1510, 731]}
+      {
+        "label": "Run all primary action",
+        "rect": [
+          349,
+          155,
+          535,
+          212
+        ]
+      },
+      {
+        "label": "Actual v1 output: three rows and total 60",
+        "rect": [
+          930,
+          676,
+          1510,
+          731
+        ]
+      }
     ]
   },
   "12-github-private-lab-repository.png": {
-    "size": [1075, 1002],
+    "size": [
+      1075,
+      1002
+    ],
     "boxes": [
-      {"label": "Lab repository name and Private visibility", "rect": [27, 115, 250, 157]},
-      {"label": "Main branch", "rect": [26, 188, 138, 221]}
+      {
+        "label": "Lab repository name and Private visibility",
+        "rect": [
+          27,
+          115,
+          250,
+          157
+        ]
+      }
     ]
   },
   "13-github-fine-grained-token-scope.png": {
-    "size": [1929, 2972],
+    "size": [
+      1929,
+      2972
+    ],
     "boxes": [
-      {"label": "Token name", "rect": [580, 340, 1625, 425]},
-      {"label": "Seven-day expiration", "rect": [582, 1010, 960, 1115]},
-      {"label": "Only the selected lab repository", "rect": [580, 1470, 1910, 1775]},
-      {"label": "Contents read and write", "rect": [585, 2070, 1910, 2220]},
-      {"label": "Required Metadata read-only", "rect": [585, 2225, 1910, 2360]},
-      {"label": "Generate token after checking the scope", "rect": [580, 2575, 810, 2645]}
+      {
+        "label": "Contents read and write",
+        "rect": [
+          585,
+          2070,
+          1910,
+          2220
+        ]
+      }
     ]
   },
   "14-three-workspace-deployment-result.png": {
-    "size": [1955, 1040],
-    "boxes": [
-      {"label": "Development workspace mapping", "rect": [213, 431, 540, 505]},
-      {"label": "Test workspace mapping", "rect": [812, 430, 1150, 505]},
-      {"label": "Production workspace mapping", "rect": [1410, 430, 1775, 505]},
-      {"label": "Test deployment succeeded", "rect": [812, 589, 1110, 635]},
-      {"label": "Production deployment succeeded", "rect": [1410, 589, 1750, 635]}
-    ]
+    "size": [
+      1955,
+      1040
+    ],
+    "boxes": [],
+    "overview": true
   },
   "15-deployment-history-succeeded.png": {
-    "size": [1955, 1040],
+    "size": [
+      1955,
+      1040
+    ],
     "boxes": [
-      {"label": "Production and Test destinations", "rect": [744, 369, 945, 538]},
-      {"label": "Both original v1 deployments succeeded", "rect": [1848, 373, 1920, 538]}
+      {
+        "label": "Both original v1 deployments succeeded",
+        "rect": [
+          1848,
+          373,
+          1920,
+          538
+        ]
+      }
     ]
   },
   "16-workspace-github-provider-blocked.png": {
-    "size": [1955, 1040],
+    "size": [
+      1955,
+      1040
+    ],
     "boxes": [
-      {"label": "Git integration tab", "rect": [335, 476, 662, 549]},
-      {"label": "Disabled GitHub provider before tenant setup", "rect": [975, 672, 1215, 911]}
+      {
+        "label": "Disabled GitHub provider before tenant setup",
+        "rect": [
+          975,
+          672,
+          1215,
+          911
+        ]
+      }
     ]
   },
   "17-tenant-github-setting-disabled.png": {
-    "size": [1955, 1040],
+    "size": [
+      1955,
+      1040
+    ],
     "boxes": [
-      {"label": "Find the GitHub tenant setting", "rect": [1544, 239, 1847, 297]},
-      {"label": "GitHub synchronization policy", "rect": [700, 440, 1690, 514]},
-      {"label": "Initially disabled switch", "rect": [700, 615, 895, 661]}
+      {
+        "label": "Initially disabled switch",
+        "rect": [
+          700,
+          615,
+          895,
+          661
+        ]
+      }
     ]
   },
   "18-tenant-github-specific-group-before-apply.png": {
-    "size": [1955, 1040],
+    "size": [
+      1955,
+      1040
+    ],
     "boxes": [
-      {"label": "Enable the GitHub feature", "rect": [700, 402, 895, 445]},
-      {"label": "Specific security groups", "rect": [700, 715, 1130, 762]},
-      {"label": "Select the approved ALM group", "rect": [700, 788, 1675, 852]}
+      {
+        "label": "Specific security groups",
+        "rect": [
+          700,
+          715,
+          1130,
+          762
+        ]
+      },
+      {
+        "label": "Select the approved ALM group",
+        "rect": [
+          700,
+          788,
+          1675,
+          852
+        ]
+      }
     ]
   },
   "19-tenant-github-applied-group-scope.png": {
-    "size": [1859, 1160],
+    "size": [
+      1859,
+      1160
+    ],
     "boxes": [
-      {"label": "Enabled after applying", "rect": [700, 288, 895, 335]},
-      {"label": "Applied group-only scope and ALM group", "rect": [700, 596, 1675, 737]},
-      {"label": "Capacity and workspace delegation remain unchecked", "rect": [700, 974, 1280, 1090]}
+      {
+        "label": "Applied group-only scope and ALM group",
+        "rect": [
+          710,
+          680,
+          1105,
+          733
+        ]
+      }
     ]
   },
   "19-tenant-github-group-enabled.png": {
-    "size": [1859, 1160],
+    "size": [
+      1859,
+      1160
+    ],
     "boxes": [
-      {"label": "GitHub enabled for a subset of the organization", "rect": [700, 635, 1770, 715]},
-      {"label": "Enabled GitHub switch", "rect": [700, 812, 895, 861]}
+      {
+        "label": "Enabled GitHub switch",
+        "rect": [
+          700,
+          812,
+          895,
+          861
+        ]
+      }
     ]
   },
   "20-workspace-github-provider-enabled.png": {
-    "size": [1955, 1040],
+    "size": [
+      1955,
+      1040
+    ],
     "boxes": [
-      {"label": "Select the now-enabled GitHub provider", "rect": [975, 672, 1215, 911]}
+      {
+        "label": "Select the now-enabled GitHub provider",
+        "rect": [
+          975,
+          672,
+          1215,
+          911
+        ]
+      }
     ]
   },
   "21-add-github-account-before-token.png": {
-    "size": [1955, 1040],
+    "size": [
+      1955,
+      1040
+    ],
     "boxes": [
-      {"label": "GitHub account display name", "rect": [510, 381, 1448, 447]},
-      {"label": "PAT input, empty in the captured image", "rect": [510, 494, 1448, 558]},
-      {"label": "Repository-scoped URL", "rect": [510, 606, 1448, 673]},
-      {"label": "Add after completing the credential form", "rect": [1213, 705, 1314, 774]}
+      {
+        "label": "PAT input, empty in the captured image",
+        "rect": [
+          510,
+          494,
+          1448,
+          558
+        ]
+      }
     ]
   },
   "22-github-account-added-repository-scoped.png": {
-    "size": [1955, 1040],
+    "size": [
+      1955,
+      1040
+    ],
     "boxes": [
-      {"label": "Select the registered repository-scoped account", "rect": [740, 475, 1520, 553]},
-      {"label": "Connect the selected account", "rect": [725, 714, 873, 782]}
+      {
+        "label": "Connect the selected account",
+        "rect": [
+          725,
+          714,
+          873,
+          782
+        ]
+      }
     ]
   },
   "23-github-main-fabric-folder-before-sync.png": {
-    "size": [1955, 1040],
+    "size": [
+      1955,
+      1040
+    ],
     "boxes": [
-      {"label": "Verify the lab repository URL", "rect": [725, 637, 1667, 713]},
-      {"label": "Select main branch", "rect": [725, 793, 1368, 858]},
-      {"label": "Set the visible fabric folder input", "rect": [725, 899, 1368, 984]}
+      {
+        "label": "Select main branch",
+        "rect": [
+          725,
+          793,
+          1368,
+          858
+        ]
+      },
+      {
+        "label": "Set the visible fabric folder input",
+        "rect": [
+          725,
+          899,
+          1368,
+          984
+        ]
+      }
     ]
   },
   "24-create-fabric-folder-initial-sync.png": {
-    "size": [1955, 1040],
+    "size": [
+      1955,
+      1040
+    ],
     "boxes": [
-      {"label": "Confirm the new fabric folder path", "rect": [508, 489, 700, 526]},
-      {"label": "Create and sync", "rect": [1094, 566, 1319, 632]}
+      {
+        "label": "Create and sync",
+        "rect": [
+          1094,
+          566,
+          1319,
+          632
+        ]
+      }
     ]
   },
   "25-workspace-synced-after-initial-git-export.png": {
-    "size": [1955, 1040],
+    "size": [
+      1955,
+      1040
+    ],
     "boxes": [
-      {"label": "Connected main/fabric path", "rect": [1081, 535, 1284, 579]},
-      {"label": "No remaining Workspace changes", "rect": [1200, 946, 1830, 997]},
-      {"label": "Initial synchronized branch and commit", "rect": [223, 996, 825, 1037]}
+      {
+        "label": "No remaining Workspace changes",
+        "rect": [
+          1200,
+          946,
+          1830,
+          997
+        ]
+      }
     ]
   },
   "26-github-initial-notebook-definition.png": {
-    "size": [1955, 1040],
-    "boxes": [
-      {"label": "Initial v1 code exported to Git", "rect": [180, 499, 1340, 678]}
-    ]
+    "size": [
+      1955,
+      1040
+    ],
+    "boxes": [],
+    "overview": true
   },
   "27-workspace-to-git-review-and-commit-v11.png": {
-    "size": [1955, 1040],
+    "size": [
+      1955,
+      1040
+    ],
     "boxes": [
-      {"label": "Select only the demo Notebook", "rect": [127, 366, 465, 415]},
-      {"label": "Review the v1 to v1.1 change", "rect": [645, 690, 1850, 764]},
-      {"label": "Commit the reviewed change", "rect": [1611, 926, 1782, 988]}
+      {
+        "label": "Commit the reviewed change",
+        "rect": [
+          1611,
+          926,
+          1782,
+          988
+        ]
+      }
     ]
   },
   "28-github-v2-commit-and-three-line-diff.png": {
-    "size": [1102, 1053],
+    "size": [
+      1102,
+      1053
+    ],
     "boxes": [
-      {"label": "Actual remote v2 commit", "rect": [20, 124, 229, 163]},
-      {"label": "Three changed lines for version, input and assertion", "rect": [397, 584, 1090, 757]}
+      {
+        "label": "Actual remote v2 commit",
+        "rect": [
+          20,
+          124,
+          229,
+          163
+        ]
+      }
     ]
   },
   "29-fabric-remote-update-required.png": {
-    "size": [1187, 1002],
+    "size": [
+      1187,
+      1002
+    ],
     "boxes": [
-      {"label": "Updates tab with one incoming change", "rect": [705, 378, 809, 426]},
-      {"label": "Review the incoming Notebook", "rect": [630, 530, 1121, 572]},
-      {"label": "Apply Update all", "rect": [625, 916, 743, 957]}
+      {
+        "label": "Apply Update all",
+        "rect": [
+          625,
+          916,
+          743,
+          957
+        ]
+      }
     ]
   },
   "30-fabric-review-git-to-workspace-v2.png": {
-    "size": [1187, 1002],
+    "size": [
+      1187,
+      1002
+    ],
     "boxes": [
-      {"label": "Remote v2 commit identifier", "rect": [962, 306, 1075, 340]},
-      {"label": "Review the three incoming v2 changes", "rect": [370, 584, 1126, 722]}
+      {
+        "label": "Remote v2 commit identifier",
+        "rect": [
+          962,
+          306,
+          1075,
+          340
+        ]
+      }
     ]
   },
   "31-workspace-synced-to-git-v2.png": {
-    "size": [1955, 1040],
+    "size": [
+      1955,
+      1040
+    ],
     "boxes": [
-      {"label": "Connected main/fabric path", "rect": [1081, 535, 1284, 579]},
-      {"label": "No remaining changes after Update", "rect": [1200, 946, 1830, 997]},
-      {"label": "Branch and synchronized v2 commit", "rect": [223, 996, 860, 1037]}
+      {
+        "label": "No remaining changes after Update",
+        "rect": [
+          1200,
+          946,
+          1830,
+          997
+        ]
+      }
     ]
   },
   "32-dev-notebook-v2-executed-output-70.png": {
-    "size": [1664, 1150],
+    "size": [
+      1664,
+      1150
+    ],
     "boxes": [
-      {"label": "Run all in Development", "rect": [351, 153, 536, 214]},
-      {"label": "Verify the v2 code and sum assertion", "rect": [443, 408, 1425, 576]},
-      {"label": "Actual output: v2, three rows, total 70", "rect": [347, 674, 927, 726]}
+      {
+        "label": "Run all in Development",
+        "rect": [
+          351,
+          153,
+          536,
+          214
+        ]
+      },
+      {
+        "label": "Actual output: v2, three rows, total 70",
+        "rect": [
+          347,
+          674,
+          927,
+          726
+        ]
+      }
     ]
   },
   "33-select-test-target-and-dev-v2-notebook.png": {
-    "size": [1664, 1150],
+    "size": [
+      1664,
+      1150
+    ],
     "boxes": [
-      {"label": "Target Test and source Development", "rect": [223, 293, 866, 357]},
-      {"label": "Select only the demo Notebook row", "rect": [183, 503, 614, 566]},
-      {"label": "Deploy exactly one selected item", "rect": [873, 294, 1039, 357]}
+      {
+        "label": "Select only the demo Notebook row",
+        "rect": [
+          183,
+          503,
+          614,
+          566
+        ]
+      },
+      {
+        "label": "Deploy exactly one selected item",
+        "rect": [
+          873,
+          294,
+          1039,
+          357
+        ]
+      }
     ]
   },
   "34-compare-development-v2-with-test-v1.png": {
-    "size": [1664, 1150],
-    "boxes": [
-      {"label": "Verify Test target and Development source", "rect": [545, 230, 1625, 290]},
-      {"label": "Review v1 to v2 changes before deployment", "rect": [635, 708, 1604, 953]}
-    ]
+    "size": [
+      1664,
+      1150
+    ],
+    "boxes": [],
+    "overview": true
   },
   "35-confirm-dev-to-test-v2-deployment.png": {
-    "size": [1664, 1150],
+    "size": [
+      1664,
+      1150
+    ],
     "boxes": [
-      {"label": "Confirm Development to Test direction", "rect": [387, 178, 1277, 251]},
-      {"label": "Confirm the one Notebook to deploy", "rect": [390, 365, 714, 418]},
-      {"label": "Record the Git commit and verified output", "rect": [391, 621, 1273, 718]},
-      {"label": "Continue-on-failure remains unchecked", "rect": [399, 920, 1000, 960]},
-      {"label": "Confirm Deploy", "rect": [626, 987, 830, 1052]}
+      {
+        "label": "Confirm Deploy",
+        "rect": [
+          626,
+          987,
+          830,
+          1052
+        ]
+      }
     ]
   },
   "36-test-notebook-v2-executed-output-70.png": {
-    "size": [1664, 1150],
+    "size": [
+      1664,
+      1150
+    ],
     "boxes": [
-      {"label": "Run all in Test", "rect": [351, 153, 536, 214]},
-      {"label": "Verify deployed v2 code", "rect": [443, 408, 1425, 576]},
-      {"label": "Actual Test output: v2, three rows, total 70", "rect": [347, 674, 927, 726]}
+      {
+        "label": "Run all in Test",
+        "rect": [
+          351,
+          153,
+          536,
+          214
+        ]
+      },
+      {
+        "label": "Actual Test output: v2, three rows, total 70",
+        "rect": [
+          347,
+          674,
+          927,
+          726
+        ]
+      }
     ]
   },
   "37-production-notebook-v2-executed-output-70.png": {
-    "size": [1505, 1157],
+    "size": [
+      1505,
+      1157
+    ],
     "boxes": [
-      {"label": "Run all in Production", "rect": [351, 153, 536, 214]},
-      {"label": "Verify deployed Production v2 code", "rect": [443, 407, 1418, 576]},
-      {"label": "Actual Production output: v2, three rows, total 70", "rect": [347, 681, 927, 734]}
+      {
+        "label": "Run all in Production",
+        "rect": [
+          351,
+          153,
+          536,
+          214
+        ]
+      },
+      {
+        "label": "Actual Production output: v2, three rows, total 70",
+        "rect": [
+          347,
+          681,
+          927,
+          734
+        ]
+      }
     ]
   },
   "38-v2-deployment-history-succeeded.png": {
-    "size": [1505, 1157],
+    "size": [
+      1505,
+      1157
+    ],
     "boxes": [
-      {"label": "Latest two v2 deployment destinations and times", "rect": [292, 376, 755, 537]},
-      {"label": "Inspect v2 deployment provenance notes", "rect": [1293, 382, 1328, 534]},
-      {"label": "Both v2 promotions succeeded", "rect": [1409, 375, 1459, 537]}
+      {
+        "label": "Both v2 promotions succeeded",
+        "rect": [
+          1409,
+          375,
+          1459,
+          537
+        ]
+      }
     ]
   }
 }

@@ -69,6 +69,31 @@ class ScreenshotAnnotationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "every original PNG"):
             annotate_screenshots.main()
 
+    def test_rejects_more_than_two_callouts(self) -> None:
+        box = self.specification["sample.png"]["boxes"][0]
+        self.specification["sample.png"]["boxes"] = [box, box, box]
+        self.write_manifest()
+        with self.assertRaisesRegex(ValueError, "at most 2"):
+            annotate_screenshots.main()
+
+    def test_empty_callouts_require_explicit_overview(self) -> None:
+        self.specification["sample.png"]["boxes"] = []
+        self.write_manifest()
+        with self.assertRaisesRegex(ValueError, "No callouts"):
+            annotate_screenshots.main()
+
+    def test_overview_preserves_every_pixel_without_callouts(self) -> None:
+        self.specification = {
+            "sample.png": {"size": [80, 60], "boxes": [], "overview": True}
+        }
+        self.write_manifest()
+        with redirect_stdout(StringIO()):
+            annotate_screenshots.main()
+        with Image.open(self.original) as original, Image.open(
+            self.output / "sample.png"
+        ) as annotated:
+            self.assertEqual(original.tobytes(), annotated.tobytes())
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -10,7 +10,8 @@ ORIGINALS = ROOT / "screenshots-originals"
 OUTPUT = ROOT / "screenshots"
 MANIFEST = Path(__file__).with_name("screenshot_annotations.json")
 COLOR = "#FF0000"
-STROKE_WIDTH = 5
+STROKE_WIDTH = 4
+MAX_CALLOUTS = 2
 
 
 def main() -> None:
@@ -28,8 +29,10 @@ def main() -> None:
                 raise ValueError(f"Original image dimensions changed: {filename}")
             annotated = original.copy()
         rectangles = specification["boxes"]
-        if not rectangles:
+        if not rectangles and specification.get("overview") is not True:
             raise ValueError(f"No callouts specified: {filename}")
+        if len(rectangles) > MAX_CALLOUTS:
+            raise ValueError(f"Too many callouts; use at most {MAX_CALLOUTS}: {filename}")
         draw = ImageDraw.Draw(annotated)
         for rectangle in rectangles:
             coordinates = rectangle["rect"]
@@ -50,7 +53,7 @@ def main() -> None:
             draw.rectangle((left, top, right, bottom), outline=COLOR, width=STROKE_WIDTH)
             count += 1
         annotated.save(OUTPUT / filename, format="PNG", optimize=True)
-    print(f"Annotated {len(annotations)} screenshots with {count} red callouts.")
+    print(f"Processed {len(annotations)} screenshots with {count} red callouts.")
 
 
 if __name__ == "__main__":
