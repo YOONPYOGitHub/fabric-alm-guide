@@ -2,10 +2,16 @@
   "workshopComplete": false,
   "approvalStatus": {
     "sourcePr": "https://github.com/YOONPYOGitHub/fabric-alm-lab/pull/1",
-    "humanReview": "pending",
-    "merged": false,
+    "humanReview": "conversation-authorized",
+    "merged": true,
     "productionReleaseApproved": false,
-    "productionDeployed": false
+    "productionDeployed": false,
+    "independentGitHubApproval": false,
+    "conversationAuthorization": {
+      "userReply": "그래 계속 진행해",
+      "scope": "main merge and Dev/Test v2 validation; Production excluded",
+      "recordUrl": "https://github.com/YOONPYOGitHub/fabric-alm-lab/pull/1#issuecomment-6269675248"
+    }
   },
   "deploymentRules": {
     "Test": {
@@ -14,13 +20,14 @@
       "lakehouseId": "24b6d3df-a2cc-429b-b6c4-04f78b37545d",
       "lakehouseName": "CI_CD_Demo",
       "workspaceId": "9c1f123f-6c38-4222-b761-1f94a8d9bc23",
-      "nextDeploymentEffectVerified": false
+      "nextDeploymentEffectVerified": true
     }
   },
   "git": {
     "directory": "/workshops/cicd/fabric",
-    "main": "4ea83edb06a7d2b381ab961a1a25fb8925db6ce4",
-    "feature": "09b03c28ab58e623e0f7ac1f185778ea3e5425dc"
+    "main": "0cf51fdfff638952d1b72685574fd369646694e2",
+    "feature": "09b03c28ab58e623e0f7ac1f185778ea3e5425dc",
+    "baseline": "4ea83edb06a7d2b381ab961a1a25fb8925db6ce4"
   },
   "offlineValidation": {
     "sourceUnitTests": 9,
@@ -90,12 +97,54 @@
         "release": "v1"
       },
       "executionSnapshotUrl": "https://app.fabric.microsoft.com/groups/9c1f123f-6c38-4222-b761-1f94a8d9bc23/synapsenotebooks/a828a86d-355e-4c24-87f2-3a9ca8c6e0b7/snapshots/163383c0-720c-4aea-86fd-a5a78a28ddf0?experience=power-bi"
+    },
+    {
+      "stage": "development",
+      "jobId": "b1472af6-ad22-468c-8bd4-46c919b4d8e2",
+      "status": "Completed",
+      "metrics": {
+        "verifiedAtUtc": "2026-10-19T14:35:45.503452+00:00",
+        "workspaceName": "FabricLab-Dev",
+        "workspaceId": "4dc4b490-8851-4d99-a75b-1e9067dc78e5",
+        "lakehouseName": "CI_CD_Demo",
+        "lakehouseId": "3bacc56f-a551-402d-a0b8-7f0da7e0af63",
+        "deltaLocation": "abfss://4dc4b490-8851-4d99-a75b-1e9067dc78e5@onelake.dfs.fabric.microsoft.com/3bacc56f-a551-402d-a0b8-7f0da7e0af63/Tables/dbo/cicd_smoke",
+        "rows": 10,
+        "unique_ids": 10,
+        "sum_value": 90,
+        "min_id": 0,
+        "max_id": 9,
+        "release_versions": 1,
+        "release": "v2"
+      },
+      "executionSnapshotUrl": "https://app.fabric.microsoft.com/groups/4dc4b490-8851-4d99-a75b-1e9067dc78e5/synapsenotebooks/e5df67de-adf6-43f0-a1af-491c4b646556/snapshots/b1472af6-ad22-468c-8bd4-46c919b4d8e2?experience=power-bi"
+    },
+    {
+      "stage": "test",
+      "jobId": "06f00796-bb0a-4e93-b6c2-6a5cae0551f7",
+      "status": "Completed",
+      "metrics": {
+        "verifiedAtUtc": "2026-10-19T14:41:38.291764+00:00",
+        "workspaceName": "FabricLab-Test",
+        "workspaceId": "9c1f123f-6c38-4222-b761-1f94a8d9bc23",
+        "lakehouseName": "CI_CD_Demo",
+        "lakehouseId": "24b6d3df-a2cc-429b-b6c4-04f78b37545d",
+        "deltaLocation": "abfss://9c1f123f-6c38-4222-b761-1f94a8d9bc23@onelake.dfs.fabric.microsoft.com/24b6d3df-a2cc-429b-b6c4-04f78b37545d/Tables/dbo/cicd_smoke",
+        "rows": 10,
+        "unique_ids": 10,
+        "sum_value": 90,
+        "min_id": 0,
+        "max_id": 9,
+        "release_versions": 1,
+        "release": "v2"
+      },
+      "executionSnapshotUrl": "https://app.fabric.microsoft.com/groups/9c1f123f-6c38-4222-b761-1f94a8d9bc23/synapsenotebooks/a828a86d-355e-4c24-87f2-3a9ca8c6e0b7/snapshots/06f00796-bb0a-4e93-b6c2-6a5cae0551f7?experience=power-bi"
     }
   ],
   "production": {
     "workspaceId": "fbd6013c-889c-4d9e-83af-c1f4248be5a1",
     "items": [],
-    "checkedAtUtc": "2026-10-19T14:22:09.4684135Z"
+    "checkedAtUtc": "2026-10-19T14:43:37.3486847Z"
   },
   "pipeline": {
     "id": "faa1c755-7778-4a6f-9b7f-4e1bcc414350",
@@ -130,6 +179,28 @@
       }
     ],
     "operations": [
+      {
+        "id": "2f8a633c-853d-4b5b-bf59-fa618241c291",
+        "type": "Deploy",
+        "status": "Succeeded",
+        "lastUpdatedTime": "2026-10-19T14:39:43.69",
+        "executionStartTime": "2026-10-19T14:39:40.95",
+        "executionEndTime": "2026-10-19T14:39:43.69",
+        "sourceStageId": "d16decab-579b-4647-8f71-754b806461fd",
+        "targetStageId": "c563f05c-e04b-467f-b544-6a3a08710e95",
+        "note": {
+          "content": "Approved v2; source main merge 0cf51fdfff638952d1b72685574fd369646694e2, source PR #1 conversational authorization recorded. Dev actual Delta: ten exact v2 rows, unique IDs 0-9, sum 90, local Lakehouse verified. Update CI_CD_Smoke only; Lakehouse already paired. Apply saved Test-local default Lakehouse rule; verify actual Test metadata and data after deployment. Production remains separately gated."
+        },
+        "preDeploymentDiffInformation": {
+          "newItemsCount": 0,
+          "differentItemsCount": 1,
+          "noDifferenceItemsCount": 0
+        },
+        "performedBy": {
+          "id": "b15cdb08-0c6d-4829-a207-30c3cfed43e9",
+          "type": "User"
+        }
+      },
       {
         "id": "1fa47585-6501-4c8d-b628-4f46c582b056",
         "type": "Deploy",
@@ -173,5 +244,13 @@
     "lakehouseId": "24b6d3df-a2cc-429b-b6c4-04f78b37545d",
     "httpStatus": 200,
     "pathState": "Present"
+  },
+  "sourceMerge": {
+    "base": "4ea83edb06a7d2b381ab961a1a25fb8925db6ce4",
+    "head": "09b03c28ab58e623e0f7ac1f185778ea3e5425dc",
+    "mergeCommit": "0cf51fdfff638952d1b72685574fd369646694e2",
+    "merged": true,
+    "mergedAt": "2026-10-19T14:31:22Z",
+    "number": 1
   }
 }

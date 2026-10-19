@@ -4,9 +4,10 @@
 필수 관리자 설정부터 feature branch, PR 검토, Dev 동기화, Test 검증과 Production 승인까지
 하나의 흐름으로 설명합니다. 메뉴 이름은 실제 영문 UI 기준입니다.
 
-> **재작성판 검토 중:** Dev v1, Feature v2, Dev → Test v1 배포와 실제 데이터 검증까지
-> 수행했습니다. [소스 PR](https://github.com/YOONPYOGitHub/fabric-alm-lab/pull/1)은 사람의 검토
-> 대기 상태이며, main 병합·Dev/Test v2·Production 승격은 아직 수행하지 않았습니다.
+> **재작성판 검토 중:** 사용자의 대화상 진행 승인 후
+> [소스 PR](https://github.com/YOONPYOGitHub/fabric-alm-lab/pull/1)을 병합했고,
+> Dev/Test v2의 실제 10행·합계 90까지 검증했습니다. 별도 독립 GitHub 리뷰어 승인이
+> 있었던 것으로 표시하지 않습니다. **Production 승격은 별도 릴리스 승인 대기**이므로
 > 이 가이드를 완료된 Production 실행 보고서로 읽지 않습니다.
 
 ## 1. 먼저 구분할 것
@@ -96,8 +97,9 @@ Capacity가 자동 중지되지 않습니다.
 | Dev → Test v1 초기 배포 | UI에서 Lakehouse + Notebook 두 정의 배포, Succeeded |
 | Test v1 | 배포 후 테이블 경로 부재 → Notebook 실행 후 생성·10행·합계 45 |
 | 오프라인 소스 검사 | unittest 9개, Ruff, Pyright 통과 |
-| PR 검토·main 병합 | **검토 대기**, 자동 승인·자기 승인을 기록하지 않음 |
-| Dev/Test v2·Production | **미실행**, Production Workspace는 아직 비어 있음 |
+| PR·main 병합 | 사용자 대화상 승인 후 실제 UI 병합, merge `0cf51fd`; 독립 GitHub review와 구분 |
+| Dev/Test v2 | 두 환경 모두 실제 Delta 10행·합계 90, Test 배포 규칙·물리 바인딩 확인 |
+| Production | **별도 승인 대기·미실행**, Workspace는 아직 비어 있음 |
 
 [기계 판독 가능한 검증 기록](evidence/workshop-verification.json)과
 [실행 스냅샷 링크](05-execution-record.md)에서 근거를 확인할 수 있습니다.

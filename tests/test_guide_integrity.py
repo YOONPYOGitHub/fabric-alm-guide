@@ -85,14 +85,28 @@ class GuideIntegrityTests(unittest.TestCase):
             (ROOT / "evidence/workshop-verification.json").read_text()
         )
         self.assertFalse(evidence["workshopComplete"])
-        self.assertEqual(evidence["approvalStatus"]["humanReview"], "pending")
-        self.assertFalse(evidence["approvalStatus"]["merged"])
+        self.assertEqual(
+            evidence["approvalStatus"]["humanReview"], "conversation-authorized"
+        )
+        self.assertTrue(evidence["approvalStatus"]["merged"])
+        self.assertFalse(evidence["approvalStatus"]["independentGitHubApproval"])
+        self.assertEqual(
+            evidence["sourceMerge"]["mergeCommit"], evidence["git"]["main"]
+        )
+        self.assertEqual(evidence["sourceMerge"]["head"], evidence["git"]["feature"])
+        self.assertEqual(evidence["sourceMerge"]["base"], evidence["git"]["baseline"])
         self.assertFalse(evidence["approvalStatus"]["productionReleaseApproved"])
         self.assertFalse(evidence["approvalStatus"]["productionDeployed"])
         self.assertEqual(evidence["production"]["items"], [])
         self.assertEqual(
             {(run["stage"], run["metrics"]["release"]) for run in evidence["runs"]},
-            {("development", "v1"), ("feature", "v2"), ("test", "v1")},
+            {
+                ("development", "v1"),
+                ("feature", "v2"),
+                ("test", "v1"),
+                ("development", "v2"),
+                ("test", "v2"),
+            },
         )
         self.assertEqual(
             len({run["metrics"]["workspaceId"] for run in evidence["runs"]}), 3
@@ -124,12 +138,22 @@ class GuideIntegrityTests(unittest.TestCase):
         self.assertEqual(evidence["testTableBefore"]["errorCode"], "PathNotFound")
         self.assertEqual(evidence["testTableAfter"]["httpStatus"], 200)
         operations = evidence["pipeline"]["operations"]
-        self.assertEqual(len(operations), 1)
-        self.assertEqual(operations[0]["status"], "Succeeded")
+        self.assertEqual(len(operations), 2)
+        self.assertTrue(all(op["status"] == "Succeeded" for op in operations))
         self.assertEqual(
-            operations[0]["preDeploymentDiffInformation"]["newItemsCount"], 2
+            {op["preDeploymentDiffInformation"]["newItemsCount"] for op in operations},
+            {0, 2},
         )
-        self.assertIn("Baseline v1", operations[0]["note"]["content"])
+        release = next(
+            op for op in operations if op["note"]["content"].startswith("Approved v2;")
+        )
+        self.assertEqual(
+            release["preDeploymentDiffInformation"]["differentItemsCount"], 1
+        )
+        self.assertIn(evidence["git"]["main"], release["note"]["content"])
+        self.assertTrue(
+            evidence["deploymentRules"]["Test"]["nextDeploymentEffectVerified"]
+        )
 
 
 if __name__ == "__main__":

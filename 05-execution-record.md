@@ -23,12 +23,13 @@
 | Feature v2 변경 | 완료 | 로컬 Git에서 두 상수 수정·오프라인 검사·Commit·Push |
 | Feature v2 Update | 완료 | 실제 Fabric UI Update all, Git SHA·코드·물리 바인딩 대조 |
 | Feature v2 데이터 | 완료 | API job + 스냅샷; 실제 10행·모든 v2 값·합계 90 |
-| 소스 PR | **검토 대기** | 실제 GitHub UI 생성; 사람 응답 없이 merge하지 않음 |
+| 소스 PR·main 병합 | 완료 | 실제 사용자 대화상 진행 승인 후 UI Confirm merge; 독립 GitHub 리뷰어 승인으로 표시하지 않음 |
 | Pipeline/단계 할당 | 완료 | UI 생성·Dev/Test/Prod UI 할당; API stages·Pipeline Admin 대조 |
 | Dev → Test 초기 배포 | 완료 | 실제 UI, **v1** 두 정의, 오류 시 계속 옵션 해제, note 검증 |
 | Test v1 바인딩·데이터 | 완료 | 코드 AST·Test 물리 ID 확인, API job + 스냅샷; 10행·합계 45 |
-| Test 기본 Lakehouse 규칙 | 저장·재조회 확인 | Test 자체 Lakehouse 지정, 페이지 reload 후 저장 값 대조; 다음 배포의 적용 효과는 미검증 |
-| main 병합·Dev/Test v2 | **미실행** | 실제 PR 검토 승인 필요 |
+| Test 기본 Lakehouse 규칙 | 저장·배포 검증 | 저장·reload 확인 후 실제 v2 배포의 Test metadata·코드·데이터 검증 |
+| Dev v2 Update·실행 | 완료 | UI Update, main SHA·AST·Dev 바인딩 확인 후 API 실행; 실제 10행·합계 90 |
+| Dev → Test v2 배포·실행 | 완료 | UI Compare·한 아이템 배포, 규칙 적용·실제 10행·합계 90 검증 |
 | Production 정의·데이터 | **미실행** | Workspace 할당만 완료, 대상은 아직 비어 있음 |
 | Actions/OIDC·Power BI·RLS | 미구성 | 확장 트랙 |
 
@@ -41,11 +42,14 @@
 | 새 Workspace Lakehouse 바인딩 Commit / main v1 | `4ea83edb06a7d2b381ab961a1a25fb8925db6ce4` |
 | Feature v2 코드·문서·테스트 | `53f7908` |
 | Feature HEAD, cache 제외 포함 | `09b03c28ab58e623e0f7ac1f185778ea3e5425dc` |
-| 실제 PR | [YOONPYOGitHub/fabric-alm-lab#1](https://github.com/YOONPYOGitHub/fabric-alm-lab/pull/1), Open |
+| 승인 후 실제 main merge | `0cf51fdfff638952d1b72685574fd369646694e2` |
+| 실제 PR | [YOONPYOGitHub/fabric-alm-lab#1](https://github.com/YOONPYOGitHub/fabric-alm-lab/pull/1), Merged |
 
 오프라인 unittest 9개·Ruff·Pyright가 통과했습니다. GitHub Actions나 필수 status check를
 구성한 것은 아닙니다. 필수 branch review를 강제하지 않는 Private 저장소의 제약을 공개하고,
-검토자가 없는 상태를 가상의 승인으로 대체하지 않았습니다.
+사용자가 대화에서 남긴 **“그래 계속 진행해”**라는 main 병합·Dev/Test v2 진행 승인을
+[실제 PR 댓글](https://github.com/YOONPYOGitHub/fabric-alm-lab/pull/1#issuecomment-6269675248)에 기록했습니다.
+독립 GitHub 리뷰어의 APPROVED review를 생성하거나 그런 승인이 있었다고 주장하지 않았습니다.
 
 ## 실제 환경 ID
 
@@ -66,6 +70,8 @@
 | Dev v1 | [c244d130-949a-40e3-ae70-5db82ce50d5a](https://app.fabric.microsoft.com/groups/4dc4b490-8851-4d99-a75b-1e9067dc78e5/synapsenotebooks/e5df67de-adf6-43f0-a1af-491c4b646556/snapshots/c244d130-949a-40e3-ae70-5db82ce50d5a) | 10행·합계 45 |
 | Feature v2 | [cc23f044-b7a6-4dae-b591-e5e9f9fec2ce](https://app.fabric.microsoft.com/groups/91e5839f-c981-47ea-9500-ef557b1634c0/synapsenotebooks/72ea01ad-7cb4-4fe3-b89c-dfb6a51a5616/snapshots/cc23f044-b7a6-4dae-b591-e5e9f9fec2ce) | 10행·합계 90 |
 | Test v1 | [163383c0-720c-4aea-86fd-a5a78a28ddf0](https://app.fabric.microsoft.com/groups/9c1f123f-6c38-4222-b761-1f94a8d9bc23/synapsenotebooks/a828a86d-355e-4c24-87f2-3a9ca8c6e0b7/snapshots/163383c0-720c-4aea-86fd-a5a78a28ddf0) | 10행·합계 45 |
+| Dev v2 | [b1472af6-ad22-468c-8bd4-46c919b4d8e2](https://app.fabric.microsoft.com/groups/4dc4b490-8851-4d99-a75b-1e9067dc78e5/synapsenotebooks/e5df67de-adf6-43f0-a1af-491c4b646556/snapshots/b1472af6-ad22-468c-8bd4-46c919b4d8e2) | 10행·합계 90 |
+| Test v2 | [06f00796-bb0a-4e93-b6c2-6a5cae0551f7](https://app.fabric.microsoft.com/groups/9c1f123f-6c38-4222-b761-1f94a8d9bc23/synapsenotebooks/a828a86d-355e-4c24-87f2-3a9ca8c6e0b7/snapshots/06f00796-bb0a-4e93-b6c2-6a5cae0551f7) | 10행·합계 90 |
 
 각 Notebook은 `spark.table`로 읽은 모든 행과 aggregate를 검증한 뒤 환경 ID·UTC 시각·실제
 Delta 위치를 반환했습니다. 해당 결과를 API에서도 대조했습니다. 단순 Completed·배포 배지·
@@ -81,17 +87,19 @@ Delta 위치를 반환했습니다. 해당 결과를 API에서도 대조했습�
 - schema-enabled Tables List API의 미지원 오류를 빈 목록으로 취급하지 않았습니다.
 - 이후 Test Notebook의 Default lakehouse 규칙을 UI에서 Test 자체 Lakehouse로 저장하고
   페이지를 reload해 같은 ID·이름·Workspace ID와 미수정 상태를 확인했습니다.
-  다음 배포는 아직 하지 않았으므로 이 규칙을 적용한 재배포·실행 성공을 주장하지 않습니다.
+- 사용자 승인 후 main `0cf51fd`를 Dev에 UI Update하고 실제 v2 데이터를 검증했습니다.
+- Development → Test v2: `2f8a633c-853d-4b5b-bf59-fa618241c291`, **Succeeded**.
+  새 아이템 0·변경 1·실제 merge SHA와 승인 범위가 들어간 note를 대조했습니다.
+- 이 배포 후 Test 전체 코드 AST와 Test 자체 Lakehouse 바인딩을 확인하고 실제 10행·합계 90을
+  검증했습니다. 따라서 Test 규칙의 저장뿐 아니라 실제 다음 배포의 적용 결과도 확인했습니다.
 
 ## 남은 승인과 정확한 재개 순서
 
-1. 사람이 소스 PR의 실제 diff와 Feature 결과를 검토하고 main 병합을 승인합니다.
-2. 승인한 HEAD가 바뀌지 않았는지 확인하고 merge합니다.
-3. Dev Update → 코드·바인딩 확인 → 실제 v2 합계 90을 검증합니다.
-4. Dev → Test v2 배포 → 실제 Test v2 합계 90을 검증합니다.
-5. 사람이 Production 대상·변경·비용과 Test 결과를 검토해 릴리스를 승인합니다.
-6. Test → Production 배포·바인딩·실제 v2 데이터를 검증하고 누락된 실제 캡처를 추가합니다.
-7. 재작성판 검증을 마친 뒤 가이드 main에 반영합니다.
+1. 사람이 Production 대상·변경·비용과 Test v2의 실제 10행·합계 90을 검토해 릴리스를 승인합니다.
+   승격 승인을 요청했지만 현재 응답이 없어 Production은 비어 있는 상태로 보존했습니다.
+2. Test → Production 배포·바인딩·실제 v2 데이터를 검증하고 실제 캡처를 추가합니다.
+3. 재작성판 최종 검증을 마친 뒤 가이드 main에 반영합니다.
 
-현재는 검토용 재작성 branch를 사용하며 완료된 Production 실습으로 게시하지 않습니다.
+현재는 [검토용 가이드 PR](https://github.com/YOONPYOGitHub/fabric-alm-guide/pull/1)을 사용하며
+완료된 Production 실습으로 게시하지 않습니다.
 Capacity와 Workspace는 중지·삭제하지 않았으므로 비용이 계속 발생할 수 있습니다.

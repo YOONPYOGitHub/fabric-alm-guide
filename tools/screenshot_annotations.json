@@ -727,5 +727,140 @@
     "boxes": [],
     "overview": true,
     "originalSha256": "f58f2af83f8079c9e9e8eca6ef5afee52cb317a9c39f3737711b2860e5401dc8"
+  },
+  "w45-approved-pr-ready-to-merge.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Merge pull request after conversational authorization",
+        "rect": [
+          584,
+          775,
+          813,
+          834
+        ]
+      }
+    ],
+    "originalSha256": "beb83bc2bdae74f4240853cf3df99fb07739106ea7233f13f988c1107fb6aa65"
+  },
+  "w46-confirm-approved-main-merge.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Confirm the authorized main merge",
+        "rect": [
+          584,
+          1477,
+          777,
+          1536
+        ]
+      }
+    ],
+    "originalSha256": "1ef5a80a4cdc55c34dad0621800c7c37b19a9565e1574e9c80cf5dcca009fd45"
+  },
+  "w47-pr-merged-with-conversation-authorization.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "5c947e44d2b0b1e02ed240a9cbc8eaf8cd63d2486e98d00fac5dc6236cd0fc9a"
+  },
+  "w48-dev-update-approved-main-v2.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Update Dev from the approved main commit",
+        "rect": [
+          1973,
+          1495,
+          2148,
+          1554
+        ]
+      }
+    ],
+    "originalSha256": "ec5b1ba22f52f612df922f42b9c931d623947286ce1a4a9c6da32787a0c9ff13"
+  },
+  "w49-dev-v2-verified-output.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "da68d4a125f981bdb9392b8f8fe6cf2ee7de213194b86ca15d9e4213e838599b"
+  },
+  "w50-select-test-v2-notebook-only.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Deploy the changed Notebook to Test",
+        "rect": [
+          797,
+          246,
+          944,
+          305
+        ]
+      }
+    ],
+    "originalSha256": "a281c664f48101363b387040358507cd140f066ecdd90ac9b64334b451d7933a"
+  },
+  "w51-compare-test-v1-with-dev-v2.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "909d14275cc85d56969a91cfbecac0b2cd52d24c1d0bfa381d5427bf4a223e56"
+  },
+  "w52-confirm-dev-to-test-approved-v2.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Confirm approved v2 from Development to Test",
+        "rect": [
+          1226,
+          1155,
+          1403,
+          1214
+        ]
+      }
+    ],
+    "originalSha256": "f4373273cbcd396cc50d1d34eb8b3b0909ab7bcdf422abfba293297ee6241918"
+  },
+  "w53-test-v2-verified-output.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "4b153270ab66f31cb3ca908d86dcd9379b2cffc98c99274968723b949d61320c"
+  },
+  "w54-test-v1-v2-deployment-history.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "03239fbf6e694d59590153b5befad0c41a493145dfa9c444d6d47cc6377898d9"
   }
 }

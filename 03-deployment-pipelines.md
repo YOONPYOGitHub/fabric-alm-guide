@@ -3,8 +3,9 @@
 [처음으로](README.md) · [이전: Git과 PR](02-git-integration.md) · [다음: 검증·복구](04-validation-and-recovery.md)
 
 **목표:** 정의 배포, 환경 바인딩, 데이터 실행, 사람의 승인을 분리합니다.
-현재 실제 배포·검증한 것은 **Dev v1 → Test v1 초기 배포**입니다. PR 검토를 기다리는 동안
-배포 메커니즘을 확인한 준비 단계이며, 아직 v2 릴리스를 완료한 것이 아닙니다.
+실제로 **Dev v1 → Test v1 초기 배포**와, 이후 사용자의 승인·PR 병합을 거친
+**Dev v2 → Test v2 배포·데이터 검증**을 수행했습니다. Production 릴리스는 아직 별도
+승인 대기입니다.
 
 ## 4-1. 새 Deployment pipeline 생성
 
@@ -123,18 +124,45 @@ Pipeline의 의존성 auto-binding으로 확인했습니다. 두 기능을 같�
 규칙은 auto-binding보다 우선합니다. Source와 같은 Lakehouse를 유지하는 옵션을 고르면
 다른 환경을 참조할 수 있습니다. 이 실습의 쓰기 전 guard는 그런 실행을 거부합니다.
 규칙을 저장한 것과 그 규칙이 적용된 **다음 배포·실행 검증**은 구분합니다.
-규칙 설정의 실제 저장 여부·검증 범위는 [실행 기록](05-execution-record.md)을 확인합니다.
+이번에는 Test 규칙을 저장·페이지 reload로 재확인한 뒤, 아래 실제 v2 배포에서 코드·물리
+바인딩·실제 데이터를 검증했습니다. [실행 기록](05-execution-record.md)에서 근거를 확인합니다.
 
-## 4-7. PR 승인 후 Dev v2 → Test v2 — 아직 미실행
+## 4-7. 사용자 승인·PR 병합 후 Dev v2 → Test v2 — 실제 수행
 
-아래는 실제 PR 검토·병합과 [Dev v2 Update/실행](02-git-integration.md)을 마친 뒤 진행합니다.
+실제 사용자 승인·PR 병합과 [Dev v2 Update/실행](02-git-integration.md)을 마친 뒤 진행했습니다.
 
 1. Dev가 승인된 main과 같고 실제 v2 결과가 10행·합계 90인지 확인합니다.
-2. Test 대상, Development 원본으로 변경을 비교합니다.
-3. Notebook의 v1 → v2 두 상수와 의도된 metadata 변경을 확인합니다.
-4. 필요한 Lakehouse 의존성·대상 규칙을 확인하고 배포합니다.
-5. 실제 merge SHA와 검증 근거를 note에 남깁니다.
-6. Test 코드·바인딩을 확인하고 실행해 실제 v2 10행·합계 90을 검증합니다.
+2. Test 대상, Development 원본을 확인합니다. Lakehouse는 이미 pairing되어 있고 변경되지
+   않았으므로 이번에는 바뀐 Notebook 하나를 선택합니다.
+
+![Test v2 업데이트에서는 바뀐 Notebook 하나 선택](screenshots/w50-select-test-v2-notebook-only.png)
+
+3. **Compare**를 열어 **To be modified [Test]**와 **To be deployed [Development]**를
+   대조합니다. 실제 코드 diff는 `RELEASE`와 `MULTIPLIER`의 -2/+2였습니다.
+   Compare의 배포 예상 정의와 실제 실행 환경의 물리 metadata는 구분하고, 배포 후에도
+   실제 정의를 내보내 확인합니다.
+
+![실제 Test v1과 배포할 Dev v2의 두 상수 비교](screenshots/w51-compare-test-v1-with-dev-v2.png)
+
+4. Test의 저장된 기본 Lakehouse 규칙이 Test 자체를 가리키는지 확인합니다.
+5. **Deploy**를 눌러 Different (1), Notebook 이름과 방향을 확인합니다.
+6. 오류 시 계속 옵션을 해제하고 실제 merge SHA `0cf51fd`와 Dev 검증 근거를 note에 남긴 뒤
+   최종 **Deploy**를 선택합니다.
+
+![승인된 v2의 실제 Development → Test 확인과 note](screenshots/w52-confirm-dev-to-test-approved-v2.png)
+
+7. 실제 배포 `2f8a633c-853d-4b5b-bf59-fa618241c291`가 Succeeded임을 확인합니다.
+   새 아이템 0, 변경 1, 실제 방향·note도 API로 대조했습니다.
+8. Test의 전체 코드 AST가 merge Commit의 v2와 같은지, 물리 기본 Lakehouse가 Test인지
+   확인한 후 Notebook을 실행합니다.
+
+![실제 Test v2의 10행·합계 90과 Test 자체 Delta 위치](screenshots/w53-test-v2-verified-output.png)
+
+9. 실제 10행·고유 ID 0–9·모든 v2 행 값·합계 90을 확인합니다.
+   v1에서 사용하던 같은 Test 테이블이 업데이트되었고 20행으로 중복 적재되지 않았습니다.
+10. Pipeline의 **Deployment history**에서 v1 초기 배포와 v2 업데이트를 구분합니다.
+
+![초기 두 아이템 배포와 이후 한 아이템 v2 업데이트의 실제 이력](screenshots/w54-test-v1-v2-deployment-history.png)
 
 기존 Test v1 합계 45를 v2 검증으로 재사용하지 않습니다. Git Commit이나 Definition 배포만으로
 기존 Test 데이터가 v2로 바뀌지 않습니다.
