@@ -184,6 +184,11 @@ GitHub Checks는 구성하지 않았습니다. 오프라인 검사를 GitHub 필
 
 ### 이번 실습의 승인과 실제 병합
 
+**실행 순서 체크포인트:** PR을 만든 직후에는 main이 아직 v1입니다. 실제 순서대로
+재현하려면 여기서 [Pipeline의 4-1~4-6 v1 초기 준비](03-deployment-pipelines.md#baseline-preparation)를
+마친 뒤 이 승인·병합 절로 돌아옵니다. 이미 main을 v2로 업데이트했다면 v1 절은 과거 실행
+기록으로 읽으며, v1을 재현하려고 임의로 코드를 되돌리지 않습니다.
+
 Feature의 실제 10행·합계 90과 PR을 제시한 뒤 사용자에게 main 병합과 Dev/Test v2 검증
 진행을 요청했고, 사용자가 대화에서 **“그래 계속 진행해”**라고 승인했습니다.
 이것은 사용자의 진행 승인이지 별도의 독립 GitHub 리뷰어가 남긴 APPROVED review가

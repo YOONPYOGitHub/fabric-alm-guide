@@ -4,10 +4,15 @@
 
 **목표:** 정의 배포, 환경 바인딩, 데이터 실행, 사람의 승인을 분리합니다.
 실제로 **Dev v1 → Test v1 초기 배포**와, 이후 사용자의 승인·PR 병합을 거친
-**Dev v2 → Test v2 배포·데이터 검증**을 수행했습니다. Production 릴리스는 아직 별도
-승인 대기입니다.
+**Dev v2 → Test v2 배포·데이터 검증**을 수행했습니다. 이어서 명시적 별도 릴리스 승인을
+받고 **Test v2 → Production 배포·실제 데이터 검증**까지 완료했습니다.
+
+<a id="baseline-preparation"></a>
 
 ## 4-1. 새 Deployment pipeline 생성
+
+**실행 순서:** 이 v1 초기 준비는 Git 장의 PR 생성 후, main 병합 전입니다.
+현재 Dev가 이미 v2라면 아래 v1 결과를 현재 기대 값으로 사용하지 않습니다.
 
 **경로:** Dev Workspace 상단 **Create deployment pipeline** 또는 좌측 **Deployment pipelines**.
 
@@ -127,13 +132,16 @@ Pipeline의 의존성 auto-binding으로 확인했습니다. 두 기능을 같�
 이번에는 Test 규칙을 저장·페이지 reload로 재확인한 뒤, 아래 실제 v2 배포에서 코드·물리
 바인딩·실제 데이터를 검증했습니다. [실행 기록](05-execution-record.md)에서 근거를 확인합니다.
 
+<a id="release-v2"></a>
+
 ## 4-7. 사용자 승인·PR 병합 후 Dev v2 → Test v2 — 실제 수행
 
 실제 사용자 승인·PR 병합과 [Dev v2 Update/실행](02-git-integration.md)을 마친 뒤 진행했습니다.
 
 1. Dev가 승인된 main과 같고 실제 v2 결과가 10행·합계 90인지 확인합니다.
 2. Test 대상, Development 원본을 확인합니다. Lakehouse는 이미 pairing되어 있고 변경되지
-   않았으므로 이번에는 바뀐 Notebook 하나를 선택합니다.
+   않았으므로 이번에는 바뀐 Notebook 하나를 선택합니다. v1 초기 배포를 생략해 Test가
+   아직 비어 있는 환경이라면 첫 배포에 Lakehouse와 Notebook 두 정의가 모두 필요합니다.
 
 ![Test v2 업데이트에서는 바뀐 Notebook 하나 선택](screenshots/w50-select-test-v2-notebook-only.png)
 
@@ -167,20 +175,65 @@ Pipeline의 의존성 auto-binding으로 확인했습니다. 두 기능을 같�
 기존 Test v1 합계 45를 v2 검증으로 재사용하지 않습니다. Git Commit이나 Definition 배포만으로
 기존 Test 데이터가 v2로 바뀌지 않습니다.
 
-## 4-8. Test 검증 후 승인 → Production — 아직 미실행
+## 4-8. Test 검증 후 별도 승인 → Production — 실제 수행
 
-**현재 Production은 단계에 연결만 되어 있고 아이템·테이블은 생성하지 않았습니다.**
-아래 구간의 성공 화면이나 결과를 합성하지 않았습니다.
+### 대상·변경·비용을 제시하고 승인받기
+
+Test의 v2 결과를 확인한 뒤 Production 대상, 두 아이템 정의와 합성 데이터 생성,
+기존 F16의 CU·스토리지 비용을 제시했습니다. 사용자가 다음 범위를 명시적으로 승인한 뒤
+진행했습니다.
+
+> FabricLab-Prod로 Test v2를 배포하고, Notebook 실행과 실제 데이터 10행·합계 90 검증까지
+> 승인해. 기존 F16의 CU·스토리지 비용도 동의해.
+
+이것은 이번 실행의 실제 승인 기록입니다. 특정 문구를 그대로 입력해야 하는 암호가 아니며,
+다른 환경에서는 프로젝트 운영 정책에 따라 대상·버전·변경·비용·실행 범위가 명확한 승인
+기록을 남깁니다. **Fabric 네이티브 승인 Workflow나 독립 GitHub review를 구성한 것은 아닙니다.**
 
 1. 사람이 PR/merge SHA, Test v2 실제 결과, 대상·변경·비용을 검토하고 릴리스를 승인합니다.
 2. **대상 Production**, **Deploy from = Test**를 확인합니다.
 3. 첫 배포라면 Lakehouse와 Notebook을 함께 선택합니다.
+
+![명시적 승인 후 Production 대상·Test 원본·두 정의 선택](screenshots/w55-select-production-target-and-two-definitions.png)
+
 4. 방향·아이템·실제 승인된 SHA·검증 note를 확인하고 배포합니다.
+   오류 시 계속 옵션은 해제합니다. 이번 note에는 승인 UTC 시각, Test 검증 job,
+   main `0cf51fd`, CU·스토리지 비용 동의와 코드·바인딩 확인 후 실행 조건을 기록했습니다.
+
+![실제 Test → Production 배포 확인과 별도 승인 근거](screenshots/w56-confirm-approved-test-to-production-v2.png)
+
+**실제 결과:** 배포 `85eb6998-4f08-44e3-864e-38b8e25a4748`가 Succeeded였습니다.
+Test → Production 방향, 새 정의 2개와 note를 API로도 대조했습니다.
+
+### 실행 전에 Production 자체 바인딩과 빈 데이터 확인
+
 5. Production에 생긴 실제 Lakehouse ID와 Notebook의 물리 바인딩을 확인합니다.
-6. 필요하면 Production에 그 Lakehouse를 대상으로 하는 규칙을 구성합니다.
+   전체 코드 AST가 승인된 main v2와 같고 세 코드 셀이 보존됐는지 대조합니다.
+   이번에는 auto-binding이 Production 자체 Lakehouse로 올바르게 해결되어 별도의
+   Production override 규칙을 추가하지 않았습니다. Test 규칙을 Production 규칙으로 간주하지 않습니다.
+6. Notebook 실행 전 **Tables → dbo**를 펼칩니다.
+
+![정의 배포 후, 아직 Notebook을 실행하지 않아 비어 있는 Production Lakehouse](screenshots/w57-production-lakehouse-empty-before-run.png)
+
+**실제 확인:** Production의 `Tables/dbo/cicd_smoke` 경로는 404 **PathNotFound**였습니다.
+기본 Lakehouse와 Workspace ID가 Production 자체인 것을 내보낸 정의로 확인하기 전에는
+Notebook을 실행하지 않았습니다.
+
+### 실제 Production 실행과 데이터 검증
+
 7. 쓰기 전 guard를 통과한 뒤 Production Notebook을 실행합니다.
 8. **실제 Production 데이터**의 10행·유일한 ID·모든 v2 값·합계 90과 물리 위치를 확인합니다.
+
+![Production 실제 실행의 10행·합계 90과 Prod 자체 Delta 위치](screenshots/w58-production-v2-verified-output.png)
+
+**실제 수행:** 명시적 승인 범위 안에서 Job Scheduler API로 실행하고 실제 스냅샷을 촬영했습니다.
+Job `f7da925c-ed8a-4b33-ba6b-679ba678fdef`는 Completed였고, 실제 모든 행과 합계·바인딩을
+검증한 JSON을 API에서도 대조했습니다. 실행 후에만 해당 OneLake 경로가 200으로 존재했습니다.
+
 9. 배포 이력과 데이터 검증 결과를 함께 기록합니다.
 
-Dev의 데이터·Feature의 성공·Test의 v1 결과는 Production 검증을 대신하지 않습니다.
-승인이 없거나 대상 바인딩이 불명확하면 이 단계에서 멈춥니다.
+![Test 초기 배포·Test v2 업데이트·Production 첫 배포의 실제 성공 이력](screenshots/w59-final-test-and-production-deployment-history.png)
+
+최종 검증에서는 Dev·Feature·Test·Production 네 Notebook을 다시 내보내 공통 v2 코드 AST,
+각각의 물리 기본 Lakehouse ID와 Workspace ID도 대조했습니다. Dev/Feature의 성공이나
+Test 결과로 Production 검증을 대신하지 않았습니다.

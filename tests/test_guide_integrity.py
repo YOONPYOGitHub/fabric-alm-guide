@@ -2,6 +2,7 @@ import hashlib
 import json
 import re
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
@@ -80,11 +81,13 @@ class GuideIntegrityTests(unittest.TestCase):
                     )
                     self.assertIsNone(difference.getbbox())
 
-    def test_record_distinguishes_verified_data_from_pending_approvals(self) -> None:
+    def test_completed_record_requires_real_approvals_and_stage_local_data(
+        self,
+    ) -> None:
         evidence = json.loads(
             (ROOT / "evidence/workshop-verification.json").read_text()
         )
-        self.assertFalse(evidence["workshopComplete"])
+        self.assertIs(evidence["workshopComplete"], True)
         self.assertEqual(
             evidence["approvalStatus"]["humanReview"], "conversation-authorized"
         )
@@ -95,9 +98,19 @@ class GuideIntegrityTests(unittest.TestCase):
         )
         self.assertEqual(evidence["sourceMerge"]["head"], evidence["git"]["feature"])
         self.assertEqual(evidence["sourceMerge"]["base"], evidence["git"]["baseline"])
-        self.assertFalse(evidence["approvalStatus"]["productionReleaseApproved"])
-        self.assertFalse(evidence["approvalStatus"]["productionDeployed"])
-        self.assertEqual(evidence["production"]["items"], [])
+        self.assertIs(evidence["approvalStatus"]["productionReleaseApproved"], True)
+        self.assertIs(evidence["approvalStatus"]["productionDeployed"], True)
+        approval = evidence["approvalStatus"]["productionAuthorization"]
+        self.assertIs(approval["approved"], True)
+        self.assertIs(approval["costAcknowledged"], True)
+        self.assertIs(approval["nativeFabricApprovalWorkflowConfigured"], False)
+        self.assertEqual(approval["workspaceId"], evidence["production"]["workspaceId"])
+        self.assertEqual(approval["sourceMainCommit"], evidence["git"]["main"])
+        self.assertEqual((approval["expectedRows"], approval["expectedSum"]), (10, 90))
+        self.assertEqual(
+            {item["type"] for item in evidence["production"]["items"]},
+            {"Lakehouse", "Notebook", "SQLEndpoint"},
+        )
         self.assertEqual(
             {(run["stage"], run["metrics"]["release"]) for run in evidence["runs"]},
             {
@@ -106,13 +119,14 @@ class GuideIntegrityTests(unittest.TestCase):
                 ("test", "v1"),
                 ("development", "v2"),
                 ("test", "v2"),
+                ("production", "v2"),
             },
         )
         self.assertEqual(
-            len({run["metrics"]["workspaceId"] for run in evidence["runs"]}), 3
+            len({run["metrics"]["workspaceId"] for run in evidence["runs"]}), 4
         )
         self.assertEqual(
-            len({run["metrics"]["lakehouseId"] for run in evidence["runs"]}), 3
+            len({run["metrics"]["lakehouseId"] for run in evidence["runs"]}), 4
         )
         for run in evidence["runs"]:
             metrics = run["metrics"]
@@ -138,7 +152,7 @@ class GuideIntegrityTests(unittest.TestCase):
         self.assertEqual(evidence["testTableBefore"]["errorCode"], "PathNotFound")
         self.assertEqual(evidence["testTableAfter"]["httpStatus"], 200)
         operations = evidence["pipeline"]["operations"]
-        self.assertEqual(len(operations), 2)
+        self.assertEqual(len(operations), 3)
         self.assertTrue(all(op["status"] == "Succeeded" for op in operations))
         self.assertEqual(
             {op["preDeploymentDiffInformation"]["newItemsCount"] for op in operations},
@@ -154,6 +168,49 @@ class GuideIntegrityTests(unittest.TestCase):
         self.assertTrue(
             evidence["deploymentRules"]["Test"]["nextDeploymentEffectVerified"]
         )
+        production = next(
+            op
+            for op in operations
+            if op["note"]["content"].startswith("Approved Production v2;")
+        )
+        self.assertEqual(production["preDeploymentDiffInformation"]["newItemsCount"], 2)
+        self.assertEqual(
+            (production["sourceStageId"], production["targetStageId"]),
+            (
+                "c563f05c-e04b-467f-b544-6a3a08710e95",
+                "90d5d2db-45d4-41bd-b62e-21385fafb6b6",
+            ),
+        )
+        self.assertIn(evidence["git"]["main"], production["note"]["content"])
+        approved_at = datetime.fromisoformat(approval["approvedAtUtc"])
+        deployed_at = datetime.fromisoformat(production["executionStartTime"]).replace(
+            tzinfo=timezone.utc
+        )
+        self.assertLess(approved_at, deployed_at)
+        self.assertEqual(evidence["productionTableBefore"]["httpStatus"], 404)
+        self.assertEqual(evidence["productionTableBefore"]["errorCode"], "PathNotFound")
+        self.assertEqual(evidence["productionTableAfter"]["httpStatus"], 200)
+        definitions = evidence["definitionVerification"]["stages"]
+        self.assertEqual(
+            set(definitions), {"development", "feature", "test", "production"}
+        )
+        self.assertEqual(
+            len({item["normalizedAstSha256"] for item in definitions.values()}), 1
+        )
+        for stage, definition in definitions.items():
+            current_run = next(
+                run
+                for run in evidence["runs"]
+                if run["stage"] == stage and run["metrics"]["release"] == "v2"
+            )
+            self.assertEqual(
+                definition["workspaceId"], current_run["metrics"]["workspaceId"]
+            )
+            self.assertEqual(
+                definition["lakehouseId"], current_run["metrics"]["lakehouseId"]
+            )
+            self.assertEqual(definition["sourceCommit"], evidence["git"]["main"])
+            self.assertEqual(definition["cells"], 3)
 
 
 if __name__ == "__main__":

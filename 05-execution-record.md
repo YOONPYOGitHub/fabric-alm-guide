@@ -1,9 +1,9 @@
-# 실제 수행 기록과 미완료 구간
+# 실제 수행 기록과 검증 범위
 
 [처음으로](README.md) · [검증·복구](04-validation-and-recovery.md) ·
 [검증 JSON](evidence/workshop-verification.json)
 
-아래는 2026-10-19의 실제 기록입니다. 문서의 재현 절차와 완료된 작업을 구분합니다.
+아래는 2026-10-19–20 KST의 실제 기록입니다. 문서의 재현 절차와 완료된 작업을 구분합니다.
 이름은 촬영 환경의 예시이며 다른 사용자의 환경에 그대로 사용할 배포 기본값이 아닙니다.
 토큰·암호·인증 헤더·발급 응답은 포함하지 않았습니다.
 
@@ -30,7 +30,7 @@
 | Test 기본 Lakehouse 규칙 | 저장·배포 검증 | 저장·reload 확인 후 실제 v2 배포의 Test metadata·코드·데이터 검증 |
 | Dev v2 Update·실행 | 완료 | UI Update, main SHA·AST·Dev 바인딩 확인 후 API 실행; 실제 10행·합계 90 |
 | Dev → Test v2 배포·실행 | 완료 | UI Compare·한 아이템 배포, 규칙 적용·실제 10행·합계 90 검증 |
-| Production 정의·데이터 | **미실행** | Workspace 할당만 완료, 대상은 아직 비어 있음 |
+| Production 승인·정의·데이터 | 완료 | 명시적 별도 승인 후 UI Test → Prod 두 정의 배포, Prod 자체 바인딩·실제 10행·합계 90 |
 | Actions/OIDC·Power BI·RLS | 미구성 | 확장 트랙 |
 
 ## Git 기록
@@ -58,10 +58,11 @@
 | Dev | `4dc4b490-8851-4d99-a75b-1e9067dc78e5` | `3bacc56f-a551-402d-a0b8-7f0da7e0af63` | `e5df67de-adf6-43f0-a1af-491c4b646556` |
 | Feature | `91e5839f-c981-47ea-9500-ef557b1634c0` | `f2ff7fc8-e138-4086-93bd-7337ce0becb4` | `72ea01ad-7cb4-4fe3-b89c-dfb6a51a5616` |
 | Test | `9c1f123f-6c38-4222-b761-1f94a8d9bc23` | `24b6d3df-a2cc-429b-b6c4-04f78b37545d` | `a828a86d-355e-4c24-87f2-3a9ca8c6e0b7` |
-| Production | `fbd6013c-889c-4d9e-83af-c1f4248be5a1` | 미생성 | 미생성 |
+| Production | `fbd6013c-889c-4d9e-83af-c1f4248be5a1` | `4ee3742f-fc5b-4211-a06a-3bdb4b328744` | `688cc4a1-19e3-448b-960e-2e4577b80a2c` |
 
-모든 아이템 정의를 포괄적으로 검증했다는 뜻은 아닙니다. Notebook의 공통 코드와 실제로
-실행한 각 환경의 물리 바인딩을 대조했습니다.
+모든 아이템 정의를 포괄적으로 검증했다는 뜻은 아닙니다. 최종 확인에서 네 Notebook을 모두
+다시 내보내 공통 v2 코드의 AST·세 셀과 각각의 기본/known Lakehouse 물리 ID·Workspace ID를
+대조했습니다. 정규화된 코드 AST hash는 같고 네 물리 Lakehouse는 서로 달랐습니다.
 
 ## 실제 데이터 실행
 
@@ -72,6 +73,7 @@
 | Test v1 | [163383c0-720c-4aea-86fd-a5a78a28ddf0](https://app.fabric.microsoft.com/groups/9c1f123f-6c38-4222-b761-1f94a8d9bc23/synapsenotebooks/a828a86d-355e-4c24-87f2-3a9ca8c6e0b7/snapshots/163383c0-720c-4aea-86fd-a5a78a28ddf0) | 10행·합계 45 |
 | Dev v2 | [b1472af6-ad22-468c-8bd4-46c919b4d8e2](https://app.fabric.microsoft.com/groups/4dc4b490-8851-4d99-a75b-1e9067dc78e5/synapsenotebooks/e5df67de-adf6-43f0-a1af-491c4b646556/snapshots/b1472af6-ad22-468c-8bd4-46c919b4d8e2) | 10행·합계 90 |
 | Test v2 | [06f00796-bb0a-4e93-b6c2-6a5cae0551f7](https://app.fabric.microsoft.com/groups/9c1f123f-6c38-4222-b761-1f94a8d9bc23/synapsenotebooks/a828a86d-355e-4c24-87f2-3a9ca8c6e0b7/snapshots/06f00796-bb0a-4e93-b6c2-6a5cae0551f7) | 10행·합계 90 |
+| Production v2 | [f7da925c-ed8a-4b33-ba6b-679ba678fdef](https://app.fabric.microsoft.com/groups/fbd6013c-889c-4d9e-83af-c1f4248be5a1/synapsenotebooks/688cc4a1-19e3-448b-960e-2e4577b80a2c/snapshots/f7da925c-ed8a-4b33-ba6b-679ba678fdef) | 10행·합계 90 |
 
 각 Notebook은 `spark.table`로 읽은 모든 행과 aggregate를 검증한 뒤 환경 ID·UTC 시각·실제
 Delta 위치를 반환했습니다. 해당 결과를 API에서도 대조했습니다. 단순 Completed·배포 배지·
@@ -93,13 +95,23 @@ Delta 위치를 반환했습니다. 해당 결과를 API에서도 대조했습�
 - 이 배포 후 Test 전체 코드 AST와 Test 자체 Lakehouse 바인딩을 확인하고 실제 10행·합계 90을
   검증했습니다. 따라서 Test 규칙의 저장뿐 아니라 실제 다음 배포의 적용 결과도 확인했습니다.
 
-## 남은 승인과 정확한 재개 순서
+## Production 별도 승인과 최종 검증
 
-1. 사람이 Production 대상·변경·비용과 Test v2의 실제 10행·합계 90을 검토해 릴리스를 승인합니다.
-   승격 승인을 요청했지만 현재 응답이 없어 Production은 비어 있는 상태로 보존했습니다.
-2. Test → Production 배포·바인딩·실제 v2 데이터를 검증하고 실제 캡처를 추가합니다.
-3. 재작성판 최종 검증을 마친 뒤 가이드 main에 반영합니다.
+- 사용자가 FabricLab-Prod 배포, Notebook 실행, 실제 10행·합계 90 검증과 기존 F16의
+  CU·스토리지 비용을 명시적으로 승인했습니다. 승인 시각은
+  `2026-10-19T14:55:39.599Z`입니다.
+- 실제 UI Test → Production 배포:
+  `85eb6998-4f08-44e3-864e-38b8e25a4748`, **Succeeded**, 새 정의 2개.
+- 실제 Production Notebook의 전체 AST와 세 셀, Prod 자체 Lakehouse 바인딩을 실행 전에
+  확인했습니다. 별도 Production override 규칙 없이 auto-binding이 올바르게 해결되었습니다.
+- Production의 물리 테이블 경로는 실행 전 404 **PathNotFound**, 실행 후 200이었습니다.
+- 실제 검증 시각은 `2026-10-19T15:05:39.317117+00:00`
+  (2026-10-20 00:05 KST)이며, 모든 v2 행·고유 ID 0–9·10행·합계 90을 확인했습니다.
+- 최종 기록은 Dev/Test/Prod v2와 초기 v1을 포함한 실제 job 6개, 성공 배포 3개와
+  최종 네 Notebook 정의 검증을 포함합니다.
 
-현재는 [검토용 가이드 PR](https://github.com/YOONPYOGitHub/fabric-alm-guide/pull/1)을 사용하며
-완료된 Production 실습으로 게시하지 않습니다.
+최종 문서와 캡처는 [가이드 저장소](https://github.com/YOONPYOGitHub/fabric-alm-guide)에,
+작성·검증·게시 이력은 [가이드 PR](https://github.com/YOONPYOGitHub/fabric-alm-guide/pull/1)에 보관합니다.
+이번 실행은 사용자의 실제 수동 승인을 기록한 실습이며, 독립 GitHub review나 네이티브
+자동 승인 Workflow, GitHub Actions/OIDC를 구성한 것으로 주장하지 않습니다.
 Capacity와 Workspace는 중지·삭제하지 않았으므로 비용이 계속 발생할 수 있습니다.

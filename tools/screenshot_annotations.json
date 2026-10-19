@@ -862,5 +862,77 @@
     "boxes": [],
     "overview": true,
     "originalSha256": "03239fbf6e694d59590153b5befad0c41a493145dfa9c444d6d47cc6377898d9"
+  },
+  "w55-select-production-target-and-two-definitions.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Deploy both definitions from Test to Production",
+        "rect": [
+          797,
+          246,
+          944,
+          305
+        ]
+      }
+    ],
+    "originalSha256": "83848efc963d60a342d7307df033c601302a8943d183ba37dabe83a0148d63a3"
+  },
+  "w56-confirm-approved-test-to-production-v2.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [
+      {
+        "label": "Confirm the explicitly approved Production release",
+        "rect": [
+          1226,
+          1173,
+          1403,
+          1232
+        ]
+      }
+    ],
+    "originalSha256": "0ae7ff72f55d0c285b8cc01912b5a043403d26dac1ebb707716326258701beca"
+  },
+  "w57-production-lakehouse-empty-before-run.png": {
+    "size": [
+      1536,
+      1152
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "ee9768668bc59770f4bedc710559d5a289d30758b86e070301409087b6fd106e"
+  },
+  "w58-production-v2-verified-output.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "d391ca2476ee649e48254fac28172c1ea741a8124cdf1d625dcd1798e64139ae"
+  },
+  "w59-final-test-and-production-deployment-history.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "57ae91faa74c549069206b4adca4d348d98373b86d9281e345a944bb7e041862"
+  },
+  "w60-production-v2-ten-row-table.png": {
+    "size": [
+      2807,
+      1608
+    ],
+    "boxes": [],
+    "overview": true,
+    "originalSha256": "230d899dc157a2a981db27d4d825368bcbdadc2fc71dbfa6dff9aaaf9c9ee28e"
   }
 }

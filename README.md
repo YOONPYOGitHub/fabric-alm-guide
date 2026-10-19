@@ -4,11 +4,11 @@
 필수 관리자 설정부터 feature branch, PR 검토, Dev 동기화, Test 검증과 Production 승인까지
 하나의 흐름으로 설명합니다. 메뉴 이름은 실제 영문 UI 기준입니다.
 
-> **재작성판 검토 중:** 사용자의 대화상 진행 승인 후
-> [소스 PR](https://github.com/YOONPYOGitHub/fabric-alm-lab/pull/1)을 병합했고,
-> Dev/Test v2의 실제 10행·합계 90까지 검증했습니다. 별도 독립 GitHub 리뷰어 승인이
-> 있었던 것으로 표시하지 않습니다. **Production 승격은 별도 릴리스 승인 대기**이므로
-> 이 가이드를 완료된 Production 실행 보고서로 읽지 않습니다.
+> **실제 실행 검증 완료:** 사용자 승인 후
+> [소스 PR](https://github.com/YOONPYOGitHub/fabric-alm-lab/pull/1)을 병합하고,
+> 별도의 Production 릴리스 승인을 거쳐 **Dev·Test·Production 모두 실제 Delta 10행·합계 90**을
+> 검증했습니다. 이 실행의 승인은 대화에 기록된 수동 승인입니다. 독립 GitHub 리뷰어 승인이나
+> 네이티브 자동 승인 Workflow를 구성한 것으로 표시하지 않습니다.
 
 ## 1. 먼저 구분할 것
 
@@ -43,13 +43,18 @@ Lakehouse의 Delta 테이블 행은 Git에 들어가지 않으며, 단계 배포
 |---|---|---|
 | 1 | [사전 준비와 필수 설정](01-prerequisites.md) | 계정·Capacity·권한·4개 관리자 설정·GitHub 인증 확인 |
 | 2 | [Lakehouse와 Notebook v1](02a-lakehouse-notebook.md) | 실제 10행, 고유 ID 0–9, v1 합계 45 |
-| 3 | [GitHub 연결, Feature, PR, Dev Update](02-git-integration.md) | Feature v2 합계 90, 실제 검토·병합, Dev v2 검증 |
-| 4 | [Deployment pipelines와 단계별 검증](03-deployment-pipelines.md) | Test v2 검증 → 승인 → Production v2 검증 |
-| 5 | [검증·복구·비용 정리](04-validation-and-recovery.md) | 정의·바인딩·데이터·승인 근거를 함께 보관 |
-| 별첨 | [실제 수행 기록과 미완료 구간](05-execution-record.md) | 수행 방식, Commit·job·배포 ID와 제한사항 확인 |
+| 3 | [GitHub 연결·Feature·PR 생성까지](02-git-integration.md) | 3-1~3-5의 PR 생성까지; Feature v2 합계 90, main은 아직 v1 |
+| 4 | [Pipeline과 v1 초기 배포](03-deployment-pipelines.md#baseline-preparation) | 4-1~4-6; PR 승인 전 main v1 → Test v1 검증 |
+| 5 | [사용자 승인·PR 병합·Dev Update](02-git-integration.md) | 3-5의 승인·병합부터 3-6까지; Dev v2 합계 90 |
+| 6 | [Test v2와 Production 승격](03-deployment-pipelines.md#release-v2) | 4-7~4-8; Test v2 검증 → 별도 승인 → Production v2 검증 |
+| 7 | [검증·복구·비용 정리](04-validation-and-recovery.md) | 정의·바인딩·데이터·승인 근거를 함께 보관 |
+| 별첨 | [실제 수행 기록과 검증 범위](05-execution-record.md) | 수행 방식, Commit·job·배포 ID와 제한사항 확인 |
 
 처음 읽는 경우 순서대로 진행합니다. 이미 구성된 환경에서는 확인 후 재사용하며,
 캡처를 만들기 위해 설정을 껐다 켜거나 같은 리소스를 중복 생성하지 않습니다.
+장 번호는 주제별 분류입니다. 위 표는 실제 실행 순서이며, PR 승인을 기다리는 동안 v1
+Pipeline 준비를 진행한 뒤 승인·병합으로 돌아옵니다. 이미 main을 v2로 바꾼 경우에는
+v1 초기 배포 절을 현재 실행 단계로 오해하거나 캡처 재현을 위해 코드를 되돌리지 않습니다.
 
 ## 3. 실습 구성과 비용
 
@@ -87,7 +92,7 @@ Capacity가 자동 중지되지 않습니다.
 
 ## 5. 현재 확인한 결과
 
-아래는 2026-10-19 실행 기록이지 실시간 상태판이 아닙니다.
+아래는 2026-10-19–20 KST 실행 기록이지 실시간 상태판이 아닙니다.
 
 | 환경 / 구간 | 실제 결과 |
 |---|---|
@@ -99,11 +104,13 @@ Capacity가 자동 중지되지 않습니다.
 | 오프라인 소스 검사 | unittest 9개, Ruff, Pyright 통과 |
 | PR·main 병합 | 사용자 대화상 승인 후 실제 UI 병합, merge `0cf51fd`; 독립 GitHub review와 구분 |
 | Dev/Test v2 | 두 환경 모두 실제 Delta 10행·합계 90, Test 배포 규칙·물리 바인딩 확인 |
-| Production | **별도 승인 대기·미실행**, Workspace는 아직 비어 있음 |
+| Production | 명시적 별도 승인 후 Test → Prod 두 정의 배포·Prod 자체 바인딩·실제 10행·합계 90 검증 |
 
 [기계 판독 가능한 검증 기록](evidence/workshop-verification.json)과
 [실행 스냅샷 링크](05-execution-record.md)에서 근거를 확인할 수 있습니다.
 Private GitHub 저장소와 Fabric 링크는 해당 대상의 접근 권한이 있어야 열립니다.
+
+![Production에서 실제 확인한 v2 10행 전체와 합계 90·환경 ID·Delta 위치](screenshots/w60-production-v2-ten-row-table.png)
 
 ## 6. 범위와 공식 근거
 
