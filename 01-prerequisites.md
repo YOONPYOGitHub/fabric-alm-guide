@@ -171,3 +171,11 @@ Pro 업그레이드 또는 Public 전환을 요구하는 403을 반환했습니�
 
 **체크포인트:** 네 설정, Capacity, Workspace/Pipeline 역할, source repository, 인증 범위와
 검토 방식이 확인되어야 [Lakehouse 준비](02a-lakehouse-notebook.md)를 시작합니다.
+
+---
+
+## 다음으로 이동
+
+| 이전 단계 | 전체 목차 | 다음 단계 |
+|---|---|---|
+| [← 가이드 소개](README.md) | [실습 순서](README.md#workshop-order) | [Lakehouse와 Notebook v1 →](02a-lakehouse-notebook.md) |

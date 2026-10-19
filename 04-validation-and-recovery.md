@@ -91,3 +91,11 @@ GET  /v1/workspaces/{workspaceId}/notebooks/{notebookId}/jobs/execute/instances/
    소유자에게 확인하고 별도로 승인받습니다.
 
 브라우저 종료, 작업 일시중단, Git disconnect는 비용 중지를 뜻하지 않습니다.
+
+---
+
+## 다음으로 이동
+
+| 이전 단계 | 전체 목차 | 다음 단계 |
+|---|---|---|
+| [← Test v2 배포·Production 승격](03-deployment-pipelines.md#release-v2) | [실습 순서](README.md#workshop-order) | [실제 수행 기록과 검증 범위 →](05-execution-record.md) |

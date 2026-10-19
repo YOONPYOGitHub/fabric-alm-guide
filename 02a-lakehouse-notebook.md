@@ -122,3 +122,11 @@ UI의 Run all로 실행한 것으로 기록하지 않습니다. 위 화면은 �
 
 **체크포인트:** 실제 Delta의 10행·합계 45와 Dev 바인딩을 확인한 뒤
 [Git 연결](02-git-integration.md)로 이동합니다.
+
+---
+
+## 다음으로 이동
+
+| 이전 단계 | 전체 목차 | 다음 단계 |
+|---|---|---|
+| [← 사전 준비와 필수 설정](01-prerequisites.md) | [실습 순서](README.md#workshop-order) | [GitHub 연결·Feature·PR 생성 →](02-git-integration.md) |

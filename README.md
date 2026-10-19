@@ -37,6 +37,8 @@ GitHub main ←→ Development Workspace
 Lakehouse의 Delta 테이블 행은 Git에 들어가지 않으며, 단계 배포로 복사되지 않습니다.
 각 Workspace의 Notebook을 실행해 그 환경의 데이터를 만들고 검증합니다.
 
+<a id="workshop-order"></a>
+
 ## 2. 실습 순서
 
 | 순서 | 문서 | 다음 단계로 넘어갈 조건 |
@@ -45,7 +47,7 @@ Lakehouse의 Delta 테이블 행은 Git에 들어가지 않으며, 단계 배포
 | 2 | [Lakehouse와 Notebook v1](02a-lakehouse-notebook.md) | 실제 10행, 고유 ID 0–9, v1 합계 45 |
 | 3 | [GitHub 연결·Feature·PR 생성까지](02-git-integration.md) | 3-1~3-5의 PR 생성까지; Feature v2 합계 90, main은 아직 v1 |
 | 4 | [Pipeline과 v1 초기 배포](03-deployment-pipelines.md#baseline-preparation) | 4-1~4-6; PR 승인 전 main v1 → Test v1 검증 |
-| 5 | [사용자 승인·PR 병합·Dev Update](02-git-integration.md) | 3-5의 승인·병합부터 3-6까지; Dev v2 합계 90 |
+| 5 | [사용자 승인·PR 병합·Dev Update](02-git-integration.md#merge-and-dev-update) | 3-5의 승인·병합부터 3-6까지; Dev v2 합계 90 |
 | 6 | [Test v2와 Production 승격](03-deployment-pipelines.md#release-v2) | 4-7~4-8; Test v2 검증 → 별도 승인 → Production v2 검증 |
 | 7 | [검증·복구·비용 정리](04-validation-and-recovery.md) | 정의·바인딩·데이터·승인 근거를 함께 보관 |
 | 별첨 | [실제 수행 기록과 검증 범위](05-execution-record.md) | 수행 방식, Commit·job·배포 ID와 제한사항 확인 |
@@ -140,3 +142,11 @@ python -m unittest discover -s tests -v
 Windows PowerShell에서는 `source` 대신 `.\.venv\Scripts\Activate.ps1`로 활성화합니다.
 검사는 링크·이미지 목록과 크기·주석 제한·원본 해시·박스 선 밖의 모든 픽셀 보존을 확인합니다.
 최초 Notebook-only 판은 두 저장소의 `notebook-demo-v1` 태그에 보존되어 있습니다.
+
+---
+
+## 다음으로 이동
+
+| 실습 시작 | 전체 목차 | 실행 결과 먼저 보기 |
+|---|---|---|
+| [1단계: 사전 준비와 필수 설정 →](01-prerequisites.md) | [실습 순서로 이동](#workshop-order) | [실제 수행 기록과 검증 범위](05-execution-record.md) |

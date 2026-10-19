@@ -129,3 +129,11 @@ Delta 위치를 반환했습니다. 해당 결과를 API에서도 대조했습�
 이번 실행은 사용자의 실제 수동 승인을 기록한 실습이며, 독립 GitHub review나 네이티브
 자동 승인 Workflow, GitHub Actions/OIDC를 구성한 것으로 주장하지 않습니다.
 Capacity와 Workspace는 중지·삭제하지 않았으므로 비용이 계속 발생할 수 있습니다.
+
+---
+
+## 다음으로 이동
+
+| 이전 단계 | 전체 목차 | 처음부터 다시 보기 |
+|---|---|---|
+| [← 검증·복구·비용 정리](04-validation-and-recovery.md) | [실습 순서](README.md#workshop-order) | [사전 준비와 필수 설정 →](01-prerequisites.md) |

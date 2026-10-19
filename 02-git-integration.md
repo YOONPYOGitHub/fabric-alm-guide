@@ -182,6 +182,14 @@ GitHub Checks는 구성하지 않았습니다. 오프라인 검사를 GitHub 필
 독립 리뷰어 승인을 요구한다면 별도의 적격 리뷰어가 필요합니다. 승인 요청에 응답이 없으면
 대기하며 자동 승인·작성자의 자기 승인을 독립 리뷰로 기록하지 않습니다.
 
+**PR 생성 후 이동:** 처음 진행한다면 v1 초기 배포를 마친 뒤 아래 승인·병합 단계로 돌아옵니다.
+
+| 다음 단계 | v1 초기 준비를 이미 마친 경우 |
+|---|---|
+| [Pipeline 생성·Test v1 초기 배포로 이동 →](03-deployment-pipelines.md#baseline-preparation) | [승인·PR 병합·Dev Update로 바로 이동 ↓](#merge-and-dev-update) |
+
+<a id="merge-and-dev-update"></a>
+
 ### 이번 실습의 승인과 실제 병합
 
 **실행 순서 체크포인트:** PR을 만든 직후에는 main이 아직 v1입니다. 실제 순서대로
@@ -224,7 +232,7 @@ Feature Workspace가 연결된 branch를 임의로 삭제하지 않았습니다.
 
 5. Dev의 Git HEAD가 실제 main과 같고 변경 목록이 비었는지 확인합니다.
 6. Dev 코드가 v2이며 물리 기본 Lakehouse는 Dev인지 확인합니다.
-7. Dev에서 실제 10행·합계 90을 검증한 후 [v2 Test 배포](03-deployment-pipelines.md)를 진행합니다.
+7. Dev에서 실제 10행·합계 90을 검증한 후 [v2 Test 배포](03-deployment-pipelines.md#release-v2)를 진행합니다.
 
 ![병합 후 실제 Dev v2 결과와 Dev 자체 Delta 위치](screenshots/w49-dev-v2-verified-output.png)
 
@@ -234,3 +242,13 @@ Feature Workspace가 연결된 branch를 임의로 삭제하지 않았습니다.
 
 Feature HEAD와 merge Commit SHA는 다를 수 있습니다. 버전 문자열 하나나 Saved 표시만 보지
 말고 실제 코드와 branch HEAD, 환경별 물리 바인딩을 각각 대조합니다.
+
+---
+
+## 다음으로 이동
+
+Dev v2 검증을 마쳤다면 초기 배포 설명을 다시 읽지 않고 **4-7의 Test v2 배포**로 이동합니다.
+
+| 이전 단계 | 전체 목차 | 다음 단계 |
+|---|---|---|
+| [← Lakehouse와 Notebook v1](02a-lakehouse-notebook.md) | [실습 순서](README.md#workshop-order) | [Test v2 배포·Production 승격 →](03-deployment-pipelines.md#release-v2) |

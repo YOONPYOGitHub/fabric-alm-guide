@@ -132,6 +132,13 @@ Pipeline의 의존성 auto-binding으로 확인했습니다. 두 기능을 같�
 이번에는 Test 규칙을 저장·페이지 reload로 재확인한 뒤, 아래 실제 v2 배포에서 코드·물리
 바인딩·실제 데이터를 검증했습니다. [실행 기록](05-execution-record.md)에서 근거를 확인합니다.
 
+**v1 초기 준비를 마쳤다면 Git 가이드로 돌아가 승인·병합을 진행합니다.**
+아직 Dev가 v1인 상태에서 아래 v2 배포를 시작하지 않습니다.
+
+| 다음 단계 | 승인·병합과 Dev v2 검증을 이미 마친 경우 |
+|---|---|
+| [사용자 승인·PR 병합·Dev Update로 이동 →](02-git-integration.md#merge-and-dev-update) | [Test v2 배포로 바로 이동 ↓](#release-v2) |
+
 <a id="release-v2"></a>
 
 ## 4-7. 사용자 승인·PR 병합 후 Dev v2 → Test v2 — 실제 수행
@@ -174,6 +181,10 @@ Pipeline의 의존성 auto-binding으로 확인했습니다. 두 기능을 같�
 
 기존 Test v1 합계 45를 v2 검증으로 재사용하지 않습니다. Git Commit이나 Definition 배포만으로
 기존 Test 데이터가 v2로 바뀌지 않습니다.
+
+[다음: 별도 승인 후 Production 승격 →](#production-release)
+
+<a id="production-release"></a>
 
 ## 4-8. Test 검증 후 별도 승인 → Production — 실제 수행
 
@@ -237,3 +248,11 @@ Job `f7da925c-ed8a-4b33-ba6b-679ba678fdef`는 Completed였고, 실제 모든 행
 최종 검증에서는 Dev·Feature·Test·Production 네 Notebook을 다시 내보내 공통 v2 코드 AST,
 각각의 물리 기본 Lakehouse ID와 Workspace ID도 대조했습니다. Dev/Feature의 성공이나
 Test 결과로 Production 검증을 대신하지 않았습니다.
+
+---
+
+## 다음으로 이동
+
+| 이전 단계 | 전체 목차 | 다음 단계 |
+|---|---|---|
+| [← 승인·PR 병합·Dev Update](02-git-integration.md#merge-and-dev-update) | [실습 순서](README.md#workshop-order) | [검증·복구·비용 정리 →](04-validation-and-recovery.md) |
