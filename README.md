@@ -1,103 +1,133 @@
 # Microsoft Fabric Git integration and deployment pipelines
 
-합성 데이터 Notebook으로 GitHub 소스 관리와 Development → Test → Production 배포를 익히는 단계별 실습 가이드입니다. 화면의 영문 메뉴 이름을 기준으로 설명하며, 캡처는 실제 Fabric/GitHub 화면에서 Playwright로 촬영했습니다.
+**Lakehouse + Notebook + 실제 Delta 데이터**로 익히는 GitHub CI/CD 단계별 실습입니다.
+필수 관리자 설정부터 feature branch, PR 검토, Dev 동기화, Test 검증과 Production 승인까지
+하나의 흐름으로 설명합니다. 메뉴 이름은 실제 영문 UI 기준입니다.
 
-## 저장소 역할
+> **재작성판 검토 중:** Dev v1, Feature v2, Dev → Test v1 배포와 실제 데이터 검증까지
+> 수행했습니다. [소스 PR](https://github.com/YOONPYOGitHub/fabric-alm-lab/pull/1)은 사람의 검토
+> 대기 상태이며, main 병합·Dev/Test v2·Production 승격은 아직 수행하지 않았습니다.
+> 이 가이드를 완료된 Production 실행 보고서로 읽지 않습니다.
+
+## 1. 먼저 구분할 것
 
 | 저장소 | 역할 |
 |---|---|
-| [fabric-alm-guide](https://github.com/YOONPYOGitHub/fabric-alm-guide) | 이 가이드의 문서 4개와 실제 화면 캡처 36장: 빨간 박스 강조본과 원본 |
-| [fabric-alm-lab](https://github.com/YOONPYOGitHub/fabric-alm-lab) | Fabric과 Git으로 동기화하는 Notebook 등 아이템 정의 |
+| [fabric-alm-guide](https://github.com/YOONPYOGitHub/fabric-alm-guide) | 설명, 실제 화면 원본·강조본, 검증 기록 |
+| [fabric-alm-lab](https://github.com/YOONPYOGitHub/fabric-alm-lab) | Fabric과 동기화하는 Lakehouse·Notebook 정의와 오프라인 테스트 |
 
-Fabric Dev Workspace의 Git 설정에는 **fabric-alm-lab / main / /fabric**을 사용합니다. 가이드 저장소를 만들더라도 이 연결은 그대로 유지합니다.
-
-## 캡처 읽는 방법
-
-**빨간 박스는 화면당 핵심 한 곳을 원칙으로 하며, 필요한 경우에만 최대 두 곳**을 표시합니다. 넓은 코드·설명 영역이나 모든 설정 항목을 동시에 두르지 않습니다. 전체 구성이나 이미 색상으로 차이가 표시된 비교 화면은 박스 없이 보존할 수 있습니다. 실제 UI의 선택 상태나 데이터는 변경하지 않았습니다. 비활성 버튼은 필수 입력을 마친 뒤 활성화될 수 있습니다.
-
-본문에는 [강조본](screenshots/)을 사용하고, 주석 없는 [원본 36장](screenshots-originals/)도 함께 보관합니다. 박스 위치와 대상 설명은 [주석 정의](tools/screenshot_annotations.json)에서 확인할 수 있습니다.
-
-## 읽는 순서
-
-1. [사전 준비와 Fabric 관리자 설정](01-prerequisites.md)을 수행합니다.
-2. [3장의 3-1: Notebook v1 작성과 실행](03-deployment-pipelines.md)까지 진행합니다.
-3. [GitHub 연결, Commit, Update from Git](02-git-integration.md)을 수행합니다.
-4. [3장의 나머지: Deployment pipelines 생성과 단계별 배포](03-deployment-pipelines.md)를 진행합니다.
-
-이미 준비된 실습 환경에서는 같은 이름의 리소스를 다시 만들지 않습니다. 일부 캡처에는 준비된 파이프라인의 단계 배지가 표시됩니다. Git 연결과 Notebook 작성은 배포 파이프라인 생성 전에도 수행할 수 있습니다.
-
-## 구성
+Fabric의 Git 연결에는 **소스 저장소**의 `main /workshops/cicd/fabric`을 지정합니다.
+가이드 저장소를 Fabric Workspace에 연결하지 않습니다.
 
 ```text
-GitHub: fabric-alm-lab / main / fabric
-               ↕ Git integration
-Development Workspace → Test Workspace → Production Workspace
-               Deployment pipeline: dp-fabric-alm-lab
+GitHub feature/smoke-v2 ←→ Feature Workspace
+          │ PR + 사람의 검토
+          ▼
+GitHub main ←→ Development Workspace
+                     │ Deployment pipeline
+                     ▼
+               Test Workspace
+                     │ 실제 데이터 검증 + 릴리스 승인
+                     ▼
+             Production Workspace
 ```
 
-| 대상 | 캡처에 사용한 이름 |
-|---|---|
-| GitHub 저장소 | [YOONPYOGitHub/fabric-alm-lab](https://github.com/YOONPYOGitHub/fabric-alm-lab), Private |
-| Git branch / directory | `main` / `/fabric` |
-| GitHub 기능 허용 그룹 | `grp-fabric-alm-lab-users`, 실습 계정 한 명 |
-| Development | `ws-fabric-alm-lab-dev` |
-| Test | `ws-fabric-alm-lab-test` |
-| Production | `ws-fabric-alm-lab-prod` |
-| Capacity | `fb001`, F16, Korea Central |
-| 배포 파이프라인 | `dp-fabric-alm-lab` |
-| Notebook | `nb_cicd_demo` |
+**Git과 Deployment pipeline이 전달하는 것은 아이템 정의입니다.**
+Lakehouse의 Delta 테이블 행은 Git에 들어가지 않으며, 단계 배포로 복사되지 않습니다.
+각 Workspace의 Notebook을 실행해 그 환경의 데이터를 만들고 검증합니다.
 
-다른 환경에서 따라 할 때는 자신의 계정, 저장소, Workspace 및 Capacity로 바꿉니다. Private 저장소와 Workspace 링크는 해당 대상에 접근 권한이 있어야 열립니다. Workspace와 Notebook 실행은 Capacity/CU 및 저장소 사용량에 영향을 줄 수 있습니다.
+## 2. 실습 순서
 
-## 실제 수행 상태
-
-아래는 **2026-10-19 검증 기록**이며 현재 시점의 서비스 상태를 보장하는 상태판은 아닙니다.
-
-| 구간 | 실제 결과 | 수행 방식 / 남은 작업 |
+| 순서 | 문서 | 다음 단계로 넘어갈 조건 |
 |---|---|---|
-| GitHub 로그인·Private 저장소 | 확인 완료 | 저장소 설명과 README에 실습 설명 반영 |
-| Fabric Workspace 3개·Capacity | 준비 완료 | Dev는 UI 생성, Test/Prod는 Core REST API 생성 |
-| GitHub PAT | 저장소 한정 토큰 발급·Fabric 등록 | Contents RW / Metadata RO, 7일; 토큰 값 미촬영·미저장 |
-| Fabric GitHub 테넌트 설정 | **실습 그룹에만 Enabled** | 승인 후 적용, 그룹 한 명·관리자 위임 없음 확인 |
-| Dev Git 연결·최초 동기화 | 완료 | `main /fabric`, 실제 Notebook 정의 생성 |
-| Workspace → Git Commit | 완료 | UI에서 v1 → v1.1 Commit, `c653df75` |
-| Git → Workspace Update | 완료 | Git의 v2 Commit `a1017399`를 UI에서 Update, Synced 확인 |
-| Dev Notebook v2 | 실제 실행 완료 | `release=v2`, `rows=3`, `total=70` |
-| Dev → Test v2 | 배포 성공 | 실제 UI 선택·Compare·확정 수행 |
-| Test Notebook v2 | 실제 실행 완료 | `release=v2`, `rows=3`, `total=70` |
-| Test → Prod v2 | 배포 성공 | 공식 Core REST API로 Notebook 하나만 승격 |
-| Prod Notebook v2 | 실제 실행 완료 | `release=v2`, `rows=3`, `total=70` |
-| 세 단계 정의와 Git 대조 | 일치 | 전체 소스·정규화 SHA-256 일치, Git 변경 0 |
-| GitHub Actions 자동 CI/CD | 미구성 | 본 실습의 수동/API 배포와 구분 |
+| 1 | [사전 준비와 필수 설정](01-prerequisites.md) | 계정·Capacity·권한·4개 관리자 설정·GitHub 인증 확인 |
+| 2 | [Lakehouse와 Notebook v1](02a-lakehouse-notebook.md) | 실제 10행, 고유 ID 0–9, v1 합계 45 |
+| 3 | [GitHub 연결, Feature, PR, Dev Update](02-git-integration.md) | Feature v2 합계 90, 실제 검토·병합, Dev v2 검증 |
+| 4 | [Deployment pipelines와 단계별 검증](03-deployment-pipelines.md) | Test v2 검증 → 승인 → Production v2 검증 |
+| 5 | [검증·복구·비용 정리](04-validation-and-recovery.md) | 정의·바인딩·데이터·승인 근거를 함께 보관 |
+| 별첨 | [실제 수행 기록과 미완료 구간](05-execution-record.md) | 수행 방식, Commit·job·배포 ID와 제한사항 확인 |
 
-GitHub 기능의 **비활성 → 그룹 범위 지정 → 적용 완료 → Workspace 연결**까지 [사전 구성 장](01-prerequisites.md)에 실제 캡처를 포함했습니다. 토큰 값이나 가상의 UI는 캡처에 넣지 않았습니다.
+처음 읽는 경우 순서대로 진행합니다. 이미 구성된 환경에서는 확인 후 재사용하며,
+캡처를 만들기 위해 설정을 껐다 켜거나 같은 리소스를 중복 생성하지 않습니다.
 
-Git integration은 아이템 정의를 버전 관리하고, Deployment pipelines는 단계 사이에 아이템 정의를 배포합니다. Git Commit만으로 테스트나 Production 배포가 자동 실행되지는 않습니다. 자동 CI/CD에는 별도의 실행 주체, 인증, 테스트, 승인 및 트리거 구성이 필요합니다.
+## 3. 실습 구성과 비용
 
-## 검증된 배포 결과
+| 대상 | 촬영 환경의 이름 / 설정 |
+|---|---|
+| Development | `FabricLab-Dev`, Git `main` |
+| Feature | `FabricLab-Feature`, Git `feature/smoke-v2` |
+| Test / Production | `FabricLab-Test` / `FabricLab-Prod` |
+| Git directory | `/workshops/cicd/fabric` |
+| Pipeline | `FabricLab-Release`, Development → Test → Production |
+| Lakehouse / Notebook | `CI_CD_Demo` / `CI_CD_Smoke` |
+| 테이블 | 기본 Lakehouse의 `dbo.cicd_smoke` |
+| Capacity | 기존 `fb001`, F16, Korea Central |
+| v1 / v2 | 10행·합계 45 / 10행·합계 90 |
 
-![Production에서 실제로 실행한 Git v2 Notebook의 합계 70](screenshots/37-production-notebook-v2-executed-output-70.png)
+이름은 예시입니다. 자신의 tenant, 계정, 승인된 Capacity와 저장소로 바꿉니다.
+F16이 모든 실습 환경의 최소 SKU라는 뜻은 아닙니다. 라이선스와 기능 지원은 공식 문서를 확인합니다.
+Spark 실행은 CU를, Delta 데이터는 저장소를 사용합니다. 작업을 멈추거나 브라우저를 닫아도
+Capacity가 자동 중지되지 않습니다.
 
-최종 확인은 2026-10-19 15:18 KST 기준입니다. 세 Workspace의 전체 Notebook 소스가 Git Commit `a1017399`와 같고 Git 변경 목록이 비었으며, 두 v2 승격의 **Succeeded** 상태와 방향·배포 노트를 대조했습니다.
+## 4. 캡처 읽는 방법
 
-배포 성공은 Notebook 실행 성공과 다릅니다. 실행 출력과 대상 정의를 각각 확인하는 방법은 [배포 가이드](03-deployment-pipelines.md)를 참고합니다.
+- 빨간 박스는 **화면당 핵심 한 곳**이 원칙이며, 필요한 경우에만 최대 두 곳입니다.
+- 큰 코드 블록, 설정 패널 전체, 이미 색상으로 표시된 diff를 다시 두르지 않습니다.
+- 결과·전체 구성·비교 화면은 박스 없이 보존할 수 있습니다.
+- 캡처마다 본문에 **무엇을 선택하는지, 왜 필요한지, 기대 결과**를 설명합니다.
+- 본문은 [강조본](screenshots/)을 사용하고 [원본](screenshots-originals/)은 변경하지 않습니다.
+  [주석 정의](tools/screenshot_annotations.json)에 크기·좌표·원본 SHA-256을 보관합니다.
+- 실제 화면의 UI·값·성공 상태를 합성하지 않았습니다. 토큰 발급 결과나 암호·MFA 화면은
+  캡처하지 않습니다.
 
-## 공식 문서
+이번 재작성의 Workspace 생성과 Lakehouse/Notebook 준비, Git 변경, 배포 화면은 새 실습
+리소스에서 촬영했습니다. 이미 승인·구성된 GitHub 정책의 변경 전후와 PAT 준비 화면은
+**같은 설정의 기존 실제 기록**임을 해당 단계에 표시했습니다.
 
-- [Get started with Git integration](https://learn.microsoft.com/en-us/fabric/cicd/git-integration/git-get-started?tabs=github%2CGitHub%2Ccommit-to-git)
-- [Get started using deployment pipelines](https://learn.microsoft.com/en-us/fabric/cicd/deployment-pipelines/get-started-with-deployment-pipelines?tabs=from-fabric%2Cnew-ui)
-- [Git integration admin settings](https://learn.microsoft.com/en-us/fabric/admin/git-integration-admin-settings)
+## 5. 현재 확인한 결과
 
-## 캡처 주석 다시 생성하기
+아래는 2026-10-19 실행 기록이지 실시간 상태판이 아닙니다.
 
-Python 3.12 가상 환경에서 아래 명령으로 원본에서 강조본을 재생성할 수 있습니다. Windows PowerShell에서는 `source` 대신 `.\.venv\Scripts\Activate.ps1`로 활성화합니다.
+| 환경 / 구간 | 실제 결과 |
+|---|---|
+| Dev v1 | 실제 Delta 10행·고유 ID 10개·모든 값 검증·합계 45 |
+| Feature v2 | 실제 Delta 10행·고유 ID 10개·모든 값 검증·합계 90 |
+| Git 바인딩 | Feature가 Dev가 아닌 자신의 Lakehouse를 참조함을 내보낸 정의로 확인 |
+| Dev → Test v1 초기 배포 | UI에서 Lakehouse + Notebook 두 정의 배포, Succeeded |
+| Test v1 | 배포 후 테이블 경로 부재 → Notebook 실행 후 생성·10행·합계 45 |
+| 오프라인 소스 검사 | unittest 9개, Ruff, Pyright 통과 |
+| PR 검토·main 병합 | **검토 대기**, 자동 승인·자기 승인을 기록하지 않음 |
+| Dev/Test v2·Production | **미실행**, Production Workspace는 아직 비어 있음 |
+
+[기계 판독 가능한 검증 기록](evidence/workshop-verification.json)과
+[실행 스냅샷 링크](05-execution-record.md)에서 근거를 확인할 수 있습니다.
+Private GitHub 저장소와 Fabric 링크는 해당 대상의 접근 권한이 있어야 열립니다.
+
+## 6. 범위와 공식 근거
+
+핵심 트랙은 수동 Git 통합과 Deployment pipelines, 환경별 데이터 검증입니다.
+GitHub Actions/OIDC·서비스 주체 자동화, Variable Library 확장, Power BI 모델·보고서와
+RLS는 별도로 설계·승인할 확장 트랙이며 이 실행에서 구성하지 않았습니다.
+
+- [Get started with Git integration — GitHub](https://learn.microsoft.com/en-us/fabric/cicd/git-integration/git-get-started?tabs=github%2CGitHub%2Ccommit-to-git)
+- [Get started using deployment pipelines — new UI](https://learn.microsoft.com/en-us/fabric/cicd/deployment-pipelines/get-started-with-deployment-pipelines?tabs=from-fabric%2Cnew-ui)
+- [Notebook source control, auto-binding, deployment rules](https://learn.microsoft.com/en-us/fabric/data-engineering/notebook-source-control-deployment)
+- [Lakehouse source control and deployment](https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-git-deployment-pipelines)
+- [Git integration administrator settings](https://learn.microsoft.com/en-us/fabric/admin/git-integration-admin-settings)
+
+## 7. 캡처 재생성과 오프라인 검사
+
+Python 3.12 이상으로 저장소 루트에서 실행합니다. 패키지 설치는 registry에 접근할 수 있지만
+이후 명령은 Azure/Fabric에 배포하지 않습니다.
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r tools/requirements.txt
 python tools/annotate_screenshots.py
-python -m unittest discover -s tests
+python -m unittest discover -s tests -v
 ```
 
-도구는 원본을 덮어쓰지 않습니다. 캡처를 바꾸면 주석 정의의 이미지 크기와 박스 좌표도 실제 화면에 맞춰 갱신해야 하며, 크기가 다르거나 박스가 이미지 밖이면 오류로 중단합니다.
+Windows PowerShell에서는 `source` 대신 `.\.venv\Scripts\Activate.ps1`로 활성화합니다.
+검사는 링크·이미지 목록과 크기·주석 제한·원본 해시·박스 선 밖의 모든 픽셀 보존을 확인합니다.
+최초 Notebook-only 판은 두 저장소의 `notebook-demo-v1` 태그에 보존되어 있습니다.

@@ -1,183 +1,199 @@
-# 2. GitHub 연결, Commit, Update from Git
+# 3. GitHub 연결, Feature branch, PR과 Dev Update
 
-[가이드 처음으로](README.md) · [이전: 사전 준비](01-prerequisites.md) · [다음: Deployment pipelines](03-deployment-pipelines.md)
+[처음으로](README.md) · [이전: Lakehouse + Notebook](02a-lakehouse-notebook.md) · [다음: 배포](03-deployment-pipelines.md)
 
-**실제 수행:** GitHub 기능 그룹 한정 허용 → 계정 등록 → 최초 동기화 → Workspace에서 v1.1 Commit → Git에서 v2 Push → Fabric Update를 수행했습니다. 각 단계의 실제 화면과 Commit을 아래에서 확인합니다.
+**목표:** Workspace → Git Commit과 Git → Workspace Update를 구분하고, 실제 Feature
+데이터 검증과 사람의 PR 검토를 거쳐 main에 반영합니다.
 
-## 2-1. Workspace에서 Git 공급자 상태 확인
+## 3-1. Dev를 main의 새 Git directory에 연결
 
-**목적:** GitHub 인증보다 먼저 Fabric의 공급자 허용 상태를 확인합니다.
+**경로:** `FabricLab-Dev → Workspace settings → Git integration → Connection details`.
 
-**클릭 경로:** `ws-fabric-alm-lab-dev` → **Workspace settings → Git integration → Connection details**.
+1. GitHub를 선택합니다. 회색이면 [필수 tenant 설정](01-prerequisites.md)을 먼저 확인합니다.
+2. 올바른 repository-scoped 계정을 선택하고 **Connect**를 누릅니다.
+   새 계정이 필요한 경우만 Add account에서 PAT를 등록합니다.
+3. Branch는 `main`, Git folder는 `/workshops/cicd/fabric`으로 지정합니다.
 
-![실제 Workspace Git integration의 비활성 GitHub 공급자](screenshots/16-workspace-github-provider-blocked.png)
+![실제 Dev의 main과 새 Git directory 입력](screenshots/w16-dev-main-git-folder.png)
 
-위 화면은 **변경 전**입니다. 공급자에 `Contact an admin to allow this Git provider.` 안내가 있었고, REST API의 연결 상태도 `NotConnected`였습니다. [사전 구성의 실제 그룹 한정 허용 절차](01-prerequisites.md#1-2-fabric-테넌트의-git-설정-확인)를 수행한 뒤 GitHub가 활성화되었습니다.
+4. **Connect and sync**를 누릅니다.
+5. 폴더가 없다는 확인 창에서 정확한 경로를 대조하고 **Create and sync**를 선택합니다.
 
-**기대 결과:** GitHub를 선택할 수 있어야 합니다. 선택할 수 없으면 [테넌트 설정 단계](01-prerequisites.md#1-2-fabric-테넌트의-git-설정-확인)에서 멈춰 해결합니다. GitHub 로그인 성공만으로 이 차단이 해제되지는 않습니다.
+![새 directory 생성과 동기화 확인 창](screenshots/w17-create-git-folder-confirmation.png)
 
-## 2-2. GitHub 계정 연결
+### 초기 동기화 방향을 확인
 
-**목적:** Fabric에 저장소 한정 GitHub 인증을 등록합니다.
+이번 Dev에는 Lakehouse와 Notebook이 있고 원격의 이 directory는 없었습니다.
+실제 UI가 directory를 만든 뒤 **Workspace → Git**으로 두 정의를 커밋했습니다.
+양방향 선택 창이 표시되었다고 설명하지 않습니다.
 
-1. Git provider에서 **GitHub**를 선택합니다.
-2. **Add account**를 선택합니다. 이미 등록한 계정이 있다면 올바른 계정인지 확인합니다.
-3. Display name에 식별 가능한 이름을 입력합니다. 촬영 환경은 `YOONPYOGitHub-alm`입니다.
-4. 사전 준비에서 발급한 PAT를 **Personal access token** 입력란에 입력합니다.
-5. Repository URL에 `https://github.com/YOONPYOGitHub/fabric-alm-lab`을 입력합니다.
-6. **Add**로 자격 증명을 등록합니다.
+반대로 Feature처럼 Workspace가 비어 있고 Git 정의가 있으면 **Git → Workspace**가
+초기 방향입니다. 양쪽에 내용이 있거나 삭제·덮어쓰기 경고가 나오면 멈춰 비교합니다.
+빈 directory로 Workspace를 덮어쓰지 않습니다.
 
-![토큰을 입력하기 전 계정 등록 양식](screenshots/21-add-github-account-before-token.png)
+![두 아이템 최초 동기화 후 Synced 상태](screenshots/w19-dev-initial-sync-complete.png)
 
-토큰 값이 있는 중간 화면은 촬영하지 않았습니다. 아래처럼 등록된 계정과 저장소 URL만 확인합니다.
-
-![저장소 한정 GitHub 계정 등록 결과](screenshots/22-github-account-added-repository-scoped.png)
-
-7. 해당 계정을 선택하고 **Connect**를 누릅니다.
-
-**실제 결과:** 계정 연결이 완료되고 Repository / Branch / Folder 설정 단계가 열렸습니다.
-
-## 2-3. Repository / Branch / Folder 연결
-
-**클릭 경로:** Git integration → **Connect Git repository and branch**.
-
-| 입력 | 값 |
-|---|---|
-| Repository URL | `https://github.com/YOONPYOGitHub/fabric-alm-lab` |
-| Branch | `main` |
-| Git folder | `/fabric` |
-
-1. 다른 환경에서는 자신의 Repository URL로 바꿉니다.
-2. 저장소 한정 토큰이라면 해당 저장소만 선택 가능한지 확인합니다.
-3. Branch에서 `main`을 선택하고 Git folder에 `/fabric`을 입력합니다.
-
-![저장소 URL, main branch, fabric 폴더 입력](screenshots/23-github-main-fabric-folder-before-sync.png)
-
-4. **Connect and sync**를 선택합니다.
-5. `/fabric`이 없으면 **Create a new folder?** 창에서 경로를 대조하고 **Create and sync**를 선택합니다.
-
-![실제로 표시된 폴더 생성 및 최초 동기화 확인](screenshots/24-create-fabric-folder-initial-sync.png)
-
-### 초기 동기화 방향
-
-이 실습의 Dev에는 `nb_cicd_demo` v1이 있고 GitHub의 `/fabric`은 없었습니다. 실제로는 **Create and sync**가 새 폴더를 만들고 Workspace 정의를 Git으로 보내 최초 Commit을 생성했습니다. 별도의 양방향 선택 창이 표시된 것으로 기록하지 않습니다.
-
-- 비어 있는 `/fabric`을 기준으로 Workspace를 덮어쓰지 않습니다.
-- 양쪽에 아이템이 있다면 내용과 충돌을 검토하고 진행합니다.
-- 삭제·덮어쓰기 경고가 있으면 멈춰 대상과 방향을 확인합니다.
-
-**실제 결과:** `ConnectedAndInitialized`, `main /fabric` 연결과 최초 Commit `5516e8bc`를 확인했습니다.
-
-![최초 동기화 후 변경 없음과 branch 경로](screenshots/25-workspace-synced-after-initial-git-export.png)
-
-GitHub에는 다음 파일이 생성되었습니다.
+**실제 기록:** directory 생성 `f510589f`, 두 정의 최초 Commit `2398332f`.
+Git에 다음 구조가 생겼습니다.
 
 ```text
-fabric/
-  Readme.md
-  nb_cicd_demo.Notebook/
+workshops/cicd/fabric/
+  CI_CD_Demo.Lakehouse/
+    .platform
+    alm.settings.json
+    lakehouse.metadata.json
+    shortcuts.metadata.json
+  CI_CD_Smoke.Notebook/
     .platform
     notebook-content.py
 ```
 
-![GitHub에 실제로 반영된 v1 Notebook 소스와 Fabric 메타데이터](screenshots/26-github-initial-notebook-definition.png)
+SQL analytics endpoint는 Lakehouse가 관리하는 항목입니다. 별도 source definition이나
+Delta 테이블 행을 Git에 추가하지 않습니다.
 
-## 2-4. Workspace → Git 변경 Commit
+## 3-2. Git으로 분기할 때 Lakehouse 바인딩 설정
 
-**목적:** 최초 동기화와 별도로, Workspace에서 수정한 내용을 실제 Commit UI로 보냅니다. 먼저 [Notebook v1 작성](03-deployment-pipelines.md#3-1-notebook-v1-작성과-실행)을 마칩니다.
+**경로:** Dev Notebook **Settings → Git settings → Git binding**.
 
-1. Dev의 `nb_cicd_demo`를 열어 첫 줄만 `release = "v1.1"`로 바꾸고 저장합니다. 입력값과 합계 검증 60은 그대로 둡니다.
-2. Workspace로 돌아와 **Source control → Changes**를 엽니다.
-3. 변경이 바로 보이지 않으면 Source control의 **Refresh**를 선택합니다.
-4. `nb_cicd_demo`가 **Modified / Uncommitted**인지 확인합니다.
-5. **Review and commit changes**를 열고 v1 → v1.1 한 줄 변경을 검토합니다.
-6. Notebook 하나만 선택하고 Commit 메시지를 입력합니다.
-7. **Commit**을 선택합니다.
+1. **Lakehouse in new workspace**를 선택합니다.
+2. 변경이 다음 Commit에 반영된다는 안내를 확인합니다.
+3. Workspace로 돌아와 **Source control → Changes**를 엽니다.
+4. Notebook 하나의 변경을 검토하고 Commit 메시지를 입력합니다.
+5. 해당 Notebook을 선택하고 **Commit**합니다.
 
-![실제 v1에서 v1.1 변경 검토와 Notebook 선택 및 Commit 버튼](screenshots/27-workspace-to-git-review-and-commit-v11.png)
+![새 Workspace의 Lakehouse를 사용하도록 선택](screenshots/w20-notebook-git-local-lakehouse-binding.png)
 
-**실제 결과:** [Commit c653df75](https://github.com/YOONPYOGitHub/fabric-alm-lab/commit/c653df75d531632051be64ea43f0396d6e2002b2)가 생성되었고, Workspace와 원격 Commit이 일치하며 변경 목록이 비었습니다. v1.1은 Commit 방향을 보여주는 중간 버전이며 별도 Fabric 실행 검증 대상으로 삼지 않았습니다.
+![Workspace에서 바인딩 설정 변경을 검토하고 Commit](screenshots/w21-commit-stage-local-binding.png)
 
-Fabric이 생성한 셀 메타데이터와 `.platform` 식별 정보를 임의로 만들거나 삭제하지 않습니다. Git에는 아이템 정의를 기록하며 토큰이나 실행 로그를 넣지 않습니다.
+**실제 기록:** Commit `4ea83edb`. Fabric이 `notebook-settings.json`을 만들고 lakehouse
+물리 ID를 logical ID로 바꾸었습니다. Workspace ID의
+`00000000-0000-0000-0000-000000000000`은 이 Git 바인딩 표현의 일부이지 배포할 실제
+Workspace ID가 아닙니다. 이 설정 파일이나 logical ID를 수동으로 고치지 않습니다.
 
-## 2-5. Git에서 v2 변경
+Lakehouse와 Notebook을 **함께** 버전 관리하고, 동기화 후에는 실제 물리 ID가 새 환경으로
+해결되었는지 다시 확인합니다. 설정이 on이라는 사실만으로 안전한 바인딩이 증명되지는 않습니다.
 
-**목적:** 원격 변경을 Fabric으로 가져오는 방향을 실습합니다.
+## 3-3. Feature branch와 Feature Workspace
 
-이번 변경은 **로컬 Git에서 편집·Commit·Push**하고, GitHub 웹 화면에서 실제 diff를 확인했습니다. 웹 편집기로 Commit한 것으로 기록하지 않습니다.
+**경로:** GitHub 소스 저장소 **Branches → New branch**.
 
-1. 실습 저장소를 clone하고 `main`을 확인합니다.
+1. Source가 최신 `main`인지 확인합니다.
+2. 새 이름 `feature/smoke-v2`를 입력하고 **Create new branch**를 선택합니다.
+
+![실제 GitHub에서 main을 기준으로 Feature branch 생성](screenshots/w24-create-feature-branch-from-main.png)
+
+**실제 기록:** 새 branch의 시작 Commit이 `4ea83edb`와 같음을 API로 대조했습니다.
+오래 열린 GitHub 화면의 오래된 Commit을 분기 기준으로 추측하지 않습니다.
+
+3. `FabricLab-Feature → Workspace settings → Git integration`을 엽니다.
+4. 같은 repository-scoped 계정을 선택합니다.
+
+![Feature에서도 기존 source repository 계정을 선택](screenshots/w22-feature-existing-github-account.png)
+
+5. `feature/smoke-v2`, `/workshops/cicd/fabric`에 연결합니다.
+6. 비어 있는 Workspace에 Git의 Lakehouse와 Notebook 정의를 가져옵니다.
+
+**실제 수행 방식:** 계정 선택 준비는 UI로 했고 Feature의 연결·초기화·첫 Update는
+공식 Core Git API로 수행했습니다. UI branch 목록이 새 branch를 즉시 반영하지 않아,
+동일하게 승인된 기존 connection을 재사용했습니다. UI에서 이 연결을 확정했다고 기록하지 않습니다.
+
+API를 사용할 때도 다음 순서와 검증을 지킵니다.
+
+```text
+GET  /v1/workspaces/{devWorkspaceId}/git/myGitCredentials
+GET  /v1/workspaces/{featureWorkspaceId}/git/connection
+POST /v1/workspaces/{featureWorkspaceId}/git/connect
+POST /v1/workspaces/{featureWorkspaceId}/git/initializeConnection
+POST /v1/workspaces/{featureWorkspaceId}/git/updateFromGit
+GET  /v1/workspaces/{featureWorkspaceId}/git/status
+```
+
+- `connect`: 실제 owner/repository, feature branch, directory와 기존 connection ID를 전달합니다.
+- `initializeConnection`: `requiredAction=UpdateFromGit`인지 확인합니다.
+- Update에는 조회한 `workspaceHead`, `remoteCommitHash`를 사용합니다. 임의 SHA를 만들지 않습니다.
+- 202이면 `x-ms-operation-id`로 canonical operations API에서 완료를 확인합니다.
+  결과 본문이 없는 성공 작업에 `/result`를 무조건 요구하거나 작업을 중복 제출하지 않습니다.
+- 최종 `ConnectedAndInitialized`, 같은 원격/Workspace SHA와 변경 목록 0을 확인합니다.
+
+![실제 Feature branch와 directory 연결 결과](screenshots/w43-feature-connected-branch-and-folder.png)
+
+**실제 확인:** 가져온 v1 전체 코드 AST는 Dev v1과 같았고, Notebook의 물리 기본 Lakehouse는
+Feature 자체 Lakehouse로 해결되었습니다. Dev의 Lakehouse를 가리키지 않았습니다.
+
+## 3-4. Feature에서 v2 변경·검증
+
+이번 코드 변경은 **로컬 Git 편집·Commit·Push**로 수행했습니다. Fabric 셀 출력이나
+다운로드한 실행 결과를 편집한 것이 아닙니다.
 
 ```bash
 git clone https://github.com/YOONPYOGitHub/fabric-alm-lab.git
 cd fabric-alm-lab
+git switch feature/smoke-v2
 ```
 
-2. `fabric/nb_cicd_demo.Notebook/notebook-content.py`의 코드 세 줄을 변경합니다. Fabric 셀·메타데이터 구조와 나머지 코드는 보존합니다.
+`workshops/cicd/fabric/CI_CD_Smoke.Notebook/notebook-content.py`의 두 상수만 바꿉니다.
+Fabric metadata·셀 구분·검증 로직은 보존합니다.
 
 ```python
-release = "v2"
-values = [10, 20, 40]
-assert len(values) == 3
-assert sum(values) == 70
-print({"release": release, "rows": len(values), "total": sum(values)})
+RELEASE = "v2"
+MULTIPLIER = 2
 ```
 
-3. 이 예제는 외부 라이브러리가 없는 순수 Python 계산이므로 로컬에서도 입력·출력을 검사할 수 있습니다. 로컬 검사가 Fabric 런타임 검증을 대신하지는 않습니다.
+1. 소스 저장소의 오프라인 검사를 수행합니다.
 
 ```bash
-python fabric/nb_cicd_demo.Notebook/notebook-content.py
+python -m unittest discover -s workshops/cicd/tests -v
 git diff --check
-git diff --numstat
 ```
 
-출력은 `release=v2`, `rows=3`, `total=70`, 변경량은 **3 additions / 3 deletions**여야 합니다.
+2. 수정한 파일만 Commit하고 feature branch로 Push합니다. main에 직접 v2를 Push하지 않습니다.
+3. Feature의 **Source control → Updates**에서 변경을 검토하고 **Update all**을 누릅니다.
 
-4. 해당 파일만 Commit하고 Push합니다.
+![Feature에서 실제로 수행한 Git v2 Update all](screenshots/w28-feature-update-from-git-v2.png)
 
-```bash
-git add fabric/nb_cicd_demo.Notebook/notebook-content.py
-git commit -m "Update synthetic Notebook to v2 with total 70"
-git push origin main
-```
+4. `Synced`, Workspace/원격 SHA 일치와 변경 목록 0을 확인합니다.
+5. 내보낸 Notebook 전체 코드가 Git v2와 같고 기본 Lakehouse가 여전히 Feature인지 대조합니다.
+6. Feature Notebook을 실행해 실제 Delta 데이터를 다시 읽어 검증합니다.
 
-5. GitHub에서 Commit과 세 줄의 diff를 확인합니다.
+![Feature v2의 실제 Delta 10행·합계 90·환경 ID·위치](screenshots/w30-feature-v2-verified-output.png)
 
-![실제 v2 원격 Commit과 세 줄 변경](screenshots/28-github-v2-commit-and-three-line-diff.png)
+**실제 기록:** feature HEAD `09b03c28`, unittest 9개·Ruff·Pyright 통과.
+UI Update 후 실제 실행 스냅샷에서 10행·유일한 ID 0–9·모든 행 값과 release·합계 90을 확인했습니다.
+실행은 Job Scheduler API였으며 UI의 Run all로 실행한 것으로 기록하지 않습니다.
 
-직접 `main`에 Commit하는 것은 이 실습의 단순화된 절차입니다. 보호 branch를 사용하는 환경에서는 feature branch → Pull request → 검토·병합 절차를 따릅니다. GitHub에서 파일을 편집·Commit하는 것만으로 Fabric Notebook이 실행되지는 않습니다.
+## 3-5. 실제 Pull request와 사람의 검토 — 현재 대기 지점
 
-**실제 결과:** [Commit a1017399](https://github.com/YOONPYOGitHub/fabric-alm-lab/commit/a1017399c1cf124e9340cdcaf3df1de83b77b23f)가 생성되었습니다. 이때 Workspace는 아직 v1.1이고 Git은 v2입니다.
+**경로:** GitHub **Compare & pull request**, base `main`, compare `feature/smoke-v2`.
 
-## 2-6. Git → Workspace Update
+1. 제목·변경 이유·오프라인 결과·Feature 실제 데이터 결과·바인딩 근거를 적습니다.
+2. base와 compare 방향, 바뀐 두 상수와 테스트·문서 변경을 확인합니다.
+3. **Create pull request**를 선택합니다. 이 버튼은 merge가 아닙니다.
 
-**클릭 경로:** Dev Workspace → **Source control → Updates**.
+![검증 결과를 적고 실제 PR을 생성한 화면](screenshots/w31-create-v2-pull-request.png)
 
-1. Source control의 **Refresh** 후 **Updates**에서 원격 변경과 Commit을 확인합니다.
-2. 로컬 미Commit 변경이 있다면 먼저 충돌 처리 방향을 정합니다.
+4. **Files changed**에서 코드·metadata·테스트·문서를 검토합니다.
 
-![실제 Updates 1과 Update Required 상태](screenshots/29-fabric-remote-update-required.png)
+![실제 열린 PR의 v1 → v2 두 상수 변경, 기존 diff 색상은 그대로 보존](screenshots/w44-review-v2-pr-diff-clean.png)
 
-3. Notebook 행의 **Review changes**로 v1.1 → v2, 합계 60 → 70 변경을 검토합니다.
+**현재 상태:** [YOONPYOGitHub/fabric-alm-lab#1](https://github.com/YOONPYOGitHub/fabric-alm-lab/pull/1)은
+열려 있고 사람의 검토를 기다립니다. GitHub Checks는 구성하지 않았습니다. 오프라인 검사를
+GitHub 필수 status check가 통과한 것으로 표현하지 않습니다.
 
-![실제로 검토한 원격 변경 세 줄과 대상 Workspace](screenshots/30-fabric-review-git-to-workspace-v2.png)
+검토자가 diff와 검증 근거를 확인하고 실제 병합 승인을 남겨야 합니다. 저장소 정책이
+독립 리뷰어 승인을 요구한다면 별도의 적격 리뷰어가 필요합니다. 승인 요청에 응답이 없으면
+대기하며 자동 승인·작성자의 자기 승인을 독립 리뷰로 기록하지 않습니다.
 
-4. 검토 창을 닫고 **Update all**로 Git 변경을 Workspace에 적용합니다.
-5. 업데이트 완료 후 Notebook을 새로 열어 `v2`, `[10, 20, 40]`, 합계 검증 `70`을 확인합니다. 업데이트 전에 열어 둔 편집기가 있다면 새로 고쳐 오래된 메모리 상태로 실행하지 않습니다.
-6. **Run all** 실행의 기대 출력은 다음과 같습니다. 실제 Fabric 실행 검증은 [배포 장](03-deployment-pipelines.md)에 기록합니다.
+## 3-6. 검토·병합 후 Dev Update — 아직 미실행
 
-```text
-{'release': 'v2', 'rows': 3, 'total': 70}
-```
+아래는 승인 후 진행할 절차이며 완료된 실행 기록이 아닙니다.
 
-7. Source control이 다시 **Synced**인지 확인합니다.
+1. 승인된 PR의 HEAD가 검토한 SHA와 같은지 확인하고 main으로 merge합니다.
+2. GitHub에서 실제 merge Commit SHA를 기록합니다.
+3. `FabricLab-Dev → Source control → Updates`에서 변경을 검토합니다.
+4. 충돌·삭제·로컬 미커밋 변경이 없는지 확인하고 **Update all**을 선택합니다.
+5. Dev의 Git HEAD가 실제 main과 같고 변경 목록이 비었는지 확인합니다.
+6. Dev 코드가 v2이며 물리 기본 Lakehouse는 Dev인지 확인합니다.
+7. Dev에서 실제 10행·합계 90을 검증한 후 [v2 Test 배포](03-deployment-pipelines.md)를 진행합니다.
 
-![Update 완료 후 v2 Commit에 동기화된 Workspace](screenshots/31-workspace-synced-to-git-v2.png)
-
-**실제 결과:** 원격 Commit과 Workspace head가 모두 `a1017399`이고 변경 목록이 비었습니다. Notebook 정의를 다시 내보내 **전체 소스가 Git의 v2와 일치**하는지 대조했습니다. 단순히 Synced 표시만 보고 검증을 끝내지 않았습니다.
-
-## 2-7. 배포로 연결
-
-v2의 실제 실행 검증 후 [Development → Test → Production 배포 절차](03-deployment-pipelines.md)를 진행합니다.
-
-`Synced`는 Git 정의와 Workspace 정의의 동기화 상태입니다. Test/Prod 배포 완료나 Notebook 실행 성공을 의미하지 않습니다. 대상 정의와 실행 결과는 배포 단계에서 별도로 확인합니다.
+Feature HEAD와 merge Commit SHA는 다를 수 있습니다. 버전 문자열 하나나 Saved 표시만 보지
+말고 실제 코드와 branch HEAD, 환경별 물리 바인딩을 각각 대조합니다.
