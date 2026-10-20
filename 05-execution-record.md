@@ -130,6 +130,21 @@ Delta 위치를 반환했습니다. 해당 결과를 API에서도 대조했습�
 자동 승인 Workflow, GitHub Actions/OIDC를 구성한 것으로 주장하지 않습니다.
 Capacity와 Workspace는 중지·삭제하지 않았으므로 비용이 계속 발생할 수 있습니다.
 
+## 문서 보완을 위한 후속 캡처
+
+2026-10-20 KST에 수정된 재현 절차를 설명하기 위한 화면 6장을 추가했습니다.
+위 실제 실행·배포의 횟수나 결과를 새로 만든 기록은 아닙니다.
+
+| 캡처 | 촬영한 상태 | 변경하지 않은 것 |
+|---|---|---|
+| w61–w62 | GitHub 새 저장소 양식의 owner·이름·Private·Add README On | Create repository 미선택, 새 저장소 미생성 |
+| w63 | 고정 Commit `53f7908`의 테스트 파일과 Download raw file 위치 | 소스 파일·branch·토큰 범위 |
+| w64 | 기존 Test Notebook의 Settings → About → Owned by | 소유권·역할·Notebook 코드 |
+| w65–w66 | 실제로 제공되는 OneLake catalog → Govern → Configurations → Tenant settings | 스위치·적용 범위·권한 |
+
+기존 원본 60장은 그대로 보존했고 추가 화면에도 핵심 한 곳씩만 빨간 박스를 표시했습니다.
+현재 원본·강조본은 각각 66장, 전체 빨간 박스는 50곳입니다.
+
 ---
 
 ## 다음으로 이동

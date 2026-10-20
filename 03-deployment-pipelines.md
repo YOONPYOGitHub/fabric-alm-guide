@@ -132,6 +132,15 @@ Notebook의 About/Details에서 소유자를 확인하고, 소유자가 아닌 �
 [Deployment rules 제한사항](https://learn.microsoft.com/en-us/fabric/cicd/deployment-pipelines/create-rules#considerations-and-limitations)을
 따릅니다.
 
+**소유자 확인 경로:** 대상 Test Workspace에서 `CI_CD_Smoke`의 **More options → Settings →
+About → Details → Owned by**를 확인합니다. 아래는 기존 Test Notebook을 조회한 화면입니다.
+
+![대상 Test Notebook의 About에서 기존 아이템 소유자 확인](screenshots/w64-test-notebook-existing-item-owner.png)
+
+**빨간 박스:** `Owned by`의 실제 아이템 소유자입니다. **Location이 FabricLab-Test**인지도
+함께 확인합니다. 이 캡처를 위해 소유권을 인수하거나 Workspace/Pipeline 역할을 변경하지
+않았습니다. 관리 권한 화면 대신 대상 아이템 자체의 소유자를 확인하는 단계입니다.
+
 1. 첫 정의 배포로 대상 Lakehouse와 Notebook의 pairing을 확인합니다.
 2. 대상 단계 **Deployment rules → CI_CD_Smoke → Default lakehouse → Add rule**을 엽니다.
 3. **From**에서 source 단계의 실제 `CI_CD_Demo`를 선택합니다.

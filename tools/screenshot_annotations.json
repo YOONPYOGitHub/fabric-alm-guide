@@ -934,5 +934,65 @@
     "boxes": [],
     "overview": true,
     "originalSha256": "230d899dc157a2a981db27d4d825368bcbdadc2fc71dbfa6dff9aaaf9c9ee28e"
+  },
+  "w61-new-private-repository-preparation.png": {
+    "size": [2807, 1608],
+    "boxes": [
+      {
+        "label": "Name of a new practice repository, not the completed example",
+        "rect": [1176, 443, 1925, 500]
+      }
+    ],
+    "originalSha256": "34e0a664b4356f1d7c8d6ac7faabe48aad5cca5270a3ec9897734d1fbb8dc58a"
+  },
+  "w62-initialize-new-repository-with-readme.png": {
+    "size": [2807, 1608],
+    "boxes": [
+      {
+        "label": "Enable Add README before creating the new repository",
+        "rect": [1818, 781, 1900, 827]
+      }
+    ],
+    "originalSha256": "d31cb5a6453d65e48816883f711b51fea0cdbf30a339a84a24127230d802264d"
+  },
+  "w63-download-pinned-smoke-test-source.png": {
+    "size": [2807, 1608],
+    "boxes": [
+      {
+        "label": "Download raw file for the pinned Python test source",
+        "rect": [2554, 346, 2607, 398]
+      }
+    ],
+    "originalSha256": "dff236682eb5e9ac39d9684761b97dd931fa2b0ab74d86a91ce68606fe616012"
+  },
+  "w64-test-notebook-existing-item-owner.png": {
+    "size": [2807, 1608],
+    "boxes": [
+      {
+        "label": "Existing owner of the target Test Notebook",
+        "rect": [1733, 612, 1988, 647]
+      }
+    ],
+    "originalSha256": "df88889252f6ee6856c6082aada9be10b9a74220ff366460d9038940af71c880"
+  },
+  "w65-onelake-govern-configurations-entry.png": {
+    "size": [2807, 1608],
+    "boxes": [
+      {
+        "label": "Configurations in OneLake catalog Govern",
+        "rect": [139, 824, 443, 895]
+      }
+    ],
+    "originalSha256": "1f2ddaddf4c0d99ba3d33f8c99123c4aa862625ced2b0e5bf98f033eb2f3d701"
+  },
+  "w66-onelake-configurations-tenant-settings.png": {
+    "size": [2807, 1608],
+    "boxes": [
+      {
+        "label": "Tenant settings under Configurations",
+        "rect": [535, 446, 690, 486]
+      }
+    ],
+    "originalSha256": "acc282556cc44ffda8e74b2bc17c8492ceed0662f646e9de4faee5fd55b585ae"
   }
 }

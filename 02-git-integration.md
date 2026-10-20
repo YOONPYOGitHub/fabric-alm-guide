@@ -161,6 +161,14 @@ git grep -n -E '^(RELEASE|MULTIPLIER) =' -- workshops/cicd/fabric/CI_CD_Smoke.No
    `workshops/cicd/tests` 디렉터리를 만들고 **`test_smoke_contract.py`**로 저장합니다.
    GitHub HTML 페이지를 `.py`로 저장하지 않습니다. 예제의 Notebook 정의·`.platform`·
    `notebook-settings.json`을 이 과정에서 복사하거나 교체하지 않습니다.
+
+![고정 Commit의 실제 테스트 원본에서 Download raw file 선택 위치](screenshots/w63-download-pinned-smoke-test-source.png)
+
+**빨간 박스:** 파일 상단 **Raw 오른쪽의 아래쪽 화살표(Download raw file)**입니다.
+화면의 `53f7908` Commit과 `test_smoke_contract.py` 이름을 확인한 뒤 선택합니다.
+이 캡처는 다운로드 버튼의 위치를 보여주며, HTML 페이지의 저장이나 예제 파일 편집을
+지시하는 화면이 아닙니다.
+
 3. 새 로컬 소스 저장소의 루트에서 다음을 실행해 **v1 상태로도 9개 테스트가 통과**하는지 확인합니다.
 
 ```bash

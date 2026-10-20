@@ -40,9 +40,21 @@ Azure 구독의 Owner 역할이 Fabric Workspace/Pipeline Admin을 자동 부여
 **현재 Learn의 기본 경로:** **OneLake catalog → Govern → Configurations → Tenant settings**.
 Tenant settings에서 **Filter by keyword**로 검색합니다.
 
+1. 좌측 **OneLake catalog**를 열고 **Govern** 탭을 선택합니다.
+2. Govern의 왼쪽 메뉴에서 **Configurations**를 선택합니다.
+
+![실제 OneLake catalog의 Govern 탭에서 Configurations 선택](screenshots/w65-onelake-govern-configurations-entry.png)
+
+3. **Platform → Tenant settings**를 선택하고 오른쪽 **Filter by keyword**로 설정을 찾습니다.
+
+![실제 Configurations에서 Tenant settings와 검색란 확인](screenshots/w66-onelake-configurations-tenant-settings.png)
+
+위 두 장은 2026-10-20 KST에 새 경로가 제공되는 것을 확인해 추가한 실제 화면입니다.
+설정을 조회하기만 했으며 스위치·적용 범위는 바꾸지 않았습니다.
+
 OneLake catalog의 Govern이 아직 제공되지 않는 지역별 rollout 환경에서는
-**Settings → Admin portal → Tenant settings**를 사용합니다. 아래 캡처는 실제 촬영 당시의
-이 대체 경로입니다. 두 경로의 구분은
+**Settings → Admin portal → Tenant settings**를 사용합니다. 아래 각 설정의 기존 캡처는
+최초 촬영 당시의 이 대체 경로입니다. 두 경로의 구분은
 [공식 Tenant settings 접근 안내](https://learn.microsoft.com/en-us/fabric/admin/about-tenant-settings#how-to-get-to-the-tenant-settings)를
 따릅니다. 관리자 화면에 접근할 수 없으면 담당 관리자에게 상태·적용 범위 확인을 요청합니다.
 
@@ -152,9 +164,24 @@ Pipeline 단계가 아니라 Git feature branch를 검증할 Workspace입니다.
 
 1. GitHub **New repository**에서 자신의 새 실습 소스 저장소를 만듭니다.
    이 가이드는 Private을 사용하며, 이름은 다른 저장소와 구분할 수 있게 정합니다.
-2. **Add a README file**을 선택해 기본 branch `main`을 준비합니다.
+
+![새 실습 저장소의 owner·이름과 Private을 준비한 실제 생성 양식](screenshots/w61-new-private-repository-preparation.png)
+
+**빨간 박스:** 새 저장소 이름 입력란입니다. `fabric-alm-practice`는 이 추가 캡처의
+입력 예시이며 완료된 촬영 저장소 `fabric-alm-lab`과 구분합니다.
+
+2. **Add README**를 On으로 선택합니다. 화면에 따라 **Add a README file**로 표시될 수 있습니다.
+   새 입력을 검토한 뒤 실제 실습에서 **Create repository**로 생성하고 기본 branch가
+   `main`인지 확인합니다.
    아직 `/workshops/cicd/fabric`이나 `feature/smoke-v2`는 만들지 않습니다.
    완료된 v2 저장소를 Fork/복사해 그대로 시작하는 경로가 아닙니다.
+
+![새 저장소에 README를 포함하도록 Add README를 On으로 선택](screenshots/w62-initialize-new-repository-with-readme.png)
+
+**빨간 박스:** Add README 토글입니다. 두 추가 캡처는 생성 양식의 준비 상태이며
+**촬영을 위해 Create repository를 누르거나 새 저장소를 실제로 만들지는 않았습니다.**
+이미 준비한 자신의 저장소가 있다면 중복 생성하지 않습니다.
+
 3. 실제 owner·repository URL을 기록합니다. 이후 Git 연결, PAT 범위, clone과 PR의 대상은
    모두 **이 새 저장소**입니다. 캡처의 `fabric-alm-lab`은 촬영 예시 이름입니다.
 4. [Lakehouse + Notebook 장](02a-lakehouse-notebook.md)의 고정된 v1 소스에서 **코드 셀만**
