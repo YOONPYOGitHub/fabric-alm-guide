@@ -32,6 +32,11 @@
 
 ## 4-2. 각 단계에 Workspace 할당
 
+**공식 문서 기준:** Workspace에서 Pipeline을 생성한 경우 해당 Workspace는 생성 시
+자동 할당되므로 먼저 카드의 연결 상태를 확인합니다. 올바르게 할당되어 있으면 그 단계의
+수동 Assign을 건너뜁니다. 좌측 Deployment pipelines에서 생성했거나 카드가 비어 있으면
+아래 절차로 할당합니다. [공식 Step 3 안내](https://learn.microsoft.com/en-us/fabric/cicd/deployment-pipelines/get-started-with-deployment-pipelines#step-3---assign-a-workspace)
+
 **경로:** 단계 카드의 **Assign a workspace → 이름 선택 → Assign**.
 이름을 드롭다운에서 선택하는 것만으로는 할당이 끝나지 않습니다.
 
@@ -47,7 +52,8 @@
 
 ![Production Workspace 할당만 수행, 데이터 승격 아님](screenshots/w33-assign-production-workspace-only.png)
 
-세 단계 할당은 모두 실제 UI로 수행했고 stages API의 실제 Workspace ID와 대조했습니다.
+촬영 환경에서는 세 단계 할당을 모두 실제 UI로 수행했고 stages API의 실제 Workspace ID와
+대조했습니다. 이 기록이 모든 환경에서 세 번의 수동 Assign을 요구한다는 뜻은 아닙니다.
 Feature Workspace는 이 Pipeline에 넣지 않습니다.
 
 **기대 결과:** 세 카드가 정확한 Workspace를 가리킵니다. Workspace를 연결했다고
@@ -117,6 +123,14 @@ Pipeline의 의존성 auto-binding으로 확인했습니다. 두 기능을 같�
 
 특정 대상 Lakehouse를 고정해야 한다면 **대상 Test 또는 Production 단계**에서 Notebook
 배포 규칙을 설정합니다. Development에 대상 환경 규칙을 만들지 않습니다.
+
+**필수 권한:** 규칙을 만들 **대상 Notebook의 아이템 소유자**여야 합니다.
+Workspace Admin이나 Pipeline Admin 역할만 확인하고 이 조건을 생략하지 않습니다.
+Notebook의 About/Details에서 소유자를 확인하고, 소유자가 아닌 경우 실제 소유자에게
+규칙 구성을 요청합니다. 소유권이나 권한을 승인 없이 자동으로 바꾸지 않습니다.
+[Notebook 공식 사전 조건](https://learn.microsoft.com/en-us/fabric/data-engineering/notebook-source-control-deployment#before-you-start)과
+[Deployment rules 제한사항](https://learn.microsoft.com/en-us/fabric/cicd/deployment-pipelines/create-rules#considerations-and-limitations)을
+따릅니다.
 
 1. 첫 정의 배포로 대상 Lakehouse와 Notebook의 pairing을 확인합니다.
 2. 대상 단계 **Deployment rules → CI_CD_Smoke → Default lakehouse → Add rule**을 엽니다.

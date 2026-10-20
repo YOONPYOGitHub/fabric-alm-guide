@@ -20,6 +20,18 @@
 Fabric의 Git 연결에는 **소스 저장소**의 `main /workshops/cicd/fabric`을 지정합니다.
 가이드 저장소를 Fabric Workspace에 연결하지 않습니다.
 
+### 완료된 예제 조회와 새 실습 시작을 구분
+
+촬영에 사용한 `YOONPYOGitHub/fabric-alm-lab`의 `main`과 `feature/smoke-v2`는 이미 **v2**입니다.
+이 저장소를 그대로 clone해 두 상수를 v2로 바꾸는 것은 새 변경이나 PR을 만들지 않습니다.
+
+- **결과 조회:** 기존 저장소의 Commit·PR·아이템 정의를 읽습니다.
+- **처음부터 실습:** [사전 준비의 저장소 구성](01-prerequisites.md#source-repository)에서
+  자신의 새 소스 저장소를 준비하고, Dev에서 만든 v1을 Git으로 내보내 시작합니다.
+  아래 `main /workshops/cicd/fabric`과 branch 이름은 그 새 저장소에 적용합니다.
+- 촬영 환경의 branch를 되돌리거나 강제로 Push하지 않습니다. 본문의 실제 SHA는 실행 기록이며,
+  새 실습에서는 자신의 실제 SHA를 기록합니다.
+
 ```text
 GitHub feature/smoke-v2 ←→ Feature Workspace
           │ PR + 사람의 검토
@@ -119,6 +131,8 @@ Private GitHub 저장소와 Fabric 링크는 해당 대상의 접근 권한이 �
 핵심 트랙은 수동 Git 통합과 Deployment pipelines, 환경별 데이터 검증입니다.
 GitHub Actions/OIDC·서비스 주체 자동화, Variable Library 확장, Power BI 모델·보고서와
 RLS는 별도로 설계·승인할 확장 트랙이며 이 실행에서 구성하지 않았습니다.
+Feature Workspace, 10행·합계 45/90, 수동 승인 체크포인트는 공식 필수 구성이 아니라
+이 가이드가 선택한 실습 설계입니다. 제품 동작·권한 조건은 아래 공식 문서를 기준으로 합니다.
 
 - [Get started with Git integration — GitHub](https://learn.microsoft.com/en-us/fabric/cicd/git-integration/git-get-started?tabs=github%2CGitHub%2Ccommit-to-git)
 - [Get started using deployment pipelines — new UI](https://learn.microsoft.com/en-us/fabric/cicd/deployment-pipelines/get-started-with-deployment-pipelines?tabs=from-fabric%2Cnew-ui)

@@ -9,6 +9,9 @@
 
 **경로:** `FabricLab-Dev → Workspace settings → Git integration → Connection details`.
 
+처음부터 실습하는 독자는 [자신의 새 소스 저장소](01-prerequisites.md#source-repository)를
+사용합니다. 캡처의 URL은 완료된 촬영 환경 예시이며 새 실습의 연결 대상이 아닙니다.
+
 1. GitHub를 선택합니다. 회색이면 [필수 tenant 설정](01-prerequisites.md)을 먼저 확인합니다.
 2. 올바른 repository-scoped 계정을 선택하고 **Connect**를 누릅니다.
    새 계정이 필요한 경우만 Add account에서 PAT를 등록합니다.
@@ -78,6 +81,8 @@ Lakehouse와 Notebook을 **함께** 버전 관리하고, 동기화 후에는 실
 **경로:** GitHub 소스 저장소 **Branches → New branch**.
 
 1. Source가 최신 `main`인지 확인합니다.
+   새 실습의 main에는 앞 절에서 내보낸 **v1·MULTIPLIER=1**이 있어야 합니다.
+   이미 v2라면 아래 변경을 반복하지 말고 새 실습의 시작 상태를 확인합니다.
 2. 새 이름 `feature/smoke-v2`를 입력하고 **Create new branch**를 선택합니다.
 
 ![실제 GitHub에서 main을 기준으로 Feature branch 생성](screenshots/w24-create-feature-branch-from-main.png)
@@ -125,14 +130,54 @@ Feature 자체 Lakehouse로 해결되었습니다. Dev의 Lakehouse를 가리키
 이번 코드 변경은 **로컬 Git 편집·Commit·Push**로 수행했습니다. Fabric 셀 출력이나
 다운로드한 실행 결과를 편집한 것이 아닙니다.
 
+### 자신의 v1 Feature branch를 clone
+
+아래 URL의 `<YOUR_OWNER>/<YOUR_LAB_REPOSITORY>`를
+[1-4에서 만든 자신의 새 저장소](01-prerequisites.md#source-repository)로 바꿉니다.
+Git/Python 3.12 이상이 필요하며 Private 저장소는 GitHub 인증도 준비해야 합니다.
+`fabric-alm-workshop`은 새 로컬 디렉터리 예시입니다.
+
 ```bash
-git clone https://github.com/YOONPYOGitHub/fabric-alm-lab.git
-cd fabric-alm-lab
+git clone https://github.com/<YOUR_OWNER>/<YOUR_LAB_REPOSITORY>.git fabric-alm-workshop
+cd fabric-alm-workshop
 git switch feature/smoke-v2
+git grep -n -E '^(RELEASE|MULTIPLIER) =' -- workshops/cicd/fabric/CI_CD_Smoke.Notebook/notebook-content.py
 ```
 
-`workshops/cicd/fabric/CI_CD_Smoke.Notebook/notebook-content.py`의 두 상수만 바꿉니다.
-Fabric metadata·셀 구분·검증 로직은 보존합니다.
+**변경 전 기대 값:** `RELEASE = "v1"`, `MULTIPLIER = 1`입니다.
+두 줄이 이미 v2/2이면 여기서 멈춥니다. 촬영 예제의 현재 `main`과 `feature/smoke-v2`는
+이미 v2이므로 단순 clone만으로는 새 v1 → v2 변경이나 PR을 만들 수 없습니다.
+
+<a id="prepare-smoke-tests"></a>
+
+### 오프라인 테스트 파일을 먼저 준비
+
+초기 Fabric Git export는 아이템 정의만 만들며 테스트 코드를 만들어 주지 않습니다.
+촬영 환경의 v1 Commit `4ea83edb`에도 `workshops/cicd/tests`는 없습니다.
+
+1. [고정 버전의 테스트 원본](https://github.com/YOONPYOGitHub/fabric-alm-lab/blob/53f7908feff72e13754fbbbdc9f65ca2b5d93fec/workshops/cicd/tests/test_smoke_contract.py)을
+   엽니다. 이 Private 예제 저장소에 접근 권한이 필요합니다.
+2. GitHub의 **Download raw file**로 Python 파일을 받아, 자신의 로컬 소스 저장소에
+   `workshops/cicd/tests` 디렉터리를 만들고 **`test_smoke_contract.py`**로 저장합니다.
+   GitHub HTML 페이지를 `.py`로 저장하지 않습니다. 예제의 Notebook 정의·`.platform`·
+   `notebook-settings.json`을 이 과정에서 복사하거나 교체하지 않습니다.
+3. 새 로컬 소스 저장소의 루트에서 다음을 실행해 **v1 상태로도 9개 테스트가 통과**하는지 확인합니다.
+
+```bash
+python -m unittest discover -s workshops/cicd/tests -v
+```
+
+이 테스트는 소스의 v1/1과 v2/2를 모두 검사할 수 있으며, 현재 저장소의 Lakehouse logical ID와
+Notebook Git binding을 대조합니다. 추가 패키지나 클라우드 인증 없이 수행됩니다.
+파일이 없거나 테스트 개수가 0이면 검증 완료로 처리하지 않습니다.
+
+이 원본 다운로드에 필요한 예제 저장소의 읽기 권한과 Fabric에 등록한 **새 실습 저장소 한정
+PAT**는 별개입니다. 원본을 받으려고 Fabric PAT의 저장소 범위를 넓히지 않습니다.
+
+### v2 변경·검사·Push
+
+`workshops/cicd/fabric/CI_CD_Smoke.Notebook/notebook-content.py`에서 아래 두 상수만 바꿉니다.
+Fabric metadata·셀 구분·검증 로직은 보존합니다. 추가한 테스트 파일은 함께 버전 관리합니다.
 
 ```python
 RELEASE = "v2"
@@ -146,7 +191,15 @@ python -m unittest discover -s workshops/cicd/tests -v
 git diff --check
 ```
 
-2. 수정한 파일만 Commit하고 feature branch로 Push합니다. main에 직접 v2를 Push하지 않습니다.
+2. 아래 두 파일만 Commit하고 feature branch로 Push합니다. main에 직접 v2를 Push하지 않습니다.
+
+```bash
+git add workshops/cicd/fabric/CI_CD_Smoke.Notebook/notebook-content.py workshops/cicd/tests/test_smoke_contract.py
+git commit -m "Validate stage-local Delta smoke data for release v2"
+git push origin feature/smoke-v2
+```
+
+테스트 실행으로 생긴 `__pycache__`나 토큰·로컬 설정을 Commit하지 않습니다.
 3. Feature의 **Source control → Updates**에서 변경을 검토하고 **Update all**을 누릅니다.
 
 ![Feature에서 실제로 수행한 Git v2 Update all](screenshots/w28-feature-update-from-git-v2.png)

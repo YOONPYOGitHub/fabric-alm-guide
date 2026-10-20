@@ -18,6 +18,7 @@
 | Workspace 생성·Capacity 할당 | 생성 정책 허용, 해당 Capacity 사용·할당 권한 |
 | Workspace Git 연결과 단계 할당 | 해당 Workspace Admin |
 | Pipeline 생성·관리·단계 연결 | Pipeline Admin; Workspace Admin과 별개 |
+| Notebook 배포 규칙 생성 | 규칙을 만들 대상 Notebook의 **아이템 소유자**; Workspace/Pipeline Admin만으로 대체되지 않음 |
 | Git 읽기·쓰기와 PR | 해당 GitHub 저장소 권한 및 유효한 인증 |
 | Notebook 실행 | Fabric Capacity와 해당 아이템·Lakehouse 접근 권한 |
 
@@ -36,8 +37,14 @@ Azure 구독의 Owner 역할이 Fabric Workspace/Pipeline Admin을 자동 부여
 
 ## 1-2. 반드시 확인할 네 가지 Tenant settings
 
-**경로:** 우측 **Settings → Admin portal → Tenant settings → Filter by keyword**.
-Admin portal이 보이지 않으면 관리자에게 아래 설정의 상태·범위 확인을 요청합니다.
+**현재 Learn의 기본 경로:** **OneLake catalog → Govern → Configurations → Tenant settings**.
+Tenant settings에서 **Filter by keyword**로 검색합니다.
+
+OneLake catalog의 Govern이 아직 제공되지 않는 지역별 rollout 환경에서는
+**Settings → Admin portal → Tenant settings**를 사용합니다. 아래 캡처는 실제 촬영 당시의
+이 대체 경로입니다. 두 경로의 구분은
+[공식 Tenant settings 접근 안내](https://learn.microsoft.com/en-us/fabric/admin/about-tenant-settings#how-to-get-to-the-tenant-settings)를
+따릅니다. 관리자 화면에 접근할 수 없으면 담당 관리자에게 상태·적용 범위 확인을 요청합니다.
 
 | 검색할 설정 | 확인할 사항 |
 |---|---|
@@ -134,21 +141,49 @@ F16 SKU와 Active 상태는 Capacity 조회로 별도 대조했습니다.
 **기대 결과:** 네 Workspace가 존재하며 실습 계정이 접근할 수 있습니다. Feature는 배포
 Pipeline 단계가 아니라 Git feature branch를 검증할 Workspace입니다.
 
+<a id="source-repository"></a>
+
 ## 1-4. GitHub 저장소와 최소 범위 인증
 
-1. 소스용 `fabric-alm-lab`과 설명용 `fabric-alm-guide`를 구분합니다.
-2. 이 실습은 Private 저장소를 사용합니다. 자신의 저장소 owner와 접근 권한을 확인합니다.
-3. **Settings → Developer settings → Personal access tokens → Fine-grained tokens**
+### 새 실습의 v1 시작 상태 준비
+
+촬영에 사용한 `YOONPYOGitHub/fabric-alm-lab`은 이미 v2 실습이 끝난 예제입니다.
+기존 `main`이나 `feature/smoke-v2`를 그대로 사용해 v1 → v2 실습을 반복하지 않습니다.
+
+1. GitHub **New repository**에서 자신의 새 실습 소스 저장소를 만듭니다.
+   이 가이드는 Private을 사용하며, 이름은 다른 저장소와 구분할 수 있게 정합니다.
+2. **Add a README file**을 선택해 기본 branch `main`을 준비합니다.
+   아직 `/workshops/cicd/fabric`이나 `feature/smoke-v2`는 만들지 않습니다.
+   완료된 v2 저장소를 Fork/복사해 그대로 시작하는 경로가 아닙니다.
+3. 실제 owner·repository URL을 기록합니다. 이후 Git 연결, PAT 범위, clone과 PR의 대상은
+   모두 **이 새 저장소**입니다. 캡처의 `fabric-alm-lab`은 촬영 예시 이름입니다.
+4. [Lakehouse + Notebook 장](02a-lakehouse-notebook.md)의 고정된 v1 소스에서 **코드 셀만**
+   자신의 Dev Notebook에 준비하고 실제 v1 10행·합계 45를 확인합니다.
+5. [Git 장](02-git-integration.md)에서 이 Dev를 새 저장소의 `main /workshops/cicd/fabric`에
+   연결해 Lakehouse와 Notebook 정의를 처음 내보냅니다. Fabric이 생성한 물리/logical
+   식별 정보를 예제 저장소에서 복사하거나 수동으로 바꾸지 않습니다.
+
+이렇게 만든 자신의 v1 `main`에서 Feature branch를 생성해야 두 상수 변경이 실제 diff가 됩니다.
+원본 예제의 v1 시점은 [Commit 4ea83edb](https://github.com/YOONPYOGitHub/fabric-alm-lab/tree/4ea83edb06a7d2b381ab961a1a25fb8925db6ce4)로
+조회할 수 있지만, 그 Commit에는 오프라인 테스트 파일이 아직 없습니다.
+테스트는 [Git 장의 별도 준비 단계](02-git-integration.md#prepare-smoke-tests)에서 추가합니다.
+
+### 저장소 한정 인증
+
+1. 소스 저장소와 설명용 `fabric-alm-guide`를 구분하고, 자신의 새 소스 저장소 접근 권한을 확인합니다.
+2. **Settings → Developer settings → Personal access tokens → Fine-grained tokens**
    에서 필요한 경우 토큰을 발급합니다.
-4. **Only select repositories → fabric-alm-lab** 하나만 선택합니다.
-5. **Contents: Read and write**, **Metadata: Read-only**를 확인합니다.
-6. 짧은 만료 기간을 사용하고 조직 승인·SSO 요구사항이 있다면 따릅니다.
+3. **Only select repositories**에서 **자신의 새 실습 소스 저장소 하나만** 선택합니다.
+4. **Contents: Read and write**, **Metadata: Read-only**를 확인합니다.
+5. 짧은 만료 기간을 사용하고 조직 승인·SSO 요구사항이 있다면 따릅니다.
 
 ![실제로 사용한 저장소 한정 fine-grained PAT 준비 화면, 발급 값 없음](screenshots/13-github-fine-grained-token-scope.png)
 
 위 화면은 최초 준비 기록이며 토큰 값이 아닌 범위와 권한만 보여줍니다. 촬영 환경의 토큰은
 7일 만료였고, 재개 시 등록된 `YOONPYOGitHub-alm` 계정을 재사용했습니다.
 현재 유효한 토큰을 캡처를 위해 재발급·교체하지 않습니다.
+다만 이 계정의 토큰은 촬영 저장소 한정이므로 다른 새 저장소에 그대로 사용할 수 없습니다.
+새 실습에서는 해당 새 저장소에 한정된 계정을 등록하며 기존 토큰의 범위를 임의로 넓히지 않습니다.
 
 Fabric **Workspace settings → Git integration → GitHub → Add account**에서 Display name,
 Repository URL, PAT를 입력합니다. 토큰은 해당 보안 입력란에서만 취급하고 채팅·문서·Git·로그·
