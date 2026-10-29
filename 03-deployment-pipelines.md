@@ -27,8 +27,17 @@
 
 ![실제로 생성할 세 단계와 Create and continue](screenshots/w27-release-pipeline-three-stages.png)
 
-**기대 결과:** Pipeline이 생성됩니다. 생성·관리 권한은 Workspace 역할과 별도입니다.
-촬영 환경은 UI에서 Pipeline을 생성했고 현재 계정의 Pipeline Admin도 API로 확인했습니다.
+6. 생성한 Pipeline의 **Manage Access**에서 실습 계정이 **Admin**인지 확인합니다.
+
+![Pipeline Manage Access에서 별도의 Admin 확인](screenshots/w41-prerequisite-pipeline-admin.png)
+
+**빨간 박스:** 현재 계정의 Pipeline 역할입니다. 캡처는 예시이며, 방금 생성한
+`FabricLab-Release`에서 확인합니다. Pipeline Admin은 Workspace Admin과 별개의 권한입니다.
+
+Pipeline Admin에는 Pipeline 공유·편집·삭제 권한도 포함됩니다. 배포만 허용하는 전용 역할이 아니며,
+이 역할만으로 Workspace의 아이템 접근·배포 권한이 생기지는 않습니다.
+
+**기대 결과:** Pipeline이 생성되고 실습 계정의 Pipeline Admin 역할이 확인됩니다.
 
 ## 4-2. 각 단계에 Workspace 할당
 
@@ -39,6 +48,8 @@
 
 **경로:** 단계 카드의 **Assign a workspace → 이름 선택 → Assign**.
 이름을 드롭다운에서 선택하는 것만으로는 할당이 끝나지 않습니다.
+
+**필수 권한:** Pipeline Admin과 연결할 각 Workspace의 Admin 권한이 모두 필요합니다.
 
 | 단계 | Workspace |
 |---|---|

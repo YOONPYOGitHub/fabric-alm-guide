@@ -4,33 +4,23 @@
 필수 관리자 설정부터 feature branch, PR 검토, Dev 동기화, Test 검증과 Production 승인까지
 하나의 흐름으로 설명합니다. 메뉴 이름은 실제 영문 UI 기준입니다.
 
-> **실제 실행 검증 완료:** 사용자 승인 후
-> [소스 PR](https://github.com/YOONPYOGitHub/fabric-alm-lab/pull/1)을 병합하고,
-> 별도의 Production 릴리스 승인을 거쳐 **Dev·Test·Production 모두 실제 Delta 10행·합계 90**을
-> 검증했습니다. 이 실행의 승인은 대화에 기록된 수동 승인입니다. 독립 GitHub 리뷰어 승인이나
-> 네이티브 자동 승인 Workflow를 구성한 것으로 표시하지 않습니다.
+설명·캡처·[v1 Notebook 코드와 실습용 테스트](examples/README.md)를 이 저장소에서 모두 제공합니다.
+별도 예제 저장소의 접근 권한 없이 따라 할 수 있습니다.
+기존 환경에서 검증한 결과는 [실제 수행 기록](05-execution-record.md)에 따로 보관합니다.
 
 ## 1. 먼저 구분할 것
 
 | 저장소 | 역할 |
 |---|---|
-| [fabric-alm-guide](https://github.com/YOONPYOGitHub/fabric-alm-guide) | 설명, 실제 화면 원본·강조본, 검증 기록 |
-| [fabric-alm-lab](https://github.com/YOONPYOGitHub/fabric-alm-lab) | Fabric과 동기화하는 Lakehouse·Notebook 정의와 오프라인 테스트 |
+| 이 저장소 `fabric-alm-guide` | 설명, 캡처, 예제 코드, 실습용 테스트, 검증 기록 |
+| 본인 계정에 새로 만드는 `fabric-alm-lab` | Fabric과 동기화하는 본인의 Lakehouse·Notebook 정의와 복사한 실습용 테스트 |
 
-Fabric의 Git 연결에는 **소스 저장소**의 `main /workshops/cicd/fabric`을 지정합니다.
+Fabric의 Git 연결에는 **본인의 실습 저장소**의 `main /workshops/cicd/fabric`을 지정합니다.
 가이드 저장소를 Fabric Workspace에 연결하지 않습니다.
 
-### 완료된 예제 조회와 새 실습 시작을 구분
-
-촬영에 사용한 `YOONPYOGitHub/fabric-alm-lab`의 `main`과 `feature/smoke-v2`는 이미 **v2**입니다.
-이 저장소를 그대로 clone해 두 상수를 v2로 바꾸는 것은 새 변경이나 PR을 만들지 않습니다.
-
-- **결과 조회:** 기존 저장소의 Commit·PR·아이템 정의를 읽습니다.
-- **처음부터 실습:** [사전 준비의 저장소 구성](01-prerequisites.md#source-repository)에서
-  자신의 새 소스 저장소를 준비하고, Dev에서 만든 v1을 Git으로 내보내 시작합니다.
-  아래 `main /workshops/cicd/fabric`과 branch 이름은 그 새 저장소에 적용합니다.
-- 촬영 환경의 branch를 되돌리거나 강제로 Push하지 않습니다. 본문의 실제 SHA는 실행 기록이며,
-  새 실습에서는 자신의 실제 SHA를 기록합니다.
+실습에 필요한 파일은 각 장에서 사용할 때 안내합니다. 지금 미리 모두 복사할 필요는 없습니다.
+저장소 URL의 owner는 본인 계정으로 입력하며, 캡처의 계정·환경 ID·Commit SHA는 예시입니다.
+이미 다른 이름으로 만든 새 실습 저장소가 있다면 그 이름을 일관되게 사용해도 됩니다.
 
 ```text
 GitHub feature/smoke-v2 ←→ Feature Workspace
@@ -104,11 +94,9 @@ Capacity가 자동 중지되지 않습니다.
 리소스에서 촬영했습니다. 이미 승인·구성된 GitHub 정책의 변경 전후와 PAT 준비 화면은
 **같은 설정의 기존 실제 기록**임을 해당 단계에 표시했습니다.
 
-2026-10-20 KST의 문서 보완에서는 실제 화면 **6장(w61–w66)**을 추가해 원본·강조본을
-각각 **66장** 보관합니다. 새 저장소 양식의 이름·Private·README 준비, 고정 테스트 원본의
-다운로드 위치, 기존 Test Notebook 소유자, OneLake Govern의 관리자 설정 경로를 담았습니다.
-새 저장소 생성 완료나 새 실습의 실행 증거가 아니라 **각 절차의 준비·선택·조회 화면**입니다.
-기존 60장과 실제 배포·데이터 검증 기록은 변경하지 않았습니다.
+원본·강조본은 각각 **66장** 보관합니다. 이전 저장소 생성·외부 테스트 다운로드 화면
+w61–w63은 현재 실습 지시와 구분해 [과거 화면 기록](05-execution-record.md#이전-저장소-준비와-다운로드-화면)에
+보존합니다. 기존 화면의 이름이나 UI를 합성해 변경하지 않습니다.
 
 ## 5. 현재 확인한 결과
 
@@ -128,7 +116,8 @@ Capacity가 자동 중지되지 않습니다.
 
 [기계 판독 가능한 검증 기록](evidence/workshop-verification.json)과
 [실행 스냅샷 링크](05-execution-record.md)에서 근거를 확인할 수 있습니다.
-Private GitHub 저장소와 Fabric 링크는 해당 대상의 접근 권한이 있어야 열립니다.
+기록에 포함된 과거 Private GitHub 저장소와 Fabric 링크는 해당 대상의 접근 권한이 있어야 열립니다.
+이 링크는 참고용이며 현재 실습에 필요한 코드·테스트는 이 저장소에 포함되어 있습니다.
 
 ![Production에서 실제 확인한 v2 10행 전체와 합계 90·환경 ID·Delta 위치](screenshots/w60-production-v2-ten-row-table.png)
 
@@ -140,8 +129,38 @@ RLS는 별도로 설계·승인할 확장 트랙이며 이 실행에서 구성�
 Feature Workspace, 10행·합계 45/90, 수동 승인 체크포인트는 공식 필수 구성이 아니라
 이 가이드가 선택한 실습 설계입니다. 제품 동작·권한 조건은 아래 공식 문서를 기준으로 합니다.
 
+### 권한 구분과 운영 시 역할 분리
+
+기본 실습은 같은 실습 계정으로 환경 구성·개발·배포를 진행합니다.
+아래는 운영 적용 시 담당자별 권한을 나누기 위한 참고이며,
+이번 실습에서 추가 계정을 만들거나 기존 Admin 역할을 낮추라는 실행 단계가 아닙니다.
+Tenant settings 변경은 별도로 Fabric Administrator 또는 해당 설정을 위임받은 관리자가 수행합니다.
+
+| 담당 / 작업 | 필요한 권한과 범위 |
+|---|---|
+| 환경 구성 담당 | Git 연결에는 해당 Workspace Admin, Pipeline 단계 할당에는 해당 Workspace Admin과 Pipeline Admin |
+| 개발 담당 | 연결된 Dev·Feature에서 코드 변경·Git Commit·Update를 수행하려면 Workspace Contributor 이상과 해당 아이템의 쓰기 권한, 작업에 맞는 GitHub 저장소 권한·인증 |
+| 배포 담당 | 이미 Workspace가 할당된 단계 간 배포에는 Pipeline Admin과 배포 원본·대상 Workspace의 Contributor 이상 |
+| Notebook 배포 규칙 담당 | Pipeline Admin, 대상 Workspace Contributor 이상, 규칙을 설정할 대상 Notebook의 아이템 소유자 조건을 모두 충족 |
+| PR 검토·릴리스 승인 담당 | 검토 근거에 필요한 조회 권한과 조직의 승인 자격. 독립 GitHub 리뷰가 필요한 경우 PR 작성자와 별도의 적격 리뷰어 |
+
+Workspace Admin, Pipeline Admin, 아이템 소유자, GitHub 권한은 서로 대체되지 않습니다.
+Git Commit·Update에는 테넌트의 소유자 제한이나 외부 의존성 권한 등 추가 조건이 적용될 수 있습니다.
+개발·배포 담당에게는 업무에 필요한 환경만 허용하며, 모든 환경에 일괄 Admin을 부여하는 운영 기준이 아닙니다.
+Workspace Contributor도 아이템을 직접 수정할 수 있고, Pipeline Admin도 Pipeline을 관리할 수 있으므로
+이 역할 조합만으로 “Pipeline을 통한 배포만 허용”하는 통제가 구성되지는 않습니다.
+
+Fabric 권한을 나누어도 GitHub의 main 직접 Push·PR 병합 권한까지 제한되지는 않습니다.
+독립 리뷰를 강제하려면 지원되는 branch protection/ruleset과 실제 리뷰어를 별도로 구성해야 합니다.
+이 실습의 수동 승인은 그러한 강제 통제를 구성한 것으로 간주하지 않습니다.
+여러 사용자가 참여하는 운영에서는 각자의 인증 정보를 사용하고 관리자 PAT를 공유하지 않습니다.
+
+### 공식 근거
+
 - [Get started with Git integration — GitHub](https://learn.microsoft.com/en-us/fabric/cicd/git-integration/git-get-started?tabs=github%2CGitHub%2Ccommit-to-git)
+- [Git integration permissions](https://learn.microsoft.com/en-us/fabric/cicd/git-integration/git-integration-process#permissions)
 - [Get started using deployment pipelines — new UI](https://learn.microsoft.com/en-us/fabric/cicd/deployment-pipelines/get-started-with-deployment-pipelines?tabs=from-fabric%2Cnew-ui)
+- [Deployment pipelines permissions](https://learn.microsoft.com/en-us/fabric/cicd/deployment-pipelines/understand-the-deployment-process#permissions)
 - [Notebook source control, auto-binding, deployment rules](https://learn.microsoft.com/en-us/fabric/data-engineering/notebook-source-control-deployment)
 - [Lakehouse source control and deployment](https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-git-deployment-pipelines)
 - [Git integration administrator settings](https://learn.microsoft.com/en-us/fabric/admin/git-integration-admin-settings)
@@ -161,7 +180,11 @@ python -m unittest discover -s tests -v
 
 Windows PowerShell에서는 `source` 대신 `.\.venv\Scripts\Activate.ps1`로 활성화합니다.
 검사는 링크·이미지 목록과 크기·주석 제한·원본 해시·박스 선 밖의 모든 픽셀 보존을 확인합니다.
-최초 Notebook-only 판은 두 저장소의 `notebook-demo-v1` 태그에 보존되어 있습니다.
+예제의 세 코드 셀과 환경 ID 미포함 여부, 실습용 테스트를 임시 실습 저장소로 복사한 뒤
+v1·v2 정상 상태 및 잘못된 상수·바인딩·누락 파일의 실패도 검증합니다. 실제 Spark는 실행하지 않습니다.
+
+이 명령은 **가이드 유지보수용 검사**입니다. 독자가 본인의 실습 저장소에서 실행할 9개 검사는
+[Git 장의 테스트 준비](02-git-integration.md#prepare-smoke-tests)에서 안내합니다.
 
 ---
 

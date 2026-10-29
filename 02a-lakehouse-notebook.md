@@ -43,9 +43,13 @@ Workspace의 Lakehouse를 선택하지 않습니다.
 
 ## 2-3. 세 개의 코드 셀 준비
 
-원본은 [v1 Notebook 소스](https://github.com/YOONPYOGitHub/fabric-alm-lab/blob/4ea83edb06a7d2b381ab961a1a25fb8925db6ce4/workshops/cicd/fabric/CI_CD_Smoke.Notebook/notebook-content.py)입니다.
-`# CELL`로 구분된 세 코드 영역을 각각 셀로 사용합니다. `# META`와 `.platform`의
-식별 정보를 임의로 작성하거나 다른 환경의 물리 ID로 바꾸지 않습니다.
+이 가이드의 [v1 Notebook 코드](examples/notebook-v1.py)를 엽니다.
+`# CELL`로 구분된 세 코드 영역의 전체 내용을 Dev Notebook의 세 코드 셀에 각각 복사합니다.
+아래 블록은 코드의 일부를 설명하는 것이므로, 아래 짧은 블록만으로 셀을 구성하지 않습니다.
+
+제공 파일은 코드만 포함하며 기존 환경의 metadata나 식별 정보는 포함하지 않습니다.
+기본 Lakehouse는 앞 단계에서 연결한 자신의 Dev `CI_CD_Demo`를 사용합니다.
+`.platform`과 Notebook metadata는 Fabric이 생성하며 수동으로 작성하거나 다른 환경에서 복사하지 않습니다.
 
 ### 셀 1: 쓰기 전 환경 확인
 
@@ -105,6 +109,9 @@ ID 기준 MERGE를 수행합니다. schema-enabled 기본 Lakehouse이므로 실
 반환하기 위한 것입니다. 테스트를 성공으로 보이게 하는 고정 문자열이 아닙니다.
 
 ## 2-4. 저장된 코드 확인 후 Dev v1 실행
+
+**필수 권한:** 실습 계정이 해당 Notebook을 실행하고 기본 Lakehouse를 읽고 쓸 수 있어야 합니다.
+Dev Workspace에는 실행 가능한 Fabric Capacity가 할당되어 있어야 합니다.
 
 1. 세 셀이 저장되었고 `RELEASE="v1"`, `MULTIPLIER=1`인지 확인합니다.
 2. 기본 Lakehouse가 Dev의 `CI_CD_Demo`인지 확인합니다.

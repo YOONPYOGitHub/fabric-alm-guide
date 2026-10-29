@@ -7,6 +7,35 @@
 이름은 촬영 환경의 예시이며 다른 사용자의 환경에 그대로 사용할 배포 기본값이 아닙니다.
 토큰·암호·인증 헤더·발급 응답은 포함하지 않았습니다.
 
+현재 실습에 필요한 [v1 코드와 테스트](examples/README.md)는 가이드 저장소에 포함되어 있습니다.
+아래 과거 저장소·PR·Fabric 링크는 실행 이력의 참고용이며, 접근할 수 없어도 실습을 진행할 수 있습니다.
+
+## 실습 자료의 이전
+
+- [v1 코드](examples/notebook-v1.py)는 기존 v1 Commit
+  `4ea83edb06a7d2b381ab961a1a25fb8925db6ce4`의 세 코드 셀을 가져오고 환경별 metadata를 제외했습니다.
+- [실습용 테스트](examples/test_smoke_contract.py)는 기존 Commit
+  `53f7908feff72e13754fbbbdc9f65ca2b5d93fec`의 9개 검사 로직을 유지했습니다.
+- 현재 예제와 테스트의 검증 방법은 [가이드의 오프라인 검사](README.md#7-캡처-재생성과-오프라인-검사)를
+  따릅니다. 아래 실행 당시의 검사 횟수·결과와 구분합니다.
+
+### 이전 범위와 기존 저장소 삭제 시 영향
+
+| 자료 | 현재 보관 / 재현 방식 |
+|---|---|
+| 현재 핸즈온의 v1 Notebook 코드 | 가이드에 포함. 두 상수를 바꾸면 기존 v2 코드와 같은 로직 |
+| 실습용 오프라인 테스트 | 가이드에 9개 검사 포함. 본인의 Git 내보내기 파일을 대상으로 실행 |
+| 실습 설명·캡처·실행 검증 결과 | 가이드 문서, 화면 원본·강조본, 검증 JSON에 보관 |
+| `.platform`·Lakehouse metadata·Notebook Git binding | 새 실습 환경에서 Fabric이 생성. 기존 환경의 식별 정보는 예제에 복사하지 않음 |
+| 실제 Delta 데이터 | 기존 Git 저장소에는 테이블 행이 없음. 새 환경에서 Notebook을 실행해 생성·검증 |
+| 기존 Commit·PR·태그·초기 Notebook-only 예제 | 전체 백업하지 않음. 현재 Lakehouse + Notebook 핸즈온에는 필요하지 않음 |
+
+기존 저장소를 삭제해도 현재 핸즈온의 코드·테스트를 받는 데 영향은 없습니다.
+다만 아래 PR 링크와 검증 JSON의 원본 URL은 과거 출처 기록입니다. 저장소를 삭제하거나 같은 이름으로
+다시 만들면 열리지 않거나 새 저장소의 다른 기록을 가리킬 수 있습니다.
+기존 이력 자체를 보존해야 한다면 삭제 전에 별도로 백업하거나 저장소 이름을 바꿔 보관합니다.
+Git 저장소 삭제는 Fabric Workspace·Lakehouse·데이터·Pipeline 정리와 별개입니다.
+
 ## 실행 상태
 
 | 단계 | 상태 | 실제 수행 방식 / 근거 |
@@ -144,6 +173,29 @@ Capacity와 Workspace는 중지·삭제하지 않았으므로 비용이 계속 �
 
 기존 원본 60장은 그대로 보존했고 추가 화면에도 핵심 한 곳씩만 빨간 박스를 표시했습니다.
 현재 원본·강조본은 각각 66장, 전체 빨간 박스는 50곳입니다.
+
+### 이전 저장소 준비와 다운로드 화면
+
+아래 화면은 이전 안내의 기록이며 현재 따라 할 절차가 아닙니다.
+현재는 본인 계정에 `fabric-alm-lab`을 만들고 이 가이드에 포함된 코드를 사용합니다.
+
+<details>
+<summary>이전 화면 세 장 보기 — 현재 실습에서는 사용하지 않음</summary>
+
+![이전 새 저장소 양식의 이름과 Private 설정](screenshots/w61-new-private-repository-preparation.png)
+
+**빨간 박스:** 저장소 이름 입력란입니다. 화면의 `fabric-alm-practice`는 이전 이름 예시입니다.
+
+![이전 저장소 생성 양식의 Add README 설정](screenshots/w62-initialize-new-repository-with-readme.png)
+
+**빨간 박스:** Add README 설정입니다. 두 화면은 저장소 생성 전 양식입니다.
+
+![이전 외부 저장소의 고정 테스트 파일 다운로드 화면](screenshots/w63-download-pinned-smoke-test-source.png)
+
+**빨간 박스:** Download raw file 버튼입니다. 현재 테스트는
+[가이드에 포함된 파일](examples/test_smoke_contract.py)을 사용합니다.
+
+</details>
 
 ---
 

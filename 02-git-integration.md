@@ -9,12 +9,20 @@
 
 **경로:** `FabricLab-Dev → Workspace settings → Git integration → Connection details`.
 
+**필수 권한:** 실습 계정은 Dev Workspace Admin이어야 하며, GitHub 실습 저장소의
+읽기·쓰기와 PR 작업에 필요한 권한 및 유효한 인증이 있어야 합니다.
+
+Workspace 역할과 GitHub 저장소 권한은 별개입니다. Workspace Admin이어도 GitHub 접근 권한이나
+유효한 인증이 없으면 연결·Commit·Update를 할 수 없습니다.
+
 처음부터 실습하는 독자는 [자신의 새 소스 저장소](01-prerequisites.md#source-repository)를
-사용합니다. 캡처의 URL은 완료된 촬영 환경 예시이며 새 실습의 연결 대상이 아닙니다.
+사용합니다. 이 가이드의 실습 저장소 이름은 `fabric-alm-lab`이며 owner는 본인 계정입니다.
+캡처의 계정 대신 본인의 저장소 URL을 입력합니다.
 
 1. GitHub를 선택합니다. 회색이면 [필수 tenant 설정](01-prerequisites.md)을 먼저 확인합니다.
 2. 올바른 repository-scoped 계정을 선택하고 **Connect**를 누릅니다.
-   새 계정이 필요한 경우만 Add account에서 PAT를 등록합니다.
+   새 계정이 필요한 경우 **Add account**에서 Display name, 본인 저장소의 Repository URL,
+   사전 준비에서 만든 PAT를 입력합니다. PAT는 보안 입력란에만 입력하며 화면에 노출하지 않습니다.
 3. Branch는 `main`, Git folder는 `/workshops/cicd/fabric`으로 지정합니다.
 
 ![실제 Dev의 main과 새 Git directory 입력](screenshots/w16-dev-main-git-folder.png)
@@ -132,42 +140,34 @@ Feature 자체 Lakehouse로 해결되었습니다. Dev의 Lakehouse를 가리키
 
 ### 자신의 v1 Feature branch를 clone
 
-아래 URL의 `<YOUR_OWNER>/<YOUR_LAB_REPOSITORY>`를
-[1-4에서 만든 자신의 새 저장소](01-prerequisites.md#source-repository)로 바꿉니다.
+아래 URL의 `<YOUR_OWNER>`를 본인 GitHub 계정으로 바꿉니다.
+저장소 이름을 다르게 만들었다면 `fabric-alm-lab`도 [자신의 저장소 이름](01-prerequisites.md#source-repository)으로 바꿉니다.
 Git/Python 3.12 이상이 필요하며 Private 저장소는 GitHub 인증도 준비해야 합니다.
 `fabric-alm-workshop`은 새 로컬 디렉터리 예시입니다.
 
 ```bash
-git clone https://github.com/<YOUR_OWNER>/<YOUR_LAB_REPOSITORY>.git fabric-alm-workshop
+git clone https://github.com/<YOUR_OWNER>/fabric-alm-lab.git fabric-alm-workshop
 cd fabric-alm-workshop
 git switch feature/smoke-v2
 git grep -n -E '^(RELEASE|MULTIPLIER) =' -- workshops/cicd/fabric/CI_CD_Smoke.Notebook/notebook-content.py
 ```
 
 **변경 전 기대 값:** `RELEASE = "v1"`, `MULTIPLIER = 1`입니다.
-두 줄이 이미 v2/2이면 여기서 멈춥니다. 촬영 예제의 현재 `main`과 `feature/smoke-v2`는
-이미 v2이므로 단순 clone만으로는 새 v1 → v2 변경이나 PR을 만들 수 없습니다.
+두 줄이 이미 v2/2이면 여기서 멈추고, 본인이 준비한 v1에서 분기했는지 확인합니다.
 
 <a id="prepare-smoke-tests"></a>
 
 ### 오프라인 테스트 파일을 먼저 준비
 
 초기 Fabric Git export는 아이템 정의만 만들며 테스트 코드를 만들어 주지 않습니다.
-촬영 환경의 v1 Commit `4ea83edb`에도 `workshops/cicd/tests`는 없습니다.
+테스트 원본은 이 가이드 저장소에 포함되어 있습니다.
 
-1. [고정 버전의 테스트 원본](https://github.com/YOONPYOGitHub/fabric-alm-lab/blob/53f7908feff72e13754fbbbdc9f65ca2b5d93fec/workshops/cicd/tests/test_smoke_contract.py)을
-   엽니다. 이 Private 예제 저장소에 접근 권한이 필요합니다.
-2. GitHub의 **Download raw file**로 Python 파일을 받아, 자신의 로컬 소스 저장소에
+1. 이 가이드의 [실습용 테스트 파일](examples/test_smoke_contract.py)을 엽니다.
+2. GitHub의 **Download raw file**로 Python 파일을 받아, 방금 clone한 본인의 실습 저장소에
    `workshops/cicd/tests` 디렉터리를 만들고 **`test_smoke_contract.py`**로 저장합니다.
-   GitHub HTML 페이지를 `.py`로 저장하지 않습니다. 예제의 Notebook 정의·`.platform`·
-   `notebook-settings.json`을 이 과정에서 복사하거나 교체하지 않습니다.
-
-![고정 Commit의 실제 테스트 원본에서 Download raw file 선택 위치](screenshots/w63-download-pinned-smoke-test-source.png)
-
-**빨간 박스:** 파일 상단 **Raw 오른쪽의 아래쪽 화살표(Download raw file)**입니다.
-화면의 `53f7908` Commit과 `test_smoke_contract.py` 이름을 확인한 뒤 선택합니다.
-이 캡처는 다운로드 버튼의 위치를 보여주며, HTML 페이지의 저장이나 예제 파일 편집을
-지시하는 화면이 아닙니다.
+   가이드를 로컬로 받았다면 `examples/test_smoke_contract.py`를 같은 위치로 복사해도 됩니다.
+   GitHub HTML 페이지를 `.py`로 저장하지 않습니다.
+   Notebook 정의·`.platform`·`notebook-settings.json`은 자신의 Fabric이 내보낸 파일을 그대로 사용합니다.
 
 3. 새 로컬 소스 저장소의 루트에서 다음을 실행해 **v1 상태로도 9개 테스트가 통과**하는지 확인합니다.
 
@@ -179,8 +179,8 @@ python -m unittest discover -s workshops/cicd/tests -v
 Notebook Git binding을 대조합니다. 추가 패키지나 클라우드 인증 없이 수행됩니다.
 파일이 없거나 테스트 개수가 0이면 검증 완료로 처리하지 않습니다.
 
-이 원본 다운로드에 필요한 예제 저장소의 읽기 권한과 Fabric에 등록한 **새 실습 저장소 한정
-PAT**는 별개입니다. 원본을 받으려고 Fabric PAT의 저장소 범위를 넓히지 않습니다.
+파일의 배치 구조는 [예제 사용 안내](examples/README.md#실습용-오프라인-테스트)에서도 확인할 수 있습니다.
+이 테스트 파일을 받기 위해 Fabric PAT의 저장소 범위를 넓힐 필요는 없습니다.
 
 ### v2 변경·검사·Push
 
@@ -262,7 +262,7 @@ Feature의 실제 10행·합계 90과 PR을 제시한 뒤 사용자에게 main �
 진행을 요청했고, 사용자가 대화에서 **“그래 계속 진행해”**라고 승인했습니다.
 이것은 사용자의 진행 승인이지 별도의 독립 GitHub 리뷰어가 남긴 APPROVED review가
 아닙니다. 그 구분과 Production 별도 승인 범위를
-[실제 PR 댓글](https://github.com/YOONPYOGitHub/fabric-alm-lab/pull/1#issuecomment-6269675248)에 기록했습니다.
+[과거 PR 승인 기록](05-execution-record.md#git-기록)에 남겼습니다.
 
 1. 승인 대상 HEAD `09b03c28`와 baseline main `4ea83edb`가 바뀌지 않았는지 확인했습니다.
 2. **Merge pull request**를 선택했습니다.
@@ -277,7 +277,7 @@ Feature의 실제 10행·합계 90과 PR을 제시한 뒤 사용자에게 main �
 
 ![실제 승인 기록과 PR 병합 완료](screenshots/w47-pr-merged-with-conversation-authorization.png)
 
-**실제 결과:** [소스 PR](https://github.com/YOONPYOGitHub/fabric-alm-lab/pull/1)은 Merged이며
+**실제 결과:** [과거 실행의 소스 PR](05-execution-record.md#git-기록)은 Merged이며
 merge Commit은 `0cf51fdfff638952d1b72685574fd369646694e2`입니다. 병합된 Fabric 정의는
 승인한 Feature 정의와 같고 이전 source directory는 바뀌지 않았습니다.
 Feature Workspace가 연결된 branch를 임의로 삭제하지 않았습니다.

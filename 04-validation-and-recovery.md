@@ -15,8 +15,9 @@
 코드 영역으로 대조하고 metadata는 각 환경의 실제 대상과 비교합니다. metadata까지 포함한
 전체 파일 hash가 모든 환경에서 같아야 한다고 가정하지 않습니다.
 
-소스 저장소의 [오프라인 테스트](https://github.com/YOONPYOGitHub/fabric-alm-lab/tree/feature/smoke-v2/workshops/cicd/tests)는
-추가 패키지 없이 실행할 수 있습니다.
+이 가이드의 [실습용 오프라인 테스트](examples/test_smoke_contract.py)를
+[Git 장의 준비 단계](02-git-integration.md#prepare-smoke-tests)에서 본인의 실습 저장소에 복사했다면,
+그 실습 저장소 루트에서 추가 패키지 없이 실행할 수 있습니다.
 
 ```bash
 python -m unittest discover -s workshops/cicd/tests -v
