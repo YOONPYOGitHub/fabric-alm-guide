@@ -1,6 +1,6 @@
 # 5. 검증, 장애 대응, 복구와 비용 정리
 
-[처음으로](README.md) · [이전: 배포](03-deployment-pipelines.md) · [실제 기록](05-execution-record.md)
+[처음으로](README.md) · [이전: 배포](04-deployment-pipelines.md) · [실제 기록](06-execution-record.md)
 
 ## 5-1. 네 가지 근거를 함께 확인
 
@@ -16,11 +16,11 @@
 전체 파일 hash가 모든 환경에서 같아야 한다고 가정하지 않습니다.
 
 이 가이드의 [실습용 오프라인 테스트](examples/test_smoke_contract.py)를
-[Git 장의 준비 단계](02-git-integration.md#prepare-smoke-tests)에서 본인의 실습 저장소에 복사했다면,
+[Git 장의 준비 단계](03-git-integration.md#prepare-smoke-tests)에서 본인의 실습 저장소에 복사했다면,
 그 실습 저장소 루트에서 추가 패키지 없이 실행할 수 있습니다.
 
 ```bash
-python -m unittest discover -s workshops/cicd/tests -v
+python3 -m unittest discover -s workshops/cicd/tests -v
 ```
 
 이 검사는 구문·release/multiplier 계약·guard의 정상/오류 입력·쓰기 전 실행 순서·Git logical
@@ -99,4 +99,4 @@ GET  /v1/workspaces/{workspaceId}/notebooks/{notebookId}/jobs/execute/instances/
 
 | 이전 단계 | 전체 목차 | 다음 단계 |
 |---|---|---|
-| [← Test v2 배포·Production 승격](03-deployment-pipelines.md#release-v2) | [실습 순서](README.md#workshop-order) | [실제 수행 기록과 검증 범위 →](05-execution-record.md) |
+| [← Test v2 배포·Production 승격](04-deployment-pipelines.md#release-v2) | [실습 순서](README.md#workshop-order) | [실제 수행 기록과 검증 범위 →](06-execution-record.md) |

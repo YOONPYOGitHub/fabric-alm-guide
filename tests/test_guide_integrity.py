@@ -14,9 +14,16 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class GuideIntegrityTests(unittest.TestCase):
+    def test_linux_shell_examples_use_python3(self) -> None:
+        for document in (*ROOT.glob("*.md"), *ROOT.glob("examples/**/*.md")):
+            text = document.read_text(encoding="utf-8")
+            for block in re.findall(r"```(?:bash|sh|shell)\n(.*?)```", text, re.S):
+                with self.subTest(document=document.name, block=block):
+                    self.assertNotRegex(block, r"(?m)^\s*(?:\$\s+)?python(?:\s|$)")
+
     def test_instructions_do_not_depend_on_the_completed_lab_repository(self) -> None:
         for document in (*ROOT.glob("*.md"), *ROOT.glob("examples/**/*.md")):
-            if document.name == "05-execution-record.md":
+            if document.name == "06-execution-record.md":
                 continue
             with self.subTest(document=document.name):
                 self.assertNotRegex(

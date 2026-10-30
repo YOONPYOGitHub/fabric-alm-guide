@@ -1,6 +1,6 @@
 # 실제 수행 기록과 검증 범위
 
-[처음으로](README.md) · [검증·복구](04-validation-and-recovery.md) ·
+[처음으로](README.md) · [검증·복구](05-validation-and-recovery.md) ·
 [검증 JSON](evidence/workshop-verification.json)
 
 아래는 2026-10-19–20 KST의 실제 기록입니다. 문서의 재현 절차와 완료된 작업을 구분합니다.
@@ -61,6 +61,52 @@ Git 저장소 삭제는 Fabric Workspace·Lakehouse·데이터·Pipeline 정리�
 | Dev → Test v2 배포·실행 | 완료 | UI Compare·한 아이템 배포, 규칙 적용·실제 10행·합계 90 검증 |
 | Production 승인·정의·데이터 | 완료 | 명시적 별도 승인 후 UI Test → Prod 두 정의 배포, Prod 자체 바인딩·실제 10행·합계 90 |
 | Actions/OIDC·Power BI·RLS | 미구성 | 확장 트랙 |
+
+<a id="feature-git-api"></a>
+
+### Feature Git 연결과 API 참고
+
+아래는 기존 실행에서 사용한 방식입니다. 기본 실습의
+[Feature 연결 단계](03-git-integration.md#3-3-feature-branch와-feature-workspace)에 추가로
+API를 호출하라는 지시가 아닙니다.
+
+**실제 수행 방식:** 계정 선택 준비는 UI로 했고 Feature의 연결·초기화·첫 Update는
+공식 Core Git API로 수행했습니다. UI branch 목록이 새 branch를 즉시 반영하지 않아,
+동일하게 승인된 기존 connection을 재사용했습니다. UI에서 이 연결을 확정했다고 기록하지 않습니다.
+본문의 캡처는 연결 결과를 보여주는 화면입니다.
+
+API를 사용할 때도 다음 순서와 검증을 지킵니다.
+
+```text
+GET  /v1/workspaces/{devWorkspaceId}/git/myGitCredentials
+GET  /v1/workspaces/{featureWorkspaceId}/git/connection
+POST /v1/workspaces/{featureWorkspaceId}/git/connect
+POST /v1/workspaces/{featureWorkspaceId}/git/initializeConnection
+POST /v1/workspaces/{featureWorkspaceId}/git/updateFromGit
+GET  /v1/workspaces/{featureWorkspaceId}/git/status
+```
+
+- `connect`: 실제 owner/repository, feature branch, directory와 기존 connection ID를 전달합니다.
+- `initializeConnection`: `requiredAction=UpdateFromGit`인지 확인합니다.
+- Update에는 조회한 `workspaceHead`, `remoteCommitHash`를 사용합니다. 임의 SHA를 만들지 않습니다.
+- 202이면 `x-ms-operation-id`로 canonical operations API에서 완료를 확인합니다.
+  결과 본문이 없는 성공 작업에 `/result`를 무조건 요구하거나 작업을 중복 제출하지 않습니다.
+- 최종 `ConnectedAndInitialized`, 같은 원격/Workspace SHA와 변경 목록 0을 확인합니다.
+
+**실제 확인:** 가져온 v1 전체 코드 AST는 Dev v1과 같았고, Notebook의 물리 기본 Lakehouse는
+Feature 자체 Lakehouse로 해결되었습니다. Dev의 Lakehouse를 가리키지 않았습니다.
+
+<a id="feature-v2-verification"></a>
+
+### Feature v2 변경과 검증 기록
+
+이번 코드 변경은 **로컬 Git 편집·Commit·Push**로 수행했습니다. Fabric 셀 출력이나
+다운로드한 실행 결과를 편집한 것이 아닙니다.
+
+**실제 기록:** feature HEAD `09b03c28`, unittest 9개·Ruff·Pyright 통과.
+UI Update 후 실제 실행 스냅샷에서 10행·유일한 ID 0–9·모든 행 값과 release·합계 90을 확인했습니다.
+실행은 Job Scheduler API였으며 UI의 Run all로 실행한 것으로 기록하지 않습니다.
+본문의 v2 결과 캡처는 이 실행 스냅샷이며, UI의 Run all로 실행했음을 보여주는 화면은 아닙니다.
 
 ## Git 기록
 
@@ -203,4 +249,4 @@ Capacity와 Workspace는 중지·삭제하지 않았으므로 비용이 계속 �
 
 | 이전 단계 | 전체 목차 | 처음부터 다시 보기 |
 |---|---|---|
-| [← 검증·복구·비용 정리](04-validation-and-recovery.md) | [실습 순서](README.md#workshop-order) | [사전 준비와 필수 설정 →](01-prerequisites.md) |
+| [← 검증·복구·비용 정리](05-validation-and-recovery.md) | [실습 순서](README.md#workshop-order) | [사전 준비와 필수 설정 →](01-prerequisites.md) |

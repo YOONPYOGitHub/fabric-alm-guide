@@ -1,6 +1,8 @@
 # 1. 사전 준비와 필수 설정
 
-[처음으로](README.md) · [다음: Lakehouse + Notebook](02a-lakehouse-notebook.md)
+[처음으로](README.md) · [다음: Lakehouse + Notebook](02-lakehouse-notebook.md)
+
+이 문서는 이전 버전의 보관본입니다. 현재 실습은 [사전 준비와 필수 설정](01-prerequisites.md)을 사용합니다.
 
 **목표:** 기능을 사용할 수 있는 계정·Capacity·정책·권한을 먼저 준비합니다.
 이미 Enabled인 설정도 확인 경로와 적용 범위를 검토하고 기록합니다.
@@ -14,6 +16,7 @@ Tenant settings 변경이 필요하면 해당 권한이 있는 관리자에게 �
 2. 사용할 Capacity의 지역·SKU·Active 상태와 Workspace 할당 권한을 확인합니다.
 
 **기대 결과:** 사용할 tenant와 Capacity, 해당 Capacity의 할당 권한이 확인됩니다.
+촬영 환경은 기존 F16을 재사용했으며 새 Capacity를 만들거나 일시 중지 상태를 임의로 해제하지 않았습니다.
 
 ## 1-2. 반드시 확인할 네 가지 Tenant settings
 
@@ -31,9 +34,12 @@ Tenant settings에서 **Filter by keyword**로 검색합니다.
 
 ![실제 Configurations에서 Tenant settings와 검색란 확인](screenshots/w66-onelake-configurations-tenant-settings.png)
 
+위 두 장은 2026-10-20 KST에 새 경로가 제공되는 것을 확인해 추가한 실제 화면입니다.
+설정을 조회하기만 했으며 스위치·적용 범위는 바꾸지 않았습니다.
+
 OneLake catalog의 Govern이 아직 제공되지 않는 지역별 rollout 환경에서는
 **Settings → Admin portal → Tenant settings**를 사용합니다. 아래 각 설정의 기존 캡처는
-이 대체 경로를 보여줍니다. 두 경로의 구분은
+최초 촬영 당시의 이 대체 경로입니다. 두 경로의 구분은
 [공식 Tenant settings 접근 안내](https://learn.microsoft.com/en-us/fabric/admin/about-tenant-settings#how-to-get-to-the-tenant-settings)를
 따릅니다. 관리자 화면에 접근할 수 없으면 담당 관리자에게 상태·적용 범위 확인을 요청합니다.
 
@@ -65,10 +71,10 @@ GitHub 로그인이나 PAT 발급만으로 Fabric의 Git 정책이 활성화되�
 
 ### GitHub 공급자: 필요한 경우에만 그룹 한정 허용
 
-설정의 현재 상태와 실습 사용자에게 적용되는 범위를 확인합니다.
-이미 필요한 범위에 Enabled라면 변경하지 않습니다.
+이 설정은 최초 준비 당시 Disabled였습니다. 아래 두 장은 **같은 테넌트에서 이미 승인 후
+수행한 실제 사전 구성 기록**입니다. 캡처를 위해 다시 Disabled로 바꾸지 않았습니다.
 
-![GitHub 공급자 설정이 Disabled인 예시](screenshots/17-tenant-github-setting-disabled.png)
+![최초 사전 구성에서 확인한 GitHub 공급자 Disabled](screenshots/17-tenant-github-setting-disabled.png)
 
 변경이 필요한 환경에서만 다음을 수행합니다.
 
@@ -79,14 +85,23 @@ GitHub 로그인이나 PAT 발급만으로 Fabric의 Git 정책이 활성화되�
 5. 전체 조직 허용, 제외 그룹, 관리자 위임을 불필요하게 추가하지 않습니다.
 6. **Apply** 후 적용 상태와 그룹 멤버를 다시 확인합니다.
 
-![Specific security groups와 실습 그룹 지정](screenshots/18-tenant-github-specific-group-before-apply.png)
+![최초 승인 후 Specific security groups와 실습 그룹 지정](screenshots/18-tenant-github-specific-group-before-apply.png)
 
-화면의 그룹 이름은 예시입니다. 자신의 승인된 보안 그룹과 실습 사용자의 멤버 포함 여부를 확인합니다.
+촬영 환경의 그룹 이름은 `grp-fabric-alm-lab-users`이며 실습 계정 한 명만 포함했습니다.
+아래는 재작성 시 다시 확인한 **현재 적용 상태**입니다.
 
-![GitHub 설정과 승인된 보안 그룹의 적용 상태 예시](screenshots/w25-prerequisite-github-approved-group.png)
+![현재 GitHub 설정과 승인된 보안 그룹, 변경 없이 확인](screenshots/w25-prerequisite-github-approved-group.png)
 
 **기대 결과:** `Enabled for a subset of the organization`과 올바른 그룹이 유지됩니다.
 정책 반영에는 시간이 걸릴 수 있으므로 공식 안내의 최대 15분을 고려합니다.
+
+GitHub에는 multi-geo 제한 스위치의 적용이 강제되지 않는다는 현재 UI·공식 문서의 안내가
+있습니다. 연결 오류를 이유로 **Users can export items to Git repositories in other
+geographical locations**까지 일괄 활성화하지 않습니다. 레이블이 있는 아이템의 내보내기
+정책도 별도로 확인하며 임의로 완화하지 않습니다.
+
+본 트랙은 사용자 인증을 사용합니다. 서비스 주체의 Workspace 생성 설정이나 Fabric API
+설정, AI 정책을 바꾸는 단계가 아닙니다.
 
 ## 1-3. 네 개의 Workspace 생성
 
@@ -109,14 +124,13 @@ GitHub 로그인이나 PAT 발급만으로 Fabric의 Git 정책이 활성화되�
 
 ![Dev 생성 시 입력한 Workspace 이름](screenshots/w01-create-development-workspace-name.png)
 
-![Fabric 유형과 Capacity 선택](screenshots/w02-confirm-fabric-f16-capacity.png)
+![Fabric 유형과 기존 fb001 Capacity를 선택한 실제 화면](screenshots/w02-confirm-fabric-f16-capacity.png)
 
-**빨간 박스:** Capacity 선택란입니다. 자신의 환경에서 사용이 승인된 Capacity를 선택합니다.
-화면의 `fb001 - Korea Central`은 예시이며, 사용할 Capacity의 지역·SKU·Active 상태와
-할당 권한을 확인합니다.
+**빨간 박스:** Capacity 선택란입니다. `fb001 - Korea Central`은 촬영 환경의 이름이며,
+F16 SKU와 Active 상태는 Capacity 조회로 별도 대조했습니다.
 
-5. 같은 방식으로 Feature, Test, Prod를 생성하고
-   각 Workspace에 올바른 Capacity가 할당되었는지 확인합니다.
+5. 같은 방식으로 Feature, Test, Prod를 생성합니다. 네 Workspace는 **모두 실제 UI로 생성**
+   했고 동일한 승인 Capacity에 할당된 것을 API로도 확인했습니다.
 
 ![Feature Workspace의 이름 입력](screenshots/w03-create-feature-workspace.png)
 
@@ -134,6 +148,9 @@ GitHub 로그인이나 PAT 발급만으로 Fabric의 Git 정책이 활성화되�
 
 **빨간 박스:** 현재 계정의 Workspace 역할입니다. 캡처는 예시이며, 방금 생성한 각 Workspace에서
 확인합니다. `Add people or groups`로 임의의 멤버를 추가하는 단계가 아닙니다.
+
+Azure 구독의 Owner 역할이 Fabric Workspace/Pipeline Admin을 자동 부여하지 않습니다.
+실습을 위해 Global Administrator나 조직 전체 권한을 새로 부여하지 않습니다.
 
 **기대 결과:** 네 Workspace가 존재하며 실습 계정의 Workspace Admin 역할이 확인됩니다.
 Feature는 배포 Pipeline 단계가 아니라 Git feature branch를 검증할 Workspace입니다.
@@ -172,7 +189,7 @@ Fabric이 본인의 실습 저장소를 읽고 변경 사항을 저장할 수 �
 4. **Contents: Read and write**, **Metadata: Read-only**를 확인합니다.
 5. 짧은 만료 기간을 사용하고 조직 승인·SSO 요구사항이 있다면 따릅니다.
 
-![저장소 한정 fine-grained PAT의 범위와 권한 설정 예시](screenshots/13-github-fine-grained-token-scope.png)
+![실제로 사용한 저장소 한정 fine-grained PAT 준비 화면, 발급 값 없음](screenshots/13-github-fine-grained-token-scope.png)
 
 위 화면의 저장소 선택은 예시입니다. **Only select repositories**에서
 자신이 만든 `fabric-alm-lab`을 선택합니다. 다른 이름으로 만들었다면 해당 저장소를 선택합니다.
@@ -180,24 +197,25 @@ Fabric이 본인의 실습 저장소를 읽고 변경 사항을 저장할 수 �
 만료되면 해당 토큰으로 Git 동기화를 할 수 없지만 저장소나 Fabric 아이템이 삭제되지는 않습니다.
 
 지금은 토큰 준비까지만 진행합니다. 토큰은 안전하게 보관하고 채팅·문서·Git·로그·화면 캡처에
-남기지 않습니다. Fabric 등록은 [Git 연결 단계](02-git-integration.md#3-1-dev를-main의-새-git-directory에-연결)에서 진행합니다.
+남기지 않습니다. Fabric 등록은 [Git 연결 단계](03-git-integration.md#3-1-dev를-main의-새-git-directory에-연결)에서 진행합니다.
 
 ## 1-5. PR 검토를 실제로 할 수 있는지 확인
 
 **경로:** GitHub 소스 저장소 **Settings → Branches / Rulesets**, **Collaborators**.
 
-![Branch protection이 구성되지 않은 저장소의 설정 예시](screenshots/w42-prerequisite-review-enforcement-limitation.png)
+![현재 저장소에 필수 branch protection이 구성되지 않은 실제 화면](screenshots/w42-prerequisite-review-enforcement-limitation.png)
 
-자신의 저장소에서 `main` 보호와 PR 리뷰 설정을 확인합니다.
-필수 리뷰 설정의 사용 가능 여부는 GitHub 요금제와 저장소 정책에 따라 다릅니다.
+촬영 환경은 Private이고 owner가 Admin이지만 `main` 보호가 없었습니다. Rulesets API는
+Pro 업그레이드 또는 Public 전환을 요구하는 403을 반환했습니다. 요금제 이름을 추측하거나
+결제·공개 범위·협업자를 자동 변경하지 않았습니다.
 
-보호 규칙이 없으면 **필수 리뷰가 기술적으로 강제되지 않습니다.**
-작성자의 자기 검토는 독립 리뷰어 승인으로 간주하지 않습니다.
+따라서 이 실행에서는 **필수 리뷰가 기술적으로 강제된다고 주장하지 않습니다.**
+협업자는 owner 한 명이었고 작성자의 자기 승인을 독립 리뷰어 승인으로 기록하지 않습니다.
 실제 사람이 diff와 검증 근거를 검토하고 병합 의사를 표시해야 다음 단계로 갑니다.
 독립 리뷰어 승인이 필요한 조직은 적절한 저장소 정책·요금제·리뷰어를 먼저 준비해야 합니다.
 
 **체크포인트:** 네 설정, Capacity, 네 Workspace의 Admin 역할, source repository, 인증 범위와
-검토 방식이 확인되어야 [Lakehouse 준비](02a-lakehouse-notebook.md)를 시작합니다.
+검토 방식이 확인되어야 [Lakehouse 준비](02-lakehouse-notebook.md)를 시작합니다.
 
 ---
 
@@ -205,4 +223,4 @@ Fabric이 본인의 실습 저장소를 읽고 변경 사항을 저장할 수 �
 
 | 이전 단계 | 전체 목차 | 다음 단계 |
 |---|---|---|
-| [← 가이드 소개](README.md) | [실습 순서](README.md#workshop-order) | [Lakehouse와 Notebook v1 →](02a-lakehouse-notebook.md) |
+| [← 가이드 소개](README.md) | [실습 순서](README.md#workshop-order) | [Lakehouse와 Notebook v1 →](02-lakehouse-notebook.md) |

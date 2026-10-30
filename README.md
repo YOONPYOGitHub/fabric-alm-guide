@@ -4,9 +4,11 @@
 필수 관리자 설정부터 feature branch, PR 검토, Dev 동기화, Test 검증과 Production 승인까지
 하나의 흐름으로 설명합니다. 메뉴 이름은 실제 영문 UI 기준입니다.
 
+로컬 터미널 명령은 **Linux/WSL의 Bash와 `python3`**를 기준으로 합니다.
+
 설명·캡처·[v1 Notebook 코드와 실습용 테스트](examples/README.md)를 이 저장소에서 모두 제공합니다.
 별도 예제 저장소의 접근 권한 없이 따라 할 수 있습니다.
-기존 환경에서 검증한 결과는 [실제 수행 기록](05-execution-record.md)에 따로 보관합니다.
+기존 환경에서 검증한 결과는 [실제 수행 기록](06-execution-record.md)에 따로 보관합니다.
 
 ## 1. 먼저 구분할 것
 
@@ -46,13 +48,13 @@ Lakehouse의 Delta 테이블 행은 Git에 들어가지 않으며, 단계 배포
 | 순서 | 문서 | 다음 단계로 넘어갈 조건 |
 |---|---|---|
 | 1 | [사전 준비와 필수 설정](01-prerequisites.md) | 계정·Capacity·권한·4개 관리자 설정·GitHub 인증 확인 |
-| 2 | [Lakehouse와 Notebook v1](02a-lakehouse-notebook.md) | 실제 10행, 고유 ID 0–9, v1 합계 45 |
-| 3 | [GitHub 연결·Feature·PR 생성까지](02-git-integration.md) | 3-1~3-5의 PR 생성까지; Feature v2 합계 90, main은 아직 v1 |
-| 4 | [Pipeline과 v1 초기 배포](03-deployment-pipelines.md#baseline-preparation) | 4-1~4-6; PR 승인 전 main v1 → Test v1 검증 |
-| 5 | [사용자 승인·PR 병합·Dev Update](02-git-integration.md#merge-and-dev-update) | 3-5의 승인·병합부터 3-6까지; Dev v2 합계 90 |
-| 6 | [Test v2와 Production 승격](03-deployment-pipelines.md#release-v2) | 4-7~4-8; Test v2 검증 → 별도 승인 → Production v2 검증 |
-| 7 | [검증·복구·비용 정리](04-validation-and-recovery.md) | 정의·바인딩·데이터·승인 근거를 함께 보관 |
-| 별첨 | [실제 수행 기록과 검증 범위](05-execution-record.md) | 수행 방식, Commit·job·배포 ID와 제한사항 확인 |
+| 2 | [Lakehouse와 Notebook v1](02-lakehouse-notebook.md) | 실제 10행, 고유 ID 0–9, v1 합계 45 |
+| 3 | [GitHub 연결·Feature·PR 생성까지](03-git-integration.md) | 3-1~3-5의 PR 생성까지; Feature v2 합계 90, main은 아직 v1 |
+| 4 | [Pipeline과 v1 초기 배포](04-deployment-pipelines.md#baseline-preparation) | 4-1~4-6; PR 승인 전 main v1 → Test v1 검증 |
+| 5 | [사용자 승인·PR 병합·Dev Update](03-git-integration.md#merge-and-dev-update) | 3-5의 승인·병합부터 3-6까지; Dev v2 합계 90 |
+| 6 | [Test v2와 Production 승격](04-deployment-pipelines.md#release-v2) | 4-7~4-8; Test v2 검증 → 별도 승인 → Production v2 검증 |
+| 7 | [검증·복구·비용 정리](05-validation-and-recovery.md) | 정의·바인딩·데이터·승인 근거를 함께 보관 |
+| 별첨 | [실제 수행 기록과 검증 범위](06-execution-record.md) | 수행 방식, Commit·job·배포 ID와 제한사항 확인 |
 
 처음 읽는 경우 순서대로 진행합니다. 이미 구성된 환경에서는 확인 후 재사용하며,
 캡처를 만들기 위해 설정을 껐다 켜거나 같은 리소스를 중복 생성하지 않습니다.
@@ -95,7 +97,7 @@ Capacity가 자동 중지되지 않습니다.
 **같은 설정의 기존 실제 기록**임을 해당 단계에 표시했습니다.
 
 원본·강조본은 각각 **66장** 보관합니다. 이전 저장소 생성·외부 테스트 다운로드 화면
-w61–w63은 현재 실습 지시와 구분해 [과거 화면 기록](05-execution-record.md#이전-저장소-준비와-다운로드-화면)에
+w61–w63은 현재 실습 지시와 구분해 [과거 화면 기록](06-execution-record.md#이전-저장소-준비와-다운로드-화면)에
 보존합니다. 기존 화면의 이름이나 UI를 합성해 변경하지 않습니다.
 
 ## 5. 현재 확인한 결과
@@ -115,7 +117,7 @@ w61–w63은 현재 실습 지시와 구분해 [과거 화면 기록](05-executi
 | Production | 명시적 별도 승인 후 Test → Prod 두 정의 배포·Prod 자체 바인딩·실제 10행·합계 90 검증 |
 
 [기계 판독 가능한 검증 기록](evidence/workshop-verification.json)과
-[실행 스냅샷 링크](05-execution-record.md)에서 근거를 확인할 수 있습니다.
+[실행 스냅샷 링크](06-execution-record.md)에서 근거를 확인할 수 있습니다.
 기록에 포함된 과거 Private GitHub 저장소와 Fabric 링크는 해당 대상의 접근 권한이 있어야 열립니다.
 이 링크는 참고용이며 현재 실습에 필요한 코드·테스트는 이 저장소에 포함되어 있습니다.
 
@@ -167,24 +169,30 @@ Fabric 권한을 나누어도 GitHub의 main 직접 Push·PR 병합 권한까지
 
 ## 7. 캡처 재생성과 오프라인 검사
 
-Python 3.12 이상으로 저장소 루트에서 실행합니다. 패키지 설치는 registry에 접근할 수 있지만
-이후 명령은 Azure/Fabric에 배포하지 않습니다.
+Linux/WSL에서 `python3 --version`으로 Python 3.12 이상인지 확인한 뒤 가이드 저장소 루트에서 실행합니다.
+패키지 설치는 registry에 접근할 수 있지만 이후 명령은 Azure/Fabric에 배포하지 않습니다.
+
+Ubuntu/WSL에서 가상환경 생성 시 `ensurepip is not available` 오류가 나면
+사용 중인 Python 버전에 맞는 venv 패키지를 설치한 뒤 다시 생성합니다.
+Python 3.12 환경의 설치 명령은 `sudo apt install python3.12-venv`입니다.
 
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install -r tools/requirements.txt
-python tools/annotate_screenshots.py
-python -m unittest discover -s tests -v
+python3 -m pip install -r tools/requirements.txt
+python3 tools/annotate_screenshots.py
+python3 -m unittest discover -s tests -v
 ```
 
-Windows PowerShell에서는 `source` 대신 `.\.venv\Scripts\Activate.ps1`로 활성화합니다.
+Windows PowerShell에서는 `py -3 -m venv .venv`로 생성한 뒤
+`.\.venv\Scripts\Activate.ps1`로 활성화합니다.
+활성화 후에는 위 블록의 나머지 `python3`를 `python`으로 바꿔 실행합니다.
 검사는 링크·이미지 목록과 크기·주석 제한·원본 해시·박스 선 밖의 모든 픽셀 보존을 확인합니다.
 예제의 세 코드 셀과 환경 ID 미포함 여부, 실습용 테스트를 임시 실습 저장소로 복사한 뒤
 v1·v2 정상 상태 및 잘못된 상수·바인딩·누락 파일의 실패도 검증합니다. 실제 Spark는 실행하지 않습니다.
 
 이 명령은 **가이드 유지보수용 검사**입니다. 독자가 본인의 실습 저장소에서 실행할 9개 검사는
-[Git 장의 테스트 준비](02-git-integration.md#prepare-smoke-tests)에서 안내합니다.
+[Git 장의 테스트 준비](03-git-integration.md#prepare-smoke-tests)에서 안내합니다.
 
 ---
 
@@ -192,4 +200,4 @@ v1·v2 정상 상태 및 잘못된 상수·바인딩·누락 파일의 실패도
 
 | 실습 시작 | 전체 목차 | 실행 결과 먼저 보기 |
 |---|---|---|
-| [1단계: 사전 준비와 필수 설정 →](01-prerequisites.md) | [실습 순서로 이동](#workshop-order) | [실제 수행 기록과 검증 범위](05-execution-record.md) |
+| [1단계: 사전 준비와 필수 설정 →](01-prerequisites.md) | [실습 순서로 이동](#workshop-order) | [실제 수행 기록과 검증 범위](06-execution-record.md) |

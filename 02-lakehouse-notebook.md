@@ -1,9 +1,10 @@
 # 2. Lakehouse와 Notebook v1
 
-[처음으로](README.md) · [이전: 사전 준비](01-prerequisites.md) · [다음: Git과 PR](02-git-integration.md)
+[처음으로](README.md) · [이전: 사전 준비](01-prerequisites.md) · [다음: Git과 PR](03-git-integration.md)
 
-**목표:** Python 리스트 합계가 아니라 실제 Lakehouse의 Delta 테이블을 생성·읽기·검증합니다.
-이 장의 v1은 10행과 합계 45, Feature에서 바꿀 v2는 같은 10개 ID와 합계 90입니다.
+**목표:** Notebook으로 Lakehouse의 Delta 테이블을 생성하고 데이터를 저장·조회·검증합니다.
+이 장에서는 v1의 10행·합계 45를 확인합니다.
+이후 Feature 단계에서는 같은 10개 ID의 값을 변경해 v2의 합계 90을 검증합니다.
 
 ## 2-1. Dev Lakehouse 생성
 
@@ -44,7 +45,9 @@ Workspace의 Lakehouse를 선택하지 않습니다.
 ## 2-3. 세 개의 코드 셀 준비
 
 이 가이드의 [v1 Notebook 코드](examples/notebook-v1.py)를 엽니다.
-`# CELL`로 구분된 세 코드 영역의 전체 내용을 Dev Notebook의 세 코드 셀에 각각 복사합니다.
+`# CELL ********************` 줄을 기준으로 나뉜 세 영역에서 **구분자 줄을 제외한 코드 전체**를
+Dev Notebook의 세 코드 셀에 각각 복사합니다. 구분자는 Fabric이 Git으로 내보낼 때 자동으로 추가하므로
+Notebook 셀에 붙여 넣지 않습니다.
 아래 블록은 코드의 일부를 설명하는 것이므로, 아래 짧은 블록만으로 셀을 구성하지 않습니다.
 
 제공 파일은 코드만 포함하며 기존 환경의 metadata나 식별 정보는 포함하지 않습니다.
@@ -128,7 +131,7 @@ Dev Workspace에는 실행 가능한 Fabric Capacity가 할당되어 있어야 �
 UI의 Run all로 실행한 것으로 기록하지 않습니다. 위 화면은 그 실제 API 실행의 스냅샷입니다.
 
 **체크포인트:** 실제 Delta의 10행·합계 45와 Dev 바인딩을 확인한 뒤
-[Git 연결](02-git-integration.md)로 이동합니다.
+[Git 연결](03-git-integration.md)로 이동합니다.
 
 ---
 
@@ -136,4 +139,4 @@ UI의 Run all로 실행한 것으로 기록하지 않습니다. 위 화면은 �
 
 | 이전 단계 | 전체 목차 | 다음 단계 |
 |---|---|---|
-| [← 사전 준비와 필수 설정](01-prerequisites.md) | [실습 순서](README.md#workshop-order) | [GitHub 연결·Feature·PR 생성 →](02-git-integration.md) |
+| [← 사전 준비와 필수 설정](01-prerequisites.md) | [실습 순서](README.md#workshop-order) | [GitHub 연결·Feature·PR 생성 →](03-git-integration.md) |

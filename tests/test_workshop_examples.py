@@ -83,6 +83,19 @@ class WorkshopExampleTests(unittest.TestCase):
         result = self.run_contract()
         self.assertEqual(result.returncode, 0, result.stderr)
 
+    def test_copied_contract_rejects_duplicate_cell_markers(self) -> None:
+        self.source.write_text(
+            self.source.read_text(encoding="utf-8").replace(
+                CELL_MARKER, f"{CELL_MARKER}\n\n{CELL_MARKER}"
+            ),
+            encoding="utf-8",
+        )
+        result = self.run_contract()
+        self.assertEqual(result.returncode, 1, result.stderr)
+        self.assertIn("FAILED (failures=1)", result.stderr)
+        self.assertIn("FAIL: test_release_and_multiplier_agree", result.stderr)
+        self.assertIn("7 != 4", result.stderr)
+
     def test_copied_contract_passes_for_v2(self) -> None:
         source = self.source.read_text(encoding="utf-8")
         self.source.write_text(

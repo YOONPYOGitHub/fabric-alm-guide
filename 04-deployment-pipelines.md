@@ -1,6 +1,6 @@
 # 4. Deployment pipelines와 단계별 데이터 검증
 
-[처음으로](README.md) · [이전: Git과 PR](02-git-integration.md) · [다음: 검증·복구](04-validation-and-recovery.md)
+[처음으로](README.md) · [이전: Git과 PR](03-git-integration.md) · [다음: 검증·복구](05-validation-and-recovery.md)
 
 **목표:** 정의 배포, 환경 바인딩, 데이터 실행, 사람의 승인을 분리합니다.
 실제로 **Dev v1 → Test v1 초기 배포**와, 이후 사용자의 승인·PR 병합을 거친
@@ -129,7 +129,7 @@ Completed라는 상태만으로 데이터 정합성을 주장하지 않았습니
 
 ## 4-6. 환경별 기본 Lakehouse 규칙
 
-Git의 Feature 분기는 [Git binding 설정](02-git-integration.md), 단계 간 배포는
+Git의 Feature 분기는 [Git binding 설정](03-git-integration.md), 단계 간 배포는
 Pipeline의 의존성 auto-binding으로 확인했습니다. 두 기능을 같은 설정이라고 혼동하지 않습니다.
 
 특정 대상 Lakehouse를 고정해야 한다면 **대상 Test 또는 Production 단계**에서 Notebook
@@ -164,20 +164,20 @@ About → Details → Owned by**를 확인합니다. 아래는 기존 Test Noteb
 다른 환경을 참조할 수 있습니다. 이 실습의 쓰기 전 guard는 그런 실행을 거부합니다.
 규칙을 저장한 것과 그 규칙이 적용된 **다음 배포·실행 검증**은 구분합니다.
 이번에는 Test 규칙을 저장·페이지 reload로 재확인한 뒤, 아래 실제 v2 배포에서 코드·물리
-바인딩·실제 데이터를 검증했습니다. [실행 기록](05-execution-record.md)에서 근거를 확인합니다.
+바인딩·실제 데이터를 검증했습니다. [실행 기록](06-execution-record.md)에서 근거를 확인합니다.
 
 **v1 초기 준비를 마쳤다면 Git 가이드로 돌아가 승인·병합을 진행합니다.**
 아직 Dev가 v1인 상태에서 아래 v2 배포를 시작하지 않습니다.
 
 | 다음 단계 | 승인·병합과 Dev v2 검증을 이미 마친 경우 |
 |---|---|
-| [사용자 승인·PR 병합·Dev Update로 이동 →](02-git-integration.md#merge-and-dev-update) | [Test v2 배포로 바로 이동 ↓](#release-v2) |
+| [사용자 승인·PR 병합·Dev Update로 이동 →](03-git-integration.md#merge-and-dev-update) | [Test v2 배포로 바로 이동 ↓](#release-v2) |
 
 <a id="release-v2"></a>
 
 ## 4-7. 사용자 승인·PR 병합 후 Dev v2 → Test v2 — 실제 수행
 
-실제 사용자 승인·PR 병합과 [Dev v2 Update/실행](02-git-integration.md)을 마친 뒤 진행했습니다.
+실제 사용자 승인·PR 병합과 [Dev v2 Update/실행](03-git-integration.md)을 마친 뒤 진행했습니다.
 
 1. Dev가 승인된 main과 같고 실제 v2 결과가 10행·합계 90인지 확인합니다.
 2. Test 대상, Development 원본을 확인합니다. Lakehouse는 이미 pairing되어 있고 변경되지
@@ -289,4 +289,4 @@ Test 결과로 Production 검증을 대신하지 않았습니다.
 
 | 이전 단계 | 전체 목차 | 다음 단계 |
 |---|---|---|
-| [← 승인·PR 병합·Dev Update](02-git-integration.md#merge-and-dev-update) | [실습 순서](README.md#workshop-order) | [검증·복구·비용 정리 →](04-validation-and-recovery.md) |
+| [← 승인·PR 병합·Dev Update](03-git-integration.md#merge-and-dev-update) | [실습 순서](README.md#workshop-order) | [검증·복구·비용 정리 →](05-validation-and-recovery.md) |
