@@ -25,11 +25,11 @@ Tenant settings에서 **Filter by keyword**로 검색합니다.
 1. 좌측 **OneLake catalog**를 열고 **Govern** 탭을 선택합니다.
 2. Govern의 왼쪽 메뉴에서 **Configurations**를 선택합니다.
 
-![실제 OneLake catalog의 Govern 탭에서 Configurations 선택](screenshots/w65-onelake-govern-configurations-entry.png)
+![실제 OneLake catalog의 Govern 탭에서 Configurations 선택](screenshots/01/01-onelake-govern-configurations-entry.png)
 
 3. **Platform → Tenant settings**를 선택하고 오른쪽 **Filter by keyword**로 설정을 찾습니다.
 
-![실제 Configurations에서 Tenant settings와 검색란 확인](screenshots/w66-onelake-configurations-tenant-settings.png)
+![실제 Configurations에서 Tenant settings와 검색란 확인](screenshots/01/02-onelake-configurations-tenant-settings.png)
 
 OneLake catalog의 Govern이 아직 제공되지 않는 지역별 rollout 환경에서는
 **Settings → Admin portal → Tenant settings**를 사용합니다. 아래 각 설정의 기존 캡처는
@@ -48,27 +48,27 @@ OneLake catalog의 Govern이 아직 제공되지 않는 지역별 rollout 환경
 
 설정을 펼쳐 Enabled 상태를 확인합니다. **이미 활성화되어 있으면 변경 없이 확인만** 합니다.
 
-![이미 Enabled인 Fabric 아이템 생성 필수 설정](screenshots/w13-mandatory-fabric-items-enabled.png)
+![이미 Enabled인 Fabric 아이템 생성 필수 설정](screenshots/01/03-mandatory-fabric-items-enabled.png)
 
 ### Workspace 생성
 
 실습 사용자가 포함된 범위에 생성이 허용되어야 합니다. 아래 화면의 서비스 주체 설정과
 사람이 Workspace를 만드는 설정은 서로 다릅니다.
 
-![이미 Enabled인 Create workspaces 필수 설정](screenshots/w08-mandatory-create-workspaces-enabled.png)
+![이미 Enabled인 Create workspaces 필수 설정](screenshots/01/04-mandatory-create-workspaces-enabled.png)
 
 ### 일반 Git 통합
 
 GitHub 로그인이나 PAT 발급만으로 Fabric의 Git 정책이 활성화되지는 않습니다.
 
-![일반 Git 통합 Enabled 확인, 설정 변경 없음](screenshots/w23-prerequisite-git-enabled.png)
+![일반 Git 통합 Enabled 확인, 설정 변경 없음](screenshots/01/05-prerequisite-git-enabled.png)
 
 ### GitHub 공급자: 필요한 경우에만 그룹 한정 허용
 
 설정의 현재 상태와 실습 사용자에게 적용되는 범위를 확인합니다.
 이미 필요한 범위에 Enabled라면 변경하지 않습니다.
 
-![GitHub 공급자 설정이 Disabled인 예시](screenshots/17-tenant-github-setting-disabled.png)
+![GitHub 공급자 설정이 Disabled인 예시](screenshots/01/06-tenant-github-setting-disabled.png)
 
 변경이 필요한 환경에서만 다음을 수행합니다.
 
@@ -79,11 +79,11 @@ GitHub 로그인이나 PAT 발급만으로 Fabric의 Git 정책이 활성화되�
 5. 전체 조직 허용, 제외 그룹, 관리자 위임을 불필요하게 추가하지 않습니다.
 6. **Apply** 후 적용 상태와 그룹 멤버를 다시 확인합니다.
 
-![Specific security groups와 실습 그룹 지정](screenshots/18-tenant-github-specific-group-before-apply.png)
+![Specific security groups와 실습 그룹 지정](screenshots/01/07-tenant-github-specific-group-before-apply.png)
 
 화면의 그룹 이름은 예시입니다. 자신의 승인된 보안 그룹과 실습 사용자의 멤버 포함 여부를 확인합니다.
 
-![GitHub 설정과 승인된 보안 그룹의 적용 상태 예시](screenshots/w25-prerequisite-github-approved-group.png)
+![GitHub 설정과 승인된 보안 그룹의 적용 상태 예시](screenshots/01/08-prerequisite-github-approved-group.png)
 
 **기대 결과:** `Enabled for a subset of the organization`과 올바른 그룹이 유지됩니다.
 정책 반영에는 시간이 걸릴 수 있으므로 공식 안내의 최대 15분을 고려합니다.
@@ -104,36 +104,33 @@ GitHub 로그인이나 PAT 발급만으로 Fabric의 Git 정책이 활성화되�
 
 1. 이름에 `FabricLab-Dev`를 입력하고, Description에는 표의 예시를 사용하거나 용도에 맞게 설명을 작성합니다.
 2. **Advanced → Workspace type → Fabric**을 선택합니다.
-3. **Details**에서 승인된 Capacity를 선택합니다.
+3. **Details**에서 자신의 환경에서 사용이 승인된 Capacity를 선택합니다.
+   사용할 Capacity의 지역·SKU·Active 상태와 할당 권한을 확인합니다.
 4. 이름·유형·Capacity를 대조한 뒤 **Apply**를 선택합니다.
 
-![Dev 생성 시 입력한 Workspace 이름](screenshots/w01-create-development-workspace-name.png)
+![Dev 생성 시 입력한 Workspace 이름](screenshots/01/09-create-development-workspace-name.png)
 
-![Fabric 유형과 Capacity 선택](screenshots/w02-confirm-fabric-f16-capacity.png)
+![Fabric 유형과 Capacity 선택](screenshots/01/10-confirm-fabric-f16-capacity.png)
 
-**빨간 박스:** Capacity 선택란입니다. 자신의 환경에서 사용이 승인된 Capacity를 선택합니다.
-화면의 `fb001 - Korea Central`은 예시이며, 사용할 Capacity의 지역·SKU·Active 상태와
-할당 권한을 확인합니다.
+화면의 `fb001 - Korea Central`은 Capacity 선택 예시입니다.
 
 5. 같은 방식으로 Feature, Test, Prod를 생성하고
    각 Workspace에 올바른 Capacity가 할당되었는지 확인합니다.
 
-![Feature Workspace의 이름 입력](screenshots/w03-create-feature-workspace.png)
+![Feature Workspace의 이름 입력](screenshots/01/11-create-feature-workspace.png)
 
-![Test Workspace의 이름 입력](screenshots/w04-create-test-workspace.png)
+![Test Workspace의 이름 입력](screenshots/01/12-create-test-workspace.png)
 
-![Production Workspace의 이름 입력](screenshots/w05-create-production-workspace.png)
+![Production Workspace의 이름 입력](screenshots/01/13-create-production-workspace.png)
 
 6. 생성한 네 Workspace에서 각각 **Manage access**를 열고 실습 계정이 **Admin**인지 확인합니다.
+   역할을 확인하는 단계이며, `Add people or groups`로 임의의 멤버를 추가하지 않습니다.
 
 이 계정으로 Dev·Feature의 Git 연결과 Dev·Test·Prod의 Pipeline 단계 할당까지 수행하므로
 네 Workspace의 Admin 역할을 확인합니다. 모든 개발자에게 Admin이 필요하다는 뜻은 아닙니다.
 운영 시 담당자별 권한 구분은 [권한 구분과 운영 시 역할 분리](README.md#권한-구분과-운영-시-역할-분리)를 참고합니다.
 
-![Workspace Manage access에서 실습 계정의 Admin 확인](screenshots/w36-prerequisite-workspace-admin.png)
-
-**빨간 박스:** 현재 계정의 Workspace 역할입니다. 캡처는 예시이며, 방금 생성한 각 Workspace에서
-확인합니다. `Add people or groups`로 임의의 멤버를 추가하는 단계가 아닙니다.
+![Workspace Manage access에서 실습 계정의 Admin 확인](screenshots/01/14-prerequisite-workspace-admin.png)
 
 **기대 결과:** 네 Workspace가 존재하며 실습 계정의 Workspace Admin 역할이 확인됩니다.
 Feature는 배포 Pipeline 단계가 아니라 Git feature branch를 검증할 Workspace입니다.
@@ -172,7 +169,7 @@ Fabric이 본인의 실습 저장소를 읽고 변경 사항을 저장할 수 �
 4. **Contents: Read and write**, **Metadata: Read-only**를 확인합니다.
 5. 짧은 만료 기간을 사용하고 조직 승인·SSO 요구사항이 있다면 따릅니다.
 
-![저장소 한정 fine-grained PAT의 범위와 권한 설정 예시](screenshots/13-github-fine-grained-token-scope.png)
+![저장소 한정 fine-grained PAT의 범위와 권한 설정 예시](screenshots/01/15-github-fine-grained-token-scope.png)
 
 위 화면의 저장소 선택은 예시입니다. **Only select repositories**에서
 자신이 만든 `fabric-alm-lab`을 선택합니다. 다른 이름으로 만들었다면 해당 저장소를 선택합니다.
@@ -186,7 +183,7 @@ Fabric이 본인의 실습 저장소를 읽고 변경 사항을 저장할 수 �
 
 **경로:** GitHub 소스 저장소 **Settings → Branches / Rulesets**, **Collaborators**.
 
-![Branch protection이 구성되지 않은 저장소의 설정 예시](screenshots/w42-prerequisite-review-enforcement-limitation.png)
+![Branch protection이 구성되지 않은 저장소의 설정 예시](screenshots/01/16-prerequisite-review-enforcement-limitation.png)
 
 자신의 저장소에서 `main` 보호와 PR 리뷰 설정을 확인합니다.
 필수 리뷰 설정의 사용 가능 여부는 GitHub 요금제와 저장소 정책에 따라 다릅니다.

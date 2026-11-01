@@ -10,16 +10,16 @@
 
 **경로:** `FabricLab-Dev → New item → Lakehouse`.
 
-![New item에서 Sample lakehouse가 아닌 Lakehouse 선택](screenshots/w06-select-lakehouse-item.png)
+![New item에서 Sample lakehouse가 아닌 Lakehouse 선택](screenshots/02/01-select-lakehouse-item.png)
 
 1. 이름에 `CI_CD_Demo`를 입력합니다.
 2. Location이 `FabricLab-Dev`인지 확인합니다.
 3. **Lakehouse schemas**를 켠 상태로 생성합니다.
 4. 생성 후 **Explorer → Tables → dbo**가 비어 있는지 확인합니다.
 
-![Lakehouse 이름과 schemas 사용 상태 확인](screenshots/w07-name-development-lakehouse.png)
+![Lakehouse 이름과 schemas 사용 상태 확인](screenshots/02/02-name-development-lakehouse.png)
 
-![생성 직후 비어 있는 Dev Lakehouse의 dbo](screenshots/w09-development-lakehouse-empty-dbo.png)
+![생성 직후 비어 있는 Dev Lakehouse의 dbo](screenshots/02/03-development-lakehouse-empty-dbo.png)
 
 **기대 결과:** Workspace에 Lakehouse와 서비스가 관리하는 SQL analytics endpoint가 나타납니다.
 테이블은 아직 없습니다. 빈 화면이 늦게 갱신되면 아이템 목록을 조회해 이미 생성되었는지
@@ -29,15 +29,15 @@
 
 **경로:** Lakehouse 우측 **Analyze data with → Notebook → New notebook**.
 
-![Lakehouse에서 Analyze data with의 Notebook 선택](screenshots/w10-lakehouse-analyze-with-notebook.png)
+![Lakehouse에서 Analyze data with의 Notebook 선택](screenshots/02/04-lakehouse-analyze-with-notebook.png)
 
-![하위 메뉴에서 New notebook 선택](screenshots/w11-create-notebook-from-lakehouse.png)
+![하위 메뉴에서 New notebook 선택](screenshots/02/05-create-notebook-from-lakehouse.png)
 
 1. 새 Notebook의 상단 이름을 눌러 `CI_CD_Smoke`로 바꾸고 Enter로 저장합니다.
 2. 좌측 Data items에 `CI_CD_Demo`가 있고 기본 Lakehouse를 나타내는 핀이 있는지 확인합니다.
 3. 실행 언어는 **PySpark (Python)**으로 둡니다.
 
-![Notebook 이름 지정과 자동 연결된 기본 Lakehouse](screenshots/w12-name-default-lakehouse-notebook.png)
+![Notebook 이름 지정과 자동 연결된 기본 Lakehouse](screenshots/02/06-name-default-lakehouse-notebook.png)
 
 **기대 결과:** Notebook과 기본 Lakehouse가 모두 Dev에 있습니다. 이름만 같은 다른
 Workspace의 Lakehouse를 선택하지 않습니다.
@@ -122,13 +122,9 @@ Dev Workspace에는 실행 가능한 Fabric Capacity가 할당되어 있어야 �
 4. 세 셀의 완료와 실제 테이블·검증 결과를 확인합니다.
 5. Workspace ID와 Lakehouse ID, 물리 Delta 경로가 Dev를 가리키는지 대조합니다.
 
-![실제 Dev v1 실행 스냅샷, 10행·합계 45·Delta 위치](screenshots/w18-dev-v1-verified-output.png)
+![실제 Dev v1 실행 스냅샷, 10행·합계 45·Delta 위치](screenshots/02/07-dev-v1-verified-output.png)
 
-**실제 수행 방식:** Notebook과 Lakehouse는 UI로 만들었습니다. 자동화된 여러 줄 입력에서
-들여쓰기가 누적되는 문제를 저장 소스의 AST 검사로 발견해 **실행 전에** 중단했습니다.
-검증한 세 셀을 공식 `updateDefinition` API의 ipynb 정의로 반영하고, 다시 내보낸 소스의
-전체 AST·셀 수·기본 Lakehouse 바인딩이 일치한 뒤 Job Scheduler API로 실행했습니다.
-UI의 Run all로 실행한 것으로 기록하지 않습니다. 위 화면은 그 실제 API 실행의 스냅샷입니다.
+결과 캡처는 기존 API 실행의 스냅샷입니다. 자신의 Run all 결과는 셀 아래에서 확인합니다.
 
 **체크포인트:** 실제 Delta의 10행·합계 45와 Dev 바인딩을 확인한 뒤
 [Git 연결](03-git-integration.md)로 이동합니다.

@@ -94,6 +94,41 @@ class ScreenshotAnnotationTests(unittest.TestCase):
         ) as annotated:
             self.assertEqual(original.tobytes(), annotated.tobytes())
 
+    def test_supports_chapter_directories(self) -> None:
+        chapter = self.originals / "03"
+        chapter.mkdir()
+        nested = chapter / "01-local-clone-feature-v1.png"
+        self.original.rename(nested)
+        original_bytes = nested.read_bytes()
+        self.specification = {
+            "03/01-local-clone-feature-v1.png": self.specification["sample.png"]
+        }
+        self.write_manifest()
+        with redirect_stdout(StringIO()):
+            annotate_screenshots.main()
+        self.assertEqual(nested.read_bytes(), original_bytes)
+        with Image.open(self.output / "03/01-local-clone-feature-v1.png") as result:
+            self.assertEqual(result.size, (80, 60))
+            self.assertEqual(result.getpixel((10, 10)), (255, 0, 0))
+            self.assertEqual(result.getpixel((20, 20)), (128, 128, 128))
+
+    def test_rejects_unsafe_or_noncanonical_paths(self) -> None:
+        for filename in (
+            "../escape.png",
+            "03/../escape.png",
+            "/tmp/escape.png",
+            "./sample.png",
+            "03//sample.png",
+            r"03\sample.png",
+            "C:/sample.png",
+            "03/sample.jpg",
+        ):
+            with self.subTest(filename=filename):
+                self.specification = {filename: {"size": [80, 60], "boxes": []}}
+                self.write_manifest()
+                with self.assertRaisesRegex(ValueError, "Invalid screenshot name"):
+                    annotate_screenshots.main()
+
 
 if __name__ == "__main__":
     unittest.main()

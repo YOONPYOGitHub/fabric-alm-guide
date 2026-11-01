@@ -1,7 +1,7 @@
 """Add guide callouts without changing the original screenshots."""
 
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 from PIL import Image, ImageDraw
 
@@ -16,14 +16,25 @@ MAX_CALLOUTS = 2
 
 def main() -> None:
     annotations = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    original_names = {path.name for path in ORIGINALS.glob("*.png")}
+    for filename in annotations:
+        relative = PurePosixPath(filename)
+        if (
+            relative.is_absolute()
+            or relative.as_posix() != filename
+            or ".." in relative.parts
+            or "\\" in filename
+            or ":" in filename
+            or relative.suffix != ".png"
+        ):
+            raise ValueError(f"Invalid screenshot name: {filename}")
+    original_names = {
+        path.relative_to(ORIGINALS).as_posix() for path in ORIGINALS.rglob("*.png")
+    }
     if set(annotations) != original_names:
         raise ValueError("Annotation manifest must match every original PNG exactly.")
     OUTPUT.mkdir(exist_ok=True)
     count = 0
     for filename, specification in annotations.items():
-        if Path(filename).name != filename:
-            raise ValueError(f"Invalid screenshot name: {filename}")
         with Image.open(ORIGINALS / filename) as original:
             if original.format != "PNG" or original.size != tuple(specification["size"]):
                 raise ValueError(f"Original image dimensions changed: {filename}")
@@ -52,7 +63,9 @@ def main() -> None:
                 raise ValueError(f"Callout outside image: {filename}: {coordinates}")
             draw.rectangle((left, top, right, bottom), outline=COLOR, width=STROKE_WIDTH)
             count += 1
-        annotated.save(OUTPUT / filename, format="PNG", optimize=True)
+        destination = OUTPUT / filename
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        annotated.save(destination, format="PNG", optimize=True)
     print(f"Processed {len(annotations)} screenshots with {count} red callouts.")
 
 
