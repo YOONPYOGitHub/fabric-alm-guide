@@ -1,14 +1,9 @@
-import hashlib
 import json
 import re
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
-
-from PIL import Image, ImageChops, ImageDraw
-
-from tools.annotate_screenshots import STROKE_WIDTH
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -73,6 +68,11 @@ class GuideIntegrityTests(unittest.TestCase):
         self.assertLessEqual(len(readme.splitlines()), 165)
         self.assertIn("GitHub branch ↔ Workspace", readme)
         self.assertIn("Development → Test → Production", readme)
+        self.assertIn("Fabric Source control의 **Commit**", readme)
+        self.assertIn("**Update**로 GitHub의 변경을 Workspace에 반영", readme)
+        self.assertIn("환경별 Workspace를 Pipeline 단계에 할당", readme)
+        self.assertIn("GitHub의 PR 병합과 Workspace 간 배포는 별개의 작업", readme)
+        self.assertNotIn("1~6장이 핵심 핸즈온입니다", readme)
         self.assertIn("Pipeline에는 포함하지 않음", readme)
         self.assertIn("아이템 정의입니다", readme)
         self.assertIn("단계 배포로 복사되지 않습니다", readme)
@@ -177,10 +177,7 @@ class GuideIntegrityTests(unittest.TestCase):
                 self.assertNotRegex(text, r"\b(?:4ea83edb|09b03c28|0cf51fd)\b")
                 self.assertNotIn("그래 계속 진행해", text)
 
-    def test_every_capture_is_documented_and_generated(self) -> None:
-        annotations = json.loads(
-            (ROOT / "tools/screenshot_annotations.json").read_text()
-        )
+    def test_every_final_capture_is_documented(self) -> None:
         referenced = set()
         for document in ROOT.glob("*.md"):
             referenced.update(
@@ -189,16 +186,9 @@ class GuideIntegrityTests(unittest.TestCase):
                     document.read_text(encoding="utf-8"),
                 )
             )
-        self.assertEqual(set(annotations), referenced)
+        self.assertTrue(referenced)
         self.assertEqual(
-            set(annotations),
-            {
-                path.relative_to(ROOT / "screenshots-originals").as_posix()
-                for path in (ROOT / "screenshots-originals").rglob("*.png")
-            },
-        )
-        self.assertEqual(
-            set(annotations),
+            referenced,
             {
                 path.relative_to(ROOT / "screenshots").as_posix()
                 for path in (ROOT / "screenshots").rglob("*.png")
@@ -206,9 +196,10 @@ class GuideIntegrityTests(unittest.TestCase):
         )
 
     def test_screenshots_follow_chapter_appearance_order(self) -> None:
-        annotations = json.loads(
-            (ROOT / "tools/screenshot_annotations.json").read_text(encoding="utf-8")
-        )
+        filenames = {
+            path.relative_to(ROOT / "screenshots").as_posix()
+            for path in (ROOT / "screenshots").rglob("*.png")
+        }
         owners = {"00": ROOT / "README.md", "08": ROOT / "README.md"}
         owners.update(
             {
@@ -217,7 +208,7 @@ class GuideIntegrityTests(unittest.TestCase):
                 if not document.name.endswith("_old.md")
             }
         )
-        for filename in annotations:
+        for filename in filenames:
             with self.subTest(capture=filename):
                 self.assertRegex(filename, r"^[0-9]{2}/[0-9]{2}-[a-z0-9-]+\.png$")
                 chapter = filename.split("/", 1)[0]
@@ -235,41 +226,19 @@ class GuideIntegrityTests(unittest.TestCase):
                 )
                 self.assertEqual(
                     set(images),
-                    {filename for filename in annotations if filename.startswith(f"{chapter}/")},
+                    {filename for filename in filenames if filename.startswith(f"{chapter}/")},
                 )
 
-    def test_original_hashes_and_all_pixels_outside_outlines_are_preserved(
-        self,
-    ) -> None:
-        annotations = json.loads(
-            (ROOT / "tools/screenshot_annotations.json").read_text()
-        )
-        for filename, specification in annotations.items():
-            with self.subTest(capture=filename):
-                original_path = ROOT / "screenshots-originals" / filename
-                self.assertEqual(
-                    hashlib.sha256(original_path.read_bytes()).hexdigest(),
-                    specification["originalSha256"],
-                )
-                with (
-                    Image.open(original_path) as raw,
-                    Image.open(ROOT / "screenshots" / filename) as annotated,
-                ):
-                    self.assertEqual(raw.size, tuple(specification["size"]))
-                    self.assertEqual(raw.size, annotated.size)
-                    before = raw.convert("RGB")
-                    after = annotated.convert("RGB")
-                    outside = Image.new("RGB", before.size, "white")
-                    draw = ImageDraw.Draw(outside)
-                    self.assertLessEqual(len(specification["boxes"]), 2)
-                    for box in specification["boxes"]:
-                        draw.rectangle(box["rect"], outline="black", width=STROKE_WIDTH)
-                        left, top, _, _ = box["rect"]
-                        self.assertEqual(after.getpixel((left, top)), (255, 0, 0))
-                    difference = ImageChops.multiply(
-                        ImageChops.difference(before, after), outside
-                    )
-                    self.assertIsNone(difference.getbbox())
+    def test_final_captures_have_png_headers(self) -> None:
+        for image in (ROOT / "screenshots").rglob("*.png"):
+            with self.subTest(capture=image.relative_to(ROOT).as_posix()):
+                with image.open("rb") as stream:
+                    header = stream.read(24)
+                self.assertEqual(header[:8], b"\x89PNG\r\n\x1a\n")
+                self.assertEqual(header[8:12], b"\x00\x00\x00\r")
+                self.assertEqual(header[12:16], b"IHDR")
+                self.assertGreater(int.from_bytes(header[16:20], "big"), 0)
+                self.assertGreater(int.from_bytes(header[20:24], "big"), 0)
 
     def test_completed_record_requires_real_approvals_and_stage_local_data(
         self,

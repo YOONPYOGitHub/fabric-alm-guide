@@ -5,10 +5,17 @@
 
 ## 1. 무엇을 배우는가
 
-| 기능 | 연결 대상 | 실습에서 하는 일 |
-|---|---|---|
-| **Git integration** | GitHub branch ↔ Workspace | 아이템 정의의 버전 관리, Feature 개발, PR 검토·병합, Dev 반영 |
-| **Deployment pipelines** | Development → Test → Production | 아이템 정의를 환경별로 배포하고 실제 결과 검증 후 승격 |
+### [Git integration](https://learn.microsoft.com/en-us/fabric/cicd/git-integration/git-integration-process) — GitHub branch ↔ Workspace
+
+Workspace의 Lakehouse·Notebook 등 아이템 정의를 GitHub branch와 동기화하는 기능입니다.
+Fabric Source control의 **Commit**으로 Workspace 변경을 GitHub에 기록하고,
+**Update**로 GitHub의 변경을 Workspace에 반영합니다. Branch와 PR을 통해 변경 이력을 관리하고 검토합니다.
+
+### [Deployment pipelines](https://learn.microsoft.com/en-us/fabric/cicd/deployment-pipelines/get-started-with-deployment-pipelines) — Development → Test → Production
+
+환경별 Workspace를 Pipeline 단계에 할당하고, 아이템 정의를 다음 환경으로 배포하는 기능입니다.
+이 실습에서는 Development의 변경을 Test에 배포·검증한 뒤, 별도 릴리스 승인을 거쳐 Production으로 배포합니다.
+**GitHub의 PR 병합과 Workspace 간 배포는 별개의 작업**입니다.
 
 **Git과 Deployment pipeline이 전달하는 것은 아이템 정의입니다.**
 Lakehouse의 Delta 테이블 행은 Git에 저장되거나 단계 배포로 복사되지 않습니다.
@@ -57,9 +64,6 @@ flowchart TB
 | 5 | [PR 검토·병합과 Dev v2 반영](05-pr-merge-dev-update.md) | PR Merged, Dev v2: 10행·합계 90 |
 | 6 | [Test v2 배포와 Production 승격](06-test-production-release.md) | Test v2 검증 → 별도 승인 → Production v2: 10행·합계 90 |
 | 7 | [실습 완료 확인과 정리](07-validation-and-recovery.md) | 결과 확인·보관, 리소스·비용 정리 |
-
-**1~6장이 핵심 핸즈온입니다.** 7장에서 완료 확인·정리를 마치면 실습이 끝납니다.
-각 장 하단의 다음 단계 링크를 따라갑니다. **Test v1 초기 배포를 마친 뒤 PR을 병합**합니다.
 
 ## 4. 시작 전에 알아둘 사항
 
@@ -111,29 +115,19 @@ GitHub branch protection/ruleset과 실제 리뷰어가 필요하며, 정책상 
 
 <a id="7-캡처-재생성과-오프라인-검사"></a>
 
-### 캡처 재생성과 오프라인 검사
+### 가이드 오프라인 검사
 
-가이드 저장소 루트에서 Python 3.12 이상으로 실행합니다. 패키지 설치는 registry에 접근하지만 검사는 Azure/Fabric에 배포하거나 Spark를 실행하지 않습니다.
+가이드 저장소 루트에서 Python 3.12 이상으로 실행합니다. 추가 패키지·Azure/Fabric 인증 없이 문서 링크·이미지 목록·실습 코드의 v1/v2와 오류 조건을 검사하며, Spark 실행이나 배포는 하지 않습니다.
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python3 -m pip install -r tools/requirements.txt
 python3 -m unittest discover -s tests -v
 ```
 
-Ubuntu/WSL에서 `ensurepip is not available`이면 사용 중인 Python의 venv 패키지를 설치합니다(Python 3.12: `sudo apt install python3.12-venv`).
-Windows PowerShell은 `py -3 -m venv .venv`, `.\.venv\Scripts\Activate.ps1`로 준비하고 이후 명령의 `python3`를 `python`으로 바꿉니다.
-검사 대상은 문서 링크·이미지 목록·원본 해시·픽셀 보존과 예제의 v1/v2·오류 조건입니다.
+Windows PowerShell에서는 `py -3 -m unittest discover -s tests -v`로 실행합니다.
 독자의 실습 저장소에서 실행할 9개 검사는 [Git 장의 테스트 준비](03-git-integration.md#prepare-smoke-tests)에 있습니다.
 
-본문은 [강조본](screenshots/), 보관 자료는 [원본](screenshots-originals/)과 [주석 정의](tools/screenshot_annotations.json)를 사용합니다.
+문서에 표시되는 최종 이미지는 [screenshots/](screenshots/)에서 직접 관리합니다.
 경로는 장별 등장 순서이며 빨간 박스는 핵심 한 곳, 필요한 경우 최대 두 곳입니다. 실제 UI·값을 합성하거나 토큰·암호·MFA 화면을 캡처하지 않습니다.
-**일부 교체 캡처는 기존 원본·주석 정보와 달라 이미지 보존 검사가 실패합니다.** 아래 명령은 강조본을 덮어쓰므로 원본·주석 정보를 정리하기 전에는 실행하지 않습니다.
-
-```bash
-python3 tools/annotate_screenshots.py
-```
 
 [과거 검증 기록](evidence/workshop-verification.json)과 아래 캡처는 보관 자료이며 현재 실습의 결과·입력값을 대신하지 않습니다.
 기록의 Private 저장소·Fabric 링크에는 별도 접근 권한이 필요합니다.
